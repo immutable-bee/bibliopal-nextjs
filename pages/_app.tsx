@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/index.css";
+import "../styles/App.css";
 import { MantineProvider } from "@mantine/core";
 import TableDataProvider from "../context/TableDataContext";
 import { AppProps } from "next/app";
