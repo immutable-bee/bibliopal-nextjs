@@ -13,9 +13,7 @@ const useFetchBooks = () => {
 
   const fetchByISBN = async (ISBN: string, setError?: SetError) => {
     try {
-      const response = await fetch(
-        `https://openlibrary.org/api/books?bibkeys=ISBN:${ISBN}&jscmd=details&format=json`
-      );
+      const response = await fetch(`../api/fetch-isbnDB?isbn=${ISBN}`);
 
       if (!response.ok)
         throw new Error(
@@ -24,14 +22,11 @@ const useFetchBooks = () => {
 
       const data = await response.json();
 
-      const bookProperty = `ISBN:${ISBN}`;
-      const bookDetails = data[bookProperty]?.details;
+      console.log("Returned Data:", data);
 
       const extracetdData = {
-        title: bookDetails?.full_title || bookDetails?.title,
-        author: bookDetails?.authors
-          .map((author: { name: string }) => author?.name)
-          .join(", "),
+        title: data.book?.title,
+        author: data.book?.authors.join(", "),
         ISBN,
       };
 
