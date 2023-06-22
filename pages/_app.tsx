@@ -19,7 +19,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     <React.StrictMode>
       <div className="bg-[#FEFBE8] min-h-screen">
         <header className="w-full flex justify-between items-center px-8 py-4">
-          <Image src={Logo} alt="Logo" className="w-20 sm:w-36" />
+          <Image src={Logo} alt="Buy local books network" className="w-20 sm:w-36" />
 
           <nav className="text-center">
             <Link href="/">

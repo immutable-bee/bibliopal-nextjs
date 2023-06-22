@@ -44,7 +44,7 @@ const Actions = () => {
 
   return (
     <Flex gap={8}>
-      <Button onClick={handleReset} size="md" color="red" c="white">
+      <Button onClick={handleReset} size="md" color="red" c="white" id="clear_list">
         Clear List
       </Button>
       <Button
@@ -53,6 +53,7 @@ const Actions = () => {
         color="blue"
         c="white"
         fullWidth
+        id="download_csv"
       >
         Download CSV
       </Button>

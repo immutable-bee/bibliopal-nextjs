@@ -1,5 +1,5 @@
 "use client";
-
+import { Button, Flex } from "@mantine/core";
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
@@ -144,19 +144,33 @@ export default function Home() {
     </div>
 </div> */}
             <div className="mt-4">
-              <button
+              <Button
                 onClick={() => alert("Manage Subscription")}
-                className="w-full rounded-lg bg-[#2EAAED] py-2 text-white text-center font-bold"
+                size="md"
+                color="blue"
+                c="white"
+                fullWidth
+                id="download_csv"
               >
                 Manage Subscription
-              </button>
+              </Button>
+           
             </div>
-            <button
+            <div className="mt-4">
+              <Button
               type="submit"
-              className="w-full mt-6 rounded-lg bg-[#2EAAED] py-2 text-white text-center font-bold"
-            >
-              Submit
-            </button>
+               
+                size="md"
+                color="blue"
+                c="white"
+                fullWidth
+                id="download_csv"
+              >
+                Submit
+              </Button>
+             
+            </div>
+          
           </form>
         </div>
       </div>

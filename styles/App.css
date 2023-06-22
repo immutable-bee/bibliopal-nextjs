@@ -11,6 +11,14 @@
   object-fit: contain;
 }
 
+#download_csv {
+  background-color: #2EAAED !important;
+}
+
+#clear_list {
+  background-color: #fa5252 !important;
+}
+
 .controls {
   width: 95%;
   margin: auto;
@@ -18,7 +26,8 @@
   margin-top: 1rem;
   border-radius: var(--mantine-spacing-xl);
   border: 2px solid var(--mantine-color-gray-8);
-  background-color: var(--mantine-color-gray-0);
+  background-color: #FEFBE8;
+  /* background-color: var(--mantine-color-gray-0); */
 }
 
 .table-wrapper {
