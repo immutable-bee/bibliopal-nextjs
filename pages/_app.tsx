@@ -27,17 +27,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 style={{ color: linkColor("/") }}
                 className="mx-2 font-medium sm:mx-4 text-base sm:text-xl"
               >
-                Home
-              </span>
-            </Link>
-            <Link href="/listing">
-              <span
-                style={{ color: linkColor("/listing") }}
-                className="mx-2 font-medium sm:mx-4 text-base sm:text-xl"
-              >
                 Listing
               </span>
             </Link>
+           
             <Link href="/profile">
               <span
                 style={{ color: linkColor("/profile") }}
