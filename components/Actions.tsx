@@ -55,7 +55,7 @@ const Actions = () => {
         fullWidth
         id="download_csv"
       >
-        Download CSV
+        Upload
       </Button>
       <a ref={anchorRef} style={{ display: "none" }}></a>
     </Flex>
