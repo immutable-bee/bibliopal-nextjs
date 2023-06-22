@@ -44,7 +44,7 @@ export default function Home() {
               <label className="text-sm text-gray-700">Store name</label>
               <input
                 type="text"
-                className="w-full rounded-lg bg-gray-100 px-4 my-1 py-2"
+                className="w-full rounded-lg  px-4 my-1 py-2"
                 value={storeName}
                 onChange={(e) => setStoreName(e.target.value)}
               />
@@ -52,7 +52,7 @@ export default function Home() {
             <div className="py-2">
               <label className="text-sm text-gray-700">Store Type</label>
               <select
-                className="form-select w-full rounded-lg bg-gray-100 px-4 my-1 py-2"
+                className="form-select w-full rounded-lg  px-4 my-1 py-2"
                 value={storeType}
                 onChange={(e) => setStoreType(e.target.value)}
               >
@@ -63,7 +63,7 @@ export default function Home() {
               <label className="text-sm text-gray-700">Email</label>
               <input
                 type="email"
-                className="w-full rounded-lg bg-gray-100 px-4 my-1 py-2"
+                className="w-full rounded-lg  px-4 my-1 py-2"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -72,7 +72,7 @@ export default function Home() {
               <label className="text-sm text-gray-700">Address</label>
               <input
                 type="text"
-                className="w-full rounded-lg bg-gray-100 px-4 my-1 py-2"
+                className="w-full rounded-lg  px-4 my-1 py-2"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
@@ -81,7 +81,7 @@ export default function Home() {
               <label className="text-sm text-gray-700">URL</label>
               <input
                 type="url"
-                className="w-full rounded-lg bg-gray-100 px-4 my-1 py-2"
+                className="w-full rounded-lg  px-4 my-1 py-2"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
               />
@@ -150,7 +150,7 @@ export default function Home() {
                 color="blue"
                 c="white"
                 fullWidth
-                id="download_csv"
+                id="blue-button"
               >
                 Manage Subscription
               </Button>
@@ -164,7 +164,7 @@ export default function Home() {
                 color="blue"
                 c="white"
                 fullWidth
-                id="download_csv"
+                id="blue-button"
               >
                 Submit
               </Button>

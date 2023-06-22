@@ -11,8 +11,11 @@
   object-fit: contain;
 }
 
-#download_csv {
+#blue-button {
   background-color: #2EAAED !important;
+}
+#download_csv {
+  background-color: #9BCC2C !important;
 }
 
 #clear_list {
