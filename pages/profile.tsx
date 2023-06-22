@@ -44,7 +44,7 @@ export default function Home() {
               <label className="text-sm text-gray-700">Store name</label>
               <input
                 type="text"
-                className="form-input focus:ring-1 focus:ring-[#9BCC2C] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                className="bg-white form-input focus:ring-1 focus:ring-[#9BCC2C] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
                 value={storeName}
                 onChange={(e) => setStoreName(e.target.value)}
               />
@@ -52,7 +52,7 @@ export default function Home() {
             <div className="py-2">
               <label className="text-sm text-gray-700">Store Type</label>
               <select
-                className="form-select border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                className="bg-white form-select border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
                 value={storeType}
                 onChange={(e) => setStoreType(e.target.value)}
               >
@@ -63,7 +63,7 @@ export default function Home() {
               <label className="text-sm text-gray-700">Email</label>
               <input
                 type="email"
-                className="form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                className="bg-white form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -72,7 +72,7 @@ export default function Home() {
               <label className="text-sm text-gray-700">Address</label>
               <input
                 type="text"
-                className="form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                className="bg-white form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
@@ -81,7 +81,7 @@ export default function Home() {
               <label className="text-sm text-gray-700">URL</label>
               <input
                 type="url"
-                className="form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                className="bg-white form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
               />
@@ -118,7 +118,7 @@ export default function Home() {
               <label className="flex items-center">
                 <input
                   type="checkbox"
-                  className="form-checkbox ml-1 rounded-md h-6 w-6 text-[#2EAAED]"
+                  className="bg-white form-checkbox ml-1 rounded-md h-6 w-6 text-[#2EAAED]"
                   checked={visibility}
                   onChange={() => setVisibility(!visibility)}
                 />
@@ -130,15 +130,15 @@ export default function Home() {
     <span className="text-lg text-gray-900 font-medium">Plan options:</span>
     <div className="mt-2">
         <label className="flex items-center py-1.5">
-            <input type="radio" className="form-radio h-6 w-6 text-[#2EAAED]" value="Free" checked={planOptions === 'Free'} onChange={() => setPlanOptions('Free')} />
+            <input type="radio" className="bg-white form-radio h-6 w-6 text-[#2EAAED]" value="Free" checked={planOptions === 'Free'} onChange={() => setPlanOptions('Free')} />
             <span className="ml-2 text-gray-700">Free</span>
         </label>
         <label className="flex items-center py-1.5">
-            <input type="radio" className="form-radio h-6 w-6 text-[#2EAAED]" value="Tier 1" checked={planOptions === 'Tier 1'} onChange={() => setPlanOptions('Tier 1')} />
+            <input type="radio" className="bg-white form-radio h-6 w-6 text-[#2EAAED]" value="Tier 1" checked={planOptions === 'Tier 1'} onChange={() => setPlanOptions('Tier 1')} />
             <span className="ml-2 text-gray-700">Tier 1</span>
         </label>
         <label className="flex items-center py-1.5">
-            <input type="radio" className="form-radio h-6 w-6 text-[#2EAAED]" value="Tier 2" checked={planOptions === 'Tier 2'} onChange={() => setPlanOptions('Tier 2')} />
+            <input type="radio" className="bg-white form-radio h-6 w-6 text-[#2EAAED]" value="Tier 2" checked={planOptions === 'Tier 2'} onChange={() => setPlanOptions('Tier 2')} />
             <span className="ml-2 text-gray-700">Tier 2</span>
         </label>
     </div>
