@@ -21,20 +21,19 @@ const Inputcomponent = () => {
                 <div className=" flex justify-between">
                   <input type="text" className=" px-2 rounded-full py-3 sm:py-4 border-none w-full focus:outline-none" placeholder="" aria-label="Recipient's username" aria-describedby="basic-addon2" />
                   <ul className=" flex items-center " >
-                    <button onClick={() => setActive('all')} className={` bg-white text-gray-600 rounded-full px-4 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${active == "all" && '!bg-black !text-white'} `} id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all" aria-selected="true">Title</button>
-                    <button onClick={() => setActive('profile')} className={`  rounded-full px-4 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${active == "profile" && '!bg-black !text-white'} `} id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Author</button>
+                    <button onClick={() => setActive('all')} className={` bg-white text-gray-600 rounded-full px-4 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${active == "all" && '!bg-[#978367] !text-white'} `} id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all" aria-selected="true">Title</button>
+                    <button onClick={() => setActive('profile')} className={`  rounded-full px-4 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${active == "profile" && '!bg-[#978367] !text-white'} `} id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Author</button>
                   </ul>
                 </div>
               </div>
               <div className='ml-3'>
 
-                <button type="button" className='bg-[#ffc71f] px-3 sm:px-5 py-3 sm:py-5 rounded-lg'><div >
-                  <Image src="./images/search-icon.svg"
-                    className=''
-                    alt="search_icon"
-                    width={18}
-                    height={18}
-                  />
+                <button type="button" className='bg-[#9BCC2C] px-3 sm:px-4 py-3 sm:py-4 rounded-lg sm:rounded-xl'><div >
+                
+                  <svg class='text-white w-4' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+</svg>
+
                 </div></button>
 
               </div>

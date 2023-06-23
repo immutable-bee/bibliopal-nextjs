@@ -284,7 +284,7 @@ const Matches = () => {
 
     console.log('active :::::::::::::::::::', active)
     return (
-        <>
+        <div className='bg-[#FEFBE8]'>
             <Head >
                 <link rel="shortcut icon" href="/images/fav.png" />
 
@@ -368,29 +368,8 @@ const Matches = () => {
                   
                 </section>
             </div>
-            <style jsx>{`
-                .match-tab .active {
-                    color: red;
-                    background: transparent;
-                    font-family: 'Inter';
-                    font-weight: 600;
-                    font-size: 24px;
-                    line-height: 29px;
-                    color: #4F4F4F;
-                }
-                .nav-link{
-                    color: #828282;
-                    font-family: 'Inter';
-                    font-style: normal;
-                    font-weight: 600;
-                    font-size: 24px;
-                    line-height: 29px;
-                }
-                .nav-pills{
-                    margin:24px 0px;
-                }
-            `}</style>
-        </>
+           
+        </div>
     );
 }
 

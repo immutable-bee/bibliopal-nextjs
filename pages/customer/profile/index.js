@@ -11,7 +11,7 @@ import CopySVG from "../../../public/images/copy.svg"
 import ProfileCircle from "../../../public/images/profile-circle.svg"
 const Profilecomponent = () => {
 	return (
-		<>
+		<div className='bg-[#FEFBE8]'>
 
 			<Head >
 				<link rel="shortcut icon" href="/images/fav.png" />
@@ -20,7 +20,7 @@ const Profilecomponent = () => {
 
 			<div>
 				<HeaderComponent />
-				<section className='mt-0 sm:mt-2'>
+				{/* <section className='mt-0 sm:mt-2'>
 					<div>
 						<div className='flex justify-center'>
 							<div className=''>
@@ -39,13 +39,21 @@ const Profilecomponent = () => {
 							</div>
 						</div>
 					</div>
-				</section>
-				<section className='px-5 mt-4 sm:mt-10 border-t sm:border-t-2 border-black py-3'>
+				</section> */}
+				{/* mt-4 sm:mt-10 border-t py-3 sm:border-t-2 border-black */}
+				<section className='px-5 '>
 					<div className='max-w-xl mx-auto'>
 
 						<div className="py-2 mt-0 sm:mt-6">
+							<label className="text-sm text-black font-medium">Name</label>
+							<div >
+								<input
+									className="bg-white form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 my-1 py-2" type="text"  placeholder='John Doe' />
+							</div>
+						</div>
+						<div className="py-2 ">
 							<label className="text-sm text-black font-medium">Email address</label>
-							<div className={styles.form_input}>
+							<div >
 								<input
 									className="bg-white form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 my-1 py-2" type="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='MohammedIsmail@gmail.com' />
 							</div>
@@ -158,7 +166,7 @@ const Profilecomponent = () => {
 					</div>
 				</section>
 			</div>
-		</>
+		</div>
 	);
 }
 export default Profilecomponent;

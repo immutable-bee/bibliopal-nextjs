@@ -152,7 +152,7 @@ const Home = () => {
     },
   ]
   return (
-    <>
+    <div className='bg-[#FEFBE8]'>
      
       <HeaderComponent />
       <Inputcomponent />
@@ -188,10 +188,10 @@ const Home = () => {
             }
 
           </div>
-          {/* <ProfileComponent /> */}
+        
         </div>
       </section>
-    </>
+    </div>
   );
 }
 
