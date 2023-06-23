@@ -11,18 +11,30 @@ export interface Rows {
 
 const TableHead = () => {
   return (
-    <thead className="text-xs text-gray-700 uppercase  ">
+    <thead className="text-base font-semibold text-gray-700   ">
       <tr>
-        <th scope="col" className=" border-2 border-[rgb(222, 226, 230)] px-6 py-3">
+        <th
+          scope="col"
+          className=" border-2 border-[rgb(222, 226, 230)] px-6 py-3"
+        >
           Title
         </th>
-        <th scope="col" className=" border-2 border-[rgb(222, 226, 230)] px-6 py-3">
+        <th
+          scope="col"
+          className=" border-2 border-[rgb(222, 226, 230)] px-6 py-3"
+        >
           Author
         </th>
-        <th scope="col" className=" border-2 border-[rgb(222, 226, 230)] px-6 py-3">
+        <th
+          scope="col"
+          className=" border-2 border-[rgb(222, 226, 230)] px-6 py-3"
+        >
           ISBN
         </th>
-        <th scope="col" className=" border-2 border-[rgb(222, 226, 230)] px-6 py-3"></th>
+        <th
+          scope="col"
+          className=" border-2 border-[rgb(222, 226, 230)] px-6 py-3"
+        ></th>
       </tr>
     </thead>
   );
@@ -34,7 +46,7 @@ const TableBody = ({ deleteBookRow }: { deleteBookRow: DeleteBookRow }) => {
   const handleDelete = (ISBN: string) => deleteBookRow(ISBN);
 
   return (
-    <tbody className="border-2 border-[rgb(222, 226, 230)]">
+    <tbody className="border-2 text-gray-700 text-xs sm:text-sm font-light border-[rgb(222, 226, 230)]">
       {tableData.rows.map((row) => (
         <tr className=" border-b  " key={row.ISBN}>
           <td className="border-2 border-[rgb(222, 226, 230)] px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
