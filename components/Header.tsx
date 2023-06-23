@@ -4,8 +4,9 @@ import Logo from "../public/logo.png";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-function Header({ className }: { className: string }) {
+function Header() {
   const router = useRouter();
+
 
   const linkColor = (path: string) => {
     return router.pathname === path ? "#2EAAED" : "#828282";

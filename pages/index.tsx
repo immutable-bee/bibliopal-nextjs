@@ -65,7 +65,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-[#FEFBE8]">
-      <Header className="" />
+      <Header />
       <div className=" px-3 sm:px-8 py-3 sm:py-4 mx-auto">
         <div className="px-3 sm:px-0 border border-black rounded-2xl">
           <div className="w-full sm:w-96 py-8 mx-auto">
