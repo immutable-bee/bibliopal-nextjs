@@ -3,11 +3,9 @@ import "../styles/App.css";
 import { MantineProvider } from "@mantine/core";
 import TableDataProvider from "../context/TableDataContext";
 import { AppProps } from "next/app";
-import Link from "next/link";
-import Logo from "../public/logo.png";
-import Image from "next/image";
-import { useRouter } from "next/router";
 
+import { useRouter } from "next/router";
+import Head from "next/head"
 // This default export is required in a new `pages/_app.js` file.
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -17,30 +15,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   };
   return (
     <React.StrictMode>
-      <div className="bg-[#FEFBE8] min-h-screen">
-        <header className="w-full flex justify-between items-center px-8 py-4">
-          <Image src={Logo} alt="Buy local books network" className="w-20 sm:w-36" />
+       <Head >
+        <link rel="shortcut icon" href="/images/fav.png" />
 
-          <nav className="text-center">
-            <Link href="/">
-              <span
-                style={{ color: linkColor("/") }}
-                className="mx-2 font-medium sm:mx-4 text-base sm:text-xl"
-              >
-                Listing
-              </span>
-            </Link>
-           
-            <Link href="/profile">
-              <span
-                style={{ color: linkColor("/profile") }}
-                className="mx-2 font-medium sm:mx-4 text-base sm:text-xl"
-              >
-                Profile
-              </span>
-            </Link>
-          </nav>
-        </header>
+      </Head>
+      <div className="">
+        
+      
         <MantineProvider
           theme={{
             primaryColor: "yellow",

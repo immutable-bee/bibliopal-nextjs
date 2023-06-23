@@ -43,22 +43,20 @@ const Actions = () => {
   };
 
   return (
-    <Flex gap={8}>
-      <Button onClick={handleReset} size="md" color="red" c="white" id="clear_list">
+    <div className="flex w-full">
+      <button
+        onClick={handleReset}
+        className=" mx-1 w-1/2 hover:opacity-90 bg-[#fa5252] px-3 py-2.5 rounded-3xl border-2 text-white border-black"
+      >
         Clear List
-      </Button>
-      <Button
+      </button>
+      <button
         onClick={handleDownload}
-        size="md"
-        color="blue"
-        c="white"
-        fullWidth
-        id="download_csv"
+        className=" mx-1 w-1/2 hover:opacity-90 bg-[#9BCC2C] px-3 py-2.5 rounded-3xl border-2 text-white border-black"
       >
         Upload
-      </Button>
-      <a ref={anchorRef} style={{ display: "none" }}></a>
-    </Flex>
+      </button>
+    </div>
   );
 };
 

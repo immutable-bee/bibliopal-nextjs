@@ -1,11 +1,8 @@
 "use client";
 import { Button, Flex } from "@mantine/core";
-import Image from "next/image";
 import { useState } from "react";
-import Link from "next/link";
-import Logo from "../public/logo.png";
-// import '../styles/tailwind.css'
 
+import Header from "@/components/Header";
 export default function Home() {
   const [storeName, setStoreName] = useState("");
   const [storeType, setStoreType] = useState("");
@@ -33,7 +30,8 @@ export default function Home() {
   };
 
   return (
-    <div className="h-full">
+    <div className="min-h-screen bg-[#FEFBE8]">
+      <Header />
       <div className="h-full flex flex-col items-center justify-center">
         <div className="max-w-xl w-full bg-whit px-4 sm:px-8 py-3 sm:py-6 rounded">
           <h1 className="text-lg sm:text-2xl font-medium text-center ">
@@ -44,7 +42,7 @@ export default function Home() {
               <label className="text-sm text-gray-700">Store name</label>
               <input
                 type="text"
-                className="bg-white form-input focus:ring-1 focus:ring-[#9BCC2C] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                className="bg-white form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
                 value={storeName}
                 onChange={(e) => setStoreName(e.target.value)}
               />
@@ -52,7 +50,7 @@ export default function Home() {
             <div className="py-2">
               <label className="text-sm text-gray-700">Store Type</label>
               <select
-                className="bg-white form-select border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-select border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
                 value={storeType}
                 onChange={(e) => setStoreType(e.target.value)}
               >
@@ -63,7 +61,7 @@ export default function Home() {
               <label className="text-sm text-gray-700">Email</label>
               <input
                 type="email"
-                className="bg-white form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -72,7 +70,7 @@ export default function Home() {
               <label className="text-sm text-gray-700">Address</label>
               <input
                 type="text"
-                className="bg-white form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
               />
@@ -81,7 +79,7 @@ export default function Home() {
               <label className="text-sm text-gray-700">URL</label>
               <input
                 type="url"
-                className="bg-white form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
               />
@@ -144,33 +142,24 @@ export default function Home() {
     </div>
 </div> */}
             <div className="mt-4">
-              <Button
+              <button
                 onClick={() => alert("Manage Subscription")}
-                size="md"
-                color="blue"
-                c="white"
-                fullWidth
-                id="blue-button"
+                className=" w-full hover:opacity-90 bg-[#2EAAED] px-3 py-2.5 rounded-3xl border-2 text-white border-black"
               >
                 Manage Subscription
-              </Button>
-           
-            </div>
-            <div className="mt-4">
-              <Button
-              type="submit"
-               
-                size="md"
-                color="blue"
-                c="white"
-                fullWidth
-                id="blue-button"
-              >
-                Submit
-              </Button>
+              </button>
              
             </div>
-          
+            <div className="mt-4">
+            <button
+                onClick={() => alert("Manage Subscription")}
+                type="submit"
+                className=" w-full hover:opacity-90 bg-[#2EAAED] px-3 py-2.5 rounded-3xl border-2 text-white border-black"
+              >
+                Submit
+              </button>
+             
+            </div>
           </form>
         </div>
       </div>

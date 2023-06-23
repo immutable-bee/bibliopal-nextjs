@@ -1,13 +1,47 @@
 import { Stack, Title } from "@mantine/core";
+import Link from "next/link";
+import Logo from "../public/logo.png";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 function Header({ className }: { className: string }) {
+  const router = useRouter();
+
+  const linkColor = (path: string) => {
+    return router.pathname === path ? "#2EAAED" : "#828282";
+  };
   return (
-    <Stack spacing="xs" className={className}>
-      {/* <img className="logo-lg" src="./logo.png" alt="Buy local books network" /> */}
-      <Title order={1} size="h2" color="gray.8" align="center">
-        Book Listing Application
-      </Title>
-    </Stack>
+    <header className="w-full flex justify-between items-center mx-auto px-3 sm:px-8 py-3 sm:py-4">
+    <Image src={Logo} alt="Buy local books network" className="w-20 sm:w-36" />
+
+    <nav className="text-center">
+      <Link href="/">
+        <span
+          style={{ color: linkColor("/") }}
+          className="mx-2 font-medium sm:mx-4 text-base sm:text-xl"
+        >
+          Listing
+        </span>
+      </Link>
+     
+      <Link href="/profile">
+        <span
+          style={{ color: linkColor("/profile") }}
+          className="mx-2 font-medium sm:mx-4 text-base sm:text-xl"
+        >
+          Profile
+        </span>
+      </Link>
+      <Link href="/customer">
+        <span
+          style={{ color: linkColor("/customer") }}
+          className="mx-2 font-medium sm:mx-4 text-base sm:text-xl"
+        >
+          Customer
+        </span>
+      </Link>
+    </nav>
+  </header>
   );
 }
 

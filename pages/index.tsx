@@ -5,7 +5,7 @@ import ISBNSearchBox from "../components/ISBNSearchBox";
 import ContentTable from "../components/ContentTable";
 import { TableData, useTableDataContext } from "../context/TableDataContext";
 import { setTableDataToStorage } from "../helpers/localstorage";
-import Header from "../components/Header";
+import Header from "@/components/Header";
 
 export type ErrorT = string;
 export type SetError = React.Dispatch<React.SetStateAction<ErrorT>>;
@@ -64,30 +64,23 @@ const Index = () => {
   }, [tableData]);
 
   return (
-    <>
-      <header className="controls">
-        <Flex
-          justify="space-around"
-          wrap="wrap-reverse"
-          py="md"
-          gap={{
-            lg: "lg",
-            base: "34px",
-          }}
-        >
-          <Stack justify="space-evenly" miw="max-content" w="350px">
-            <Header className="head-lg" />
+    <div className="min-h-screen bg-[#FEFBE8]">
+      <Header />
+      <div className=" px-3 sm:px-8 py-3 sm:py-4 mx-auto">
+        <div className="px-3 sm:px-0 border border-black rounded-2xl">
+          <div className="w-full sm:w-96 py-8 mx-auto">
             <ISBNSearchBox
               error={error}
               setError={setError}
               createNewRow={createNewRow}
             />
             <Actions />
-          </Stack>
-        </Flex>
-      </header>
-      <ContentTable deleteBookRow={deleteBookRow} />
-    </>
+          </div>
+        </div>
+
+        <ContentTable deleteBookRow={deleteBookRow} />
+      </div>
+    </div>
   );
 };
 
