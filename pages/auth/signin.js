@@ -35,11 +35,12 @@ const firstTimeMessage = () => {
       offers) until you are approved. Approval usually happens within 24 hours.
       <br></br>
       <br></br>
-      By proceeding you are "opting in" to receive emails relevant to your
+      By proceeding you are &ldquo;opting in&rdquo; to receive emails relevant to your
       account from Buy Local Books Network
     </p>
   );
 };
+
 
 const SignInPage = () => {
   const { data: session, status } = useSession();
