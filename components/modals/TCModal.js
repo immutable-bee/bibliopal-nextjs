@@ -10,7 +10,7 @@ const TCModal = (props) => {
       width="40vw"
     >
       <Modal.Header className="modal-header">
-        <h4 className="modal-title">Terms & Conditions</h4>;
+      <h4 className="modal-title">Terms &amp; Conditions</h4>
       </Modal.Header>
       <Modal.Body className="modal-body">
         <p>

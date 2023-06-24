@@ -213,7 +213,8 @@ const OnboardingFormPage = () => {
           push("/listed-inventory");
         }, 3000);
       }
-    }, [successMessage]);
+    }, [successMessage, push]);
+    
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -418,8 +419,8 @@ const OnboardingFormPage = () => {
                     className="mr-2"
                     size={"sm"}
                   ></Checkbox>
-                  <h6 id="onboarding-form-tc-agree-text">I agree to the&nbsp;</h6>
-                  <h6 id="onboarding-form-tc-link" className="text-atlantis cursor-pointer" onClick={tcModalHandler}>
+                  <h6 id="onboarding-form-tc-agree-text">I agree to the</h6>
+                  <h6 id="onboarding-form-tc-link" className="text-atlantis ml-1 cursor-pointer" onClick={tcModalHandler}>
                     Terms and Conditions
                   </h6>
                 </div>
