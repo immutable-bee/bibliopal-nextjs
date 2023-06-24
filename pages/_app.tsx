@@ -3,11 +3,11 @@ import "../styles/App.css";
 import { MantineProvider } from "@mantine/core";
 import TableDataProvider from "../context/TableDataContext";
 import { AppProps } from "next/app";
-
+import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
 import Head from "next/head"
 // This default export is required in a new `pages/_app.js` file.
-export default function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component,  pageProps: { session, ...pageProps }, }: AppProps) {
   const router = useRouter();
 
   const linkColor = (path: string) => {
@@ -15,13 +15,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   };
   return (
     <React.StrictMode>
-       <Head >
+       <Head>
         <link rel="shortcut icon" href="/images/fav.png" />
 
       </Head>
+      <SessionProvider session={session}>
       <div className="">
         
-      
         <MantineProvider
           theme={{
             primaryColor: "yellow",
@@ -94,6 +94,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           </TableDataProvider>
         </MantineProvider>
       </div>
+      </SessionProvider>
     </React.StrictMode>
   );
 }

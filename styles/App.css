@@ -15,6 +15,37 @@
   object-fit: contain;
 }
 
+#social-auth-container button {
+  width: 100% !important;
+  @apply py-2 bg-white !border border-solid !border-gray-500 hover:bg-gray-50
+}
+#login-form button {
+  width: 100% !important;
+  @apply mt-8 bg-[#ffc71f]
+}
+#login-form input {
+  width: 100% !important;
+}
+
+.nextui-input-main-container, .nextui-input-main-container--normal {
+  width: 100% !important;
+}
+
+/* #login-form div {
+  width: 100% !important;
+} */
+
+#onboarding-form button {
+  width: 100% !important;
+  @apply mt-8 bg-[#ffc71f]
+}
+#onboarding-form input {
+  width: 100% !important;
+}
+/* #onboarding-form div {
+  width: 100% !important;
+} */
+
 #blue-button {
   background-color: #2EAAED !important;
 }

@@ -9,7 +9,14 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        atlantis: '#A3CA34',
+        bronze: '#5C3COC',
+        mine: '#242424',
+        kidnapper: '#DDE5CB'
+      }
+    },
   },
   plugins: [],
 }
