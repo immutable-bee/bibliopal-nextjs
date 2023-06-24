@@ -27,7 +27,7 @@ const TCModal = (props) => {
           buy books until the approval process is complete. We reserve the right
           to refuse membership to any bookstore at our sole discretion.<br></br>
           Access to the Buy Local Books Network:<br></br>Upon approval of your
-          membership, you will have access to the Buy Local Books Network's
+          membership, you will have access to the Buy Local Books Network&apos;s
           features. This access is non-transferable and intended solely for your
           use.<br></br>Listing and Selling Books:<br></br>
           As a member of the Buy Local Books Network, you will have the ability
