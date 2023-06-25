@@ -5,6 +5,7 @@ import {
   Image,
   Loading,
   Modal,
+  
 } from "@nextui-org/react";
 // import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
@@ -186,7 +187,7 @@ const OnboardingFormPage = () => {
   // const { data: session } = useSession({ required: true });
 
   const [senderEmail, setSenderEmail] = useState();
-  const [formData, setFormData] = useState({ business_type: 'business' });
+  const [formData, setFormData] = useState({ personal_or_business: 'business' });
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -292,7 +293,7 @@ const OnboardingFormPage = () => {
             {formStepOne ? (
               <>
                 <select
-                  name="business_type"
+                  name="personal_or_business"
                   onChange={handleChange}
                   className="
                     border-[#f1f3f5] w-full
@@ -303,11 +304,14 @@ const OnboardingFormPage = () => {
                     my-2 px-2
                     "
                 >
+                  <option value="" disabled selected>Business or Personal</option>
                   <option value="business">Business</option>
                   <option value="personal">Personal</option>
                 </select>
 
-                {formData?.business_type === 'business' ? (
+
+
+                {formData?.personal_or_business === 'business' ? (
                   <>
                     <Input
                       required={true}
@@ -316,6 +320,24 @@ const OnboardingFormPage = () => {
                       placeholder="Bookstore Business Name"
                       name="business_name"
                     />
+
+                    <select
+                      name="business_type"
+                      onChange={handleChange}
+                      className="
+                        border-[#f1f3f5] w-full
+                        rounded-xl
+                        bg-[#f1f3f5]
+                        !placeholder-gray-400 text-gray-900 text-sm
+                        h-10
+                        my-2 px-2
+                      "
+                    >
+                      <option value="" disabled selected>Business type</option>
+                      <option value="Thrift">Thrift</option>
+                      <option value="bookstore">bookstore</option>
+                      <option value="Library">Library</option>
+                    </select>
 
 
                     <Input
@@ -409,7 +431,7 @@ const OnboardingFormPage = () => {
             )}
 
 
-            {(formData?.business_type === 'business' && !formStepOne) || formData?.business_type === 'personal' ? (
+            {(formData?.personal_or_business === 'business' && !formStepOne) || formData?.personal_or_business === 'personal' ? (
 
               <>
                 {successMessage === "" && errorMessage === "" ? (
