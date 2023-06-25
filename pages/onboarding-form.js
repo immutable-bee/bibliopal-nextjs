@@ -10,7 +10,7 @@ import {
 import { useState, useEffect } from "react";
 import AuthContainer from "../components/containers/AuthContainer";
 import { useRouter } from "next/router";
-import IconChevron from '../assets/svg/icon-chevron.svg'
+import IconChevron from "../assets/svg/icon-chevron.svg";
 const TCModal = (props) => {
   return (
     <Modal
@@ -186,7 +186,7 @@ const OnboardingFormPage = () => {
   // const { data: session } = useSession({ required: true });
 
   const [senderEmail, setSenderEmail] = useState();
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState({ business_type: 'business' });
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -200,21 +200,20 @@ const OnboardingFormPage = () => {
     setTCvisible(!tcVisible);
   };
 
-    // useEffect(() => {
-    //   if (session) {
-    //     const userEmail = session.user.email;
-    //     setSenderEmail(userEmail);
-    //   }
-    // }, [session]);
+  // useEffect(() => {
+  //   if (session) {
+  //     const userEmail = session.user.email;
+  //     setSenderEmail(userEmail);
+  //   }
+  // }, [session]);
 
-    useEffect(() => {
-      if (successMessage != "") {
-        setTimeout(() => {
-          push("/listed-inventory");
-        }, 3000);
-      }
-    }, [successMessage, push]);
-    
+  useEffect(() => {
+    if (successMessage != "") {
+      setTimeout(() => {
+        push("/listed-inventory");
+      }, 3000);
+    }
+  }, [successMessage, push]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -252,12 +251,13 @@ const OnboardingFormPage = () => {
       // Handle other inputs
       setFormData({ ...formData, [name]: value });
     }
+    console.log(formData)
   };
 
   const formStepHandler = () => {
     if (formStepOne) {
       // Check if required fields in step one are filled
-      if (formData?.business_name && formData?.phone_number) {
+      if (formData?.business_name && formData?.business_type) {
         setFormStepOne(false);
       } else {
         alert("Please fill out all required fields before proceeding.");
@@ -277,45 +277,72 @@ const OnboardingFormPage = () => {
               onClick={formStepHandler}
               className="bg-atlantis w-7 rounded-full border border-black cursor-pointer hover:opacity-80"
               size={""}
-             
             >
-
-<Image
-                  src='https://www.buylocalbooksnetwork.com/icons/icon-chevron.svg'
-                  alt="chevron icon"
-                  height="17"
-                  width="17"
-                  id="chevron-icon"
-                />
+              <Image
+                src="https://www.buylocalbooksnetwork.com/icons/icon-chevron.svg"
+                alt="chevron icon"
+                height="17"
+                width="17"
+                id="chevron-icon"
+              />
             </div>
           )}
           <h2 className="text-2xl font-medium text-center">Onboarding Form</h2>
           <form id="onboarding-form" className="mt-6" onSubmit={handleSubmit}>
             {formStepOne ? (
               <>
-                <Input
-                  required={true}
+                <select
+                  name="business_type"
                   onChange={handleChange}
-                  className="onboard-fields my-2"
-                  placeholder="Bookstore Business Name"
-                  name="business_name"
-                />
-                <Input
-                  required={true}
-                  onChange={handleChange}
-                  className="onboard-fields my-2"
-                  placeholder="Business phone number"
-                  name="phone_number"
-                />
-                <Input
-                  onChange={handleChange}
-                  className="onboard-fields my-2"
-                  placeholder="Website Url"
-                  name="url"
-                />
-                <Button rounded id="form-step-btn" onClick={formStepHandler}>
-                  Next
-                </Button>
+                  className="
+                    border-[#f1f3f5] w-full
+                    rounded-xl
+                    bg-[#f1f3f5]
+                    !placeholder-gray-400 text-gray-900 text-sm
+                    h-10
+                    my-2 px-2
+                    "
+                >
+                  <option value="business">Business</option>
+                  <option value="personal">Personal</option>
+                </select>
+
+                {formData?.business_type === 'business' ? (
+                  <>
+                    <Input
+                      required={true}
+                      onChange={handleChange}
+                      className="onboard-fields my-2"
+                      placeholder="Bookstore Business Name"
+                      name="business_name"
+                    />
+
+
+                    <Input
+                      onChange={handleChange}
+                      className="onboard-fields my-2"
+                      placeholder="Website Url"
+                      name="url"
+                    />
+                    <Button rounded id="form-step-btn" onClick={formStepHandler}>
+                      Next
+                    </Button>
+                  </>
+
+
+                ) : (
+                  <>
+                    <Input
+                      required={true}
+                      onChange={handleChange}
+                      className="onboard-fields my-2"
+                      placeholder="Full Name"
+                      name="personal_name"
+                    />
+                  </>
+                )}
+
+
               </>
             ) : (
               <div id="onboarding-step-two-container">
@@ -345,7 +372,6 @@ const OnboardingFormPage = () => {
                     h-10
                     my-2 px-2
                     "
-
                   >
                     {stateOptions.map((state) => (
                       <option key={state.key} value={state.value}>
@@ -361,58 +387,8 @@ const OnboardingFormPage = () => {
                     placeholder="Zip Code"
                   />
                 </div>
-                <div className="checkbox">
-                <Checkbox
-                  size={"sm"}
-                  isSelected={selected}
-                  onChange={setSelected}
-                >
-                  Use business address as shipping address?
-                </Checkbox>
-                </div>
-                {!selected && (
-                  <>
-                    <Input
-                      onChange={handleChange}
-                      className="onboard-fields  my-2"
-                      name="shipping_street"
-                      placeholder="Shipping Address"
-                    />
-                    <Input
-                      onChange={handleChange}
-                      className="onboard-fields  my-2"
-                      name="shipping_city"
-                      placeholder="Shipping City"
-                    />
-                    <div className="grid grid-cols-2 gap-3">
-                      <select
-                        name="shipping_state"
-                        onChange={handleChange}
-                        className="
-                    border-[#f1f3f5]
-                    rounded-xl
-                    bg-[#f1f3f5]
-                    text-[#787878]
-                    h-10
-                    my-2 px-2
-                    "
-                      >
-                        {stateOptions.map((state) => (
-                          <option key={state.key} value={state.value}>
-                            {state.text}
-                          </option>
-                        ))}
-                      </select>
-                      <Input
-                        onChange={handleChange}
-                        className="small-onboard-fields  my-2"
-                        name="shipping_zip"
-                        placeholder="Shipping Zip"
-                      />
-                    </div>
-                  </>
-                )}
-                <div id="onboarding-form-tc-row" className="flex items-center">
+
+                <div id="onboarding-form-tc-row" className="flex items-center mt-3">
                   <Checkbox
                     onChange={setAgreedToTerms}
                     id="onboarding-form-tc-checkbox"
@@ -420,11 +396,23 @@ const OnboardingFormPage = () => {
                     size={"sm"}
                   ></Checkbox>
                   <h6 id="onboarding-form-tc-agree-text">I agree to the</h6>
-                  <h6 id="onboarding-form-tc-link" className="text-atlantis ml-1 cursor-pointer" onClick={tcModalHandler}>
+                  <h6
+                    id="onboarding-form-tc-link"
+                    className="text-atlantis ml-1 cursor-pointer"
+                    onClick={tcModalHandler}
+                  >
                     Terms and Conditions
                   </h6>
                 </div>
-                {successMessage == "" && errorMessage == "" ? (
+
+              </div>
+            )}
+
+
+            {(formData?.business_type === 'business' && !formStepOne) || formData?.business_type === 'personal' ? (
+
+              <>
+                {successMessage === "" && errorMessage === "" ? (
                   <Button
                     disabled={loading}
                     rounded
@@ -436,8 +424,9 @@ const OnboardingFormPage = () => {
                 ) : (
                   <h6>{`${successMessage} Redirecting...`}</h6>
                 )}
-              </div>
-            )}
+              </>
+            ) : null}
+
           </form>
           <TCModal visible={tcVisible} onClose={tcModalHandler} />
         </div>
