@@ -14,7 +14,8 @@ type NewBookInfo = {
   title: string;
   author: string;
   format?: string;
-  ISBN: string;
+  isbn: string;
+  image_url?: string;
 };
 
 export type DeleteBookRow = (ISBN: string) => void;
@@ -28,14 +29,16 @@ const Index = () => {
   const createNewRow = (newBookInfo: NewBookInfo) => {
     let { rows } = tableData;
 
-    const isISBNexist = rows.find((row) => row.ISBN === newBookInfo.ISBN);
+    const isISBNexist = rows.find((row) => row.isbn === newBookInfo.isbn);
     if (isISBNexist) return setError("This ISBN already exists");
 
     if (newBookInfo.title)
       rows.unshift({
         title: newBookInfo.title,
         author: newBookInfo.author || "",
-        ISBN: newBookInfo.ISBN,
+        isbn: newBookInfo.isbn,
+        format: newBookInfo.format || "",
+        image_url: newBookInfo.image_url || "",
       });
 
     const newTableData: TableData = {
@@ -51,7 +54,7 @@ const Index = () => {
   const deleteBookRow = (ISBN: string): void => {
     const newTableData = {
       ...tableData,
-      rows: tableData.rows.filter((row) => row.ISBN !== ISBN),
+      rows: tableData.rows.filter((row) => row.isbn !== ISBN),
     };
 
     setTableData(newTableData);

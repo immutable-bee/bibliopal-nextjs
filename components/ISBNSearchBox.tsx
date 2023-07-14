@@ -27,6 +27,8 @@ const ISBNSearchBox = ({
 
     const bookData = await fetchByISBN(searchValue, setError);
 
+    console.log(bookData);
+
     if (!bookData) return;
     setSearchValue("");
 
@@ -48,7 +50,9 @@ const ISBNSearchBox = ({
       </h1>
       <div className="py-10">
         <div className="sm:flex items-center">
-          <label className="text-2xl block sm:inline-block text-black font-bold">ISBN</label>
+          <label className="text-2xl block sm:inline-block text-black font-bold">
+            ISBN
+          </label>
           <input
             ref={searchInputRef}
             value={searchValue}

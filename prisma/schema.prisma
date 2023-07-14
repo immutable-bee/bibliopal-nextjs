@@ -20,4 +20,5 @@ model Listing {
   isbn String?
   author String
   format String?
+  image_url String? @db.Text
 }

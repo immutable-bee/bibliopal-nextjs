@@ -1,8 +1,28 @@
-import React, { useState } from "react";
-import styles from "./inputcomponent.module.scss";
-import Image from "next/image";
-const Inputcomponent = () => {
-  const [active, setActive] = useState("all");
+import { useState } from "react";
+const Inputcomponent = ({
+  handleSearch,
+  filter,
+  searchTerm,
+  setFilter,
+  setSearchTerm,
+}) => {
+  const [active, setActive] = useState("Title");
+
+  const handleSearchTermChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchKeyDown = (e) => {
+    if (e.key === "Enter") {
+      //fetchSearchResults();
+      handleSearch(searchTerm, filter);
+    }
+  };
+
+  const handleActiveChange = (newActive) => {
+    setActive(newActive);
+    setFilter(newActive.toLowerCase());
+  };
 
   return (
     <div>
@@ -23,12 +43,15 @@ const Inputcomponent = () => {
                     placeholder=""
                     aria-label="Recipient's username"
                     aria-describedby="basic-addon2"
+                    value={searchTerm}
+                    onChange={handleSearchTermChange}
+                    onKeyDown={handleSearchKeyDown}
                   />
                   <ul className=" flex items-center ">
                     <button
-                      onClick={() => setActive("all")}
+                      onClick={() => handleActiveChange("Title")}
                       className={` bg-white text-gray-600 rounded-full px-4 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${
-                        active == "all" && "!bg-[#978367] !text-white"
+                        active == "Title" && "!bg-[#978367] !text-white"
                       } `}
                       id="pills-all-tab"
                       data-bs-toggle="pill"
@@ -41,9 +64,9 @@ const Inputcomponent = () => {
                       Title
                     </button>
                     <button
-                      onClick={() => setActive("profile")}
+                      onClick={() => handleActiveChange("Author")}
                       className={`  rounded-full px-4 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${
-                        active == "profile" && "!bg-[#978367] !text-white"
+                        active == "Author" && "!bg-[#978367] !text-white"
                       } `}
                       id="pills-profile-tab"
                       data-bs-toggle="pill"
@@ -62,6 +85,8 @@ const Inputcomponent = () => {
                 <button
                   type="button"
                   className="bg-[#9BCC2C] px-3 sm:px-4 py-3 sm:py-4 rounded-lg sm:rounded-xl"
+                  //onClick={fetchSearchResults}
+                  onClick={() => handleSearch(searchTerm, filter)}
                 >
                   <div>
                     <svg
@@ -94,7 +119,7 @@ const Inputcomponent = () => {
               </div>
               <div className="px-3 sm:block sm:py-0 py-1 flex justify-center items-center">
                 <label className="text-sm min-w-fit font-normal">
-                  ZIP CODE 1
+                  ZIP CODE 2
                 </label>
                 <input
                   className="w-full sm:w-auto focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 px-3 rounded-lg mx-2 py-2"
