@@ -5,10 +5,11 @@ import Link from 'next/link';
 // import 'bootstrap/dist/css/bootstrap.css';
 import Head from "next/head"
 import HeaderComponent from '@/components/customer/HeaderComponent';
-import StarIcon from '../../../public/images/star-icon.svg'
+import FreePlanIcon from '../../../assets/star.webp'
+import BookWorm from '../../../assets/favicon2.webp'
+import Tier2 from '../../../assets/book-worm.webp'
 import CloseCircle from "../../../public/images/close-circle.svg"
 import CopySVG from "../../../public/images/copy.svg"
-import ProfileCircle from "../../../public/images/profile-circle.svg"
 const Profilecomponent = () => {
 	return (
 		<div className='bg-[#FEFBE8] min-h-screen'>
@@ -20,27 +21,7 @@ const Profilecomponent = () => {
 
 			<div>
 				<HeaderComponent />
-				{/* <section className='mt-0 sm:mt-2'>
-					<div>
-						<div className='flex justify-center'>
-							<div className=''>
 
-
-
-								<Image
-									src={ProfileCircle}
-									width={127}
-									height={127}
-									alt='profile-icon'
-									className=" w-28 sm:w-40 h-28 sm:h-40 mx-auto rounded-full" />
-								<h3 className='text-xl sm:text-2xl mt-2 sm:mt-6 font-medium'>Mohammed Ismail</h3>
-
-
-							</div>
-						</div>
-					</div>
-				</section> */}
-				{/* mt-4 sm:mt-10 border-t py-3 sm:border-t-2 border-black */}
 				<section className='px-5 '>
 					<div className='max-w-xl mx-auto'>
 
@@ -139,20 +120,46 @@ const Profilecomponent = () => {
 						</div>
 
 
-						<div className='mb-4 sm:mb-8'>
+						<div className='pb-4 sm:pb-8'>
 							<div>
 								<h3 className='text-xl mt-5 sm:mt-12 font-medium'>Subscription Plan</h3>
 							</div>
 							<div className='w-full mx-auto mt-2 sm:mt-0'>
-								<Link href="" className='mx-auto w-full'>
-									<Image
-										src={StarIcon}
-										alt="img"
+								<div className='flex items-center justify-center'>
+									<div className='mx-3 w-40'>
+										<div className='mx-auto w-full h-32 flex items-center justify-center'>
+											<Image
+												src={FreePlanIcon}
+												alt="img"
 
-										className="mx-auto w-20 sm:w-32"
-									/>
-								</Link>
-								<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold'>BASIC PLAN</h4>
+												className="w-20 sm:w-32"
+											/>
+										</div>
+										<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold uppercase'>FREE PLAN</h4>
+									</div>
+									<div className='mx-3 w-40'>
+										<div className='mx-auto w-full h-32 flex items-center justify-center'>
+											<Image
+												src={BookWorm}
+												alt="img"
+
+												className="w-20 sm:w-32"
+											/>
+										</div>
+										<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold uppercase'>Book Worm</h4>
+									</div>
+									<div className='mx-3 w-40'>
+										<div className='mx-auto w-full h-32 flex items-center justify-center'>
+											<Image
+												src={Tier2}
+												alt="img"
+
+												className="w-20 sm:w-32"
+											/>
+										</div>
+										<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold uppercase'>Tier 2</h4>
+									</div>
+								</div>
 								<div className='flex mt-4 sm:mt-8 justify-center'>
 
 									<button type="btn" className='mx-1 sm:mx-2 duration-300 ease-in-out bg-white font-bold border border-[#eb5757] hover:bg-[#eb5757] hover:text-white px-6 text-[#eb5757] py-2 rounded-full'>Cancel</button>

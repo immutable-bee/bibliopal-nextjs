@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 // import 'bootstrap/dist/css/bootstrap.css';
 import ProfileSVG from "../../public/images/profile-icon.svg";
+import BookWorm from '../../assets/favicon2.webp'
 const HeaderComponent = () => {
   const router = useRouter();
   const linkColor = (path) => {
@@ -61,13 +62,15 @@ const HeaderComponent = () => {
           className="flex items-center no-underline"
         >
           {" "}
-          <Image
-            src={ProfileSVG}
-            width={40}
-            height={40}
-            className="w-10 h-10 rounded-full"
-            alt="logo"
-          />
+          <div className="border rounded-full w-14 h-14 flex-shrink-0 flex items-center justify-center">
+            <Image
+              src={BookWorm}
+              width={40}
+              height={40}
+              className="w-10 rounded-full"
+              alt="logo"
+            />
+          </div>
           <span className="!ml-3 hidden sm:block text-black font-semibold text-lg">
             Hi, Demo User!
           </span>
