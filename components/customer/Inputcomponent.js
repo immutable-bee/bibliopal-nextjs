@@ -35,11 +35,11 @@ const Inputcomponent = ({
               </div>
             </div>
             <div className="flex py-5 px-2 justify-center w-full items-center">
-              <div className="w-full px-3 max-w-6xl border-2 border-[#ffc71f] rounded-3xl">
+              <div className="w-full px-3 max-w-6xl border-none rounded-3xl">
                 <div className=" flex justify-between">
                   <input
                     type="text"
-                    className=" px-2 rounded-full py-3 sm:py-4 border-none w-full focus:outline-none"
+                    className=" px-6 rounded-full py-3 sm:py-4 border w-full focus:outline-none"
                     placeholder=""
                     aria-label="Recipient's username"
                     aria-describedby="basic-addon2"
@@ -47,12 +47,11 @@ const Inputcomponent = ({
                     onChange={handleSearchTermChange}
                     onKeyDown={handleSearchKeyDown}
                   />
-                  <ul className=" flex items-center ">
+                  <ul className=" flex items-center ml-2">
                     <button
                       onClick={() => handleActiveChange("Title")}
-                      className={` bg-white text-gray-600 rounded-full px-4 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${
-                        active == "Title" && "!bg-[#978367] !text-white"
-                      } `}
+                      className={`  rounded-full px-4 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${active == "Title" && "!bg-[#978367] !text-white"
+                        } `}
                       id="pills-all-tab"
                       data-bs-toggle="pill"
                       data-bs-target="#pills-all"
@@ -65,9 +64,8 @@ const Inputcomponent = ({
                     </button>
                     <button
                       onClick={() => handleActiveChange("Author")}
-                      className={`  rounded-full px-4 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${
-                        active == "Author" && "!bg-[#978367] !text-white"
-                      } `}
+                      className={`  rounded-full px-4 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${active == "Author" && "!bg-[#978367] !text-white"
+                        } `}
                       id="pills-profile-tab"
                       data-bs-toggle="pill"
                       data-bs-target="#pills-profile"

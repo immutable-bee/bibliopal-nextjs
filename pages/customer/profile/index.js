@@ -11,7 +11,7 @@ import CopySVG from "../../../public/images/copy.svg"
 import ProfileCircle from "../../../public/images/profile-circle.svg"
 const Profilecomponent = () => {
 	return (
-		<div className='bg-[#FEFBE8]'>
+		<div className='bg-[#FEFBE8] min-h-screen'>
 
 			<Head >
 				<link rel="shortcut icon" href="/images/fav.png" />
@@ -48,7 +48,7 @@ const Profilecomponent = () => {
 							<label className="text-sm text-black font-medium">Name</label>
 							<div >
 								<input
-									className="bg-white form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 my-1 py-2" type="text"  placeholder='John Doe' />
+									className="bg-white form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 my-1 py-2" type="text" placeholder='John Doe' />
 							</div>
 						</div>
 						<div className="py-2 ">
@@ -148,18 +148,18 @@ const Profilecomponent = () => {
 									<Image
 										src={StarIcon}
 										alt="img"
-										
+
 										className="mx-auto w-20 sm:w-32"
 									/>
 								</Link>
 								<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold'>BASIC PLAN</h4>
 								<div className='flex mt-4 sm:mt-8 justify-center'>
-								
-										<button type="btn" className='mx-1 sm:mx-2 duration-300 ease-in-out bg-white font-bold border border-[#eb5757] hover:bg-[#eb5757] hover:text-white px-6 text-[#eb5757] py-2 rounded-full'>Cancel</button>
-									
-									
-										<button className='mx-1 sm:mx-2 duration-300 ease-in-out hover:bg-white font-bold border hover:border-[#2EAAED] bg-[#2EAAED] text-white px-6 hover:text-[#2EAAED] py-2 rounded-full' type="btn" >Upgrade Now </button>
-									
+
+									<button type="btn" className='mx-1 sm:mx-2 duration-300 ease-in-out bg-white font-bold border border-[#eb5757] hover:bg-[#eb5757] hover:text-white px-6 text-[#eb5757] py-2 rounded-full'>Cancel</button>
+
+
+									<button className='mx-1 sm:mx-2 duration-300 ease-in-out hover:bg-white font-bold border hover:border-[#2EAAED] bg-[#2EAAED] text-white px-6 hover:text-[#2EAAED] py-2 rounded-full' type="btn" >Upgrade Now </button>
+
 								</div>
 							</div>
 						</div>

@@ -48,10 +48,10 @@ const ISBNSearchBox = ({
       <h1 className="text-gray-900 text-2xl sm:text-3xl sm:text-center font-bold">
         Book Listing Application
       </h1>
-      <div className="py-10">
+      <div className="pt-10">
         <div className="sm:flex items-center">
           <label className="text-2xl block sm:inline-block text-black font-bold">
-            ISBN
+          EAN
           </label>
           <input
             ref={searchInputRef}
