@@ -17,41 +17,19 @@ const Matches = () => {
             paras: [
                 {
                     para1: 'Thrift store #2',
-                    para2: 'sale',
+                    para2: true,
                     para3: '6 days ago',
                     para4: '16031',
                 },
                 {
                     para1: 'Thrift store #2',
-                    para2: 'sale',
+                    para2: true,
                     para3: '6 days ago',
                     para4: '16031',
                 },
                 {
                     para1: 'Thrift store #2',
-                    para2: 'sale',
-                    para3: '6 days ago',
-                    para4: '16031',
-                },
-            ],
-        },
-        {
-            paras: [
-                {
-                    para1: 'Thrift store #2',
-                    para2: 'sale',
-                    para3: '6 days ago',
-                    para4: '16031',
-                },
-                {
-                    para1: 'Thrift store #2',
-                    para2: 'sale',
-                    para3: '6 days ago',
-                    para4: '16031',
-                },
-                {
-                    para1: 'Thrift store #2',
-                    para2: 'sale',
+                    para2: true,
                     para3: '6 days ago',
                     para4: '16031',
                 },
@@ -61,41 +39,19 @@ const Matches = () => {
             paras: [
                 {
                     para1: 'Thrift store #2',
-                    para2: 'sale',
+                    para2: true,
                     para3: '6 days ago',
                     para4: '16031',
                 },
                 {
                     para1: 'Thrift store #2',
-                    para2: 'sale',
+                    para2: true,
                     para3: '6 days ago',
                     para4: '16031',
                 },
                 {
                     para1: 'Thrift store #2',
-                    para2: 'sale',
-                    para3: '6 days ago',
-                    para4: '16031',
-                },
-            ],
-        },
-        {
-            paras: [
-                {
-                    para1: 'Thrift store #2',
-                    para2: 'sale',
-                    para3: '6 days ago',
-                    para4: '16031',
-                },
-                {
-                    para1: 'Thrift store #2',
-                    para2: 'sale',
-                    para3: '6 days ago',
-                    para4: '16031',
-                },
-                {
-                    para1: 'Thrift store #2',
-                    para2: 'sale',
+                    para2: true,
                     para3: '6 days ago',
                     para4: '16031',
                 },
@@ -105,19 +61,63 @@ const Matches = () => {
             paras: [
                 {
                     para1: 'Thrift store #2',
-                    para2: 'sale',
+                    para2: true,
                     para3: '6 days ago',
                     para4: '16031',
                 },
                 {
                     para1: 'Thrift store #2',
-                    para2: 'sale',
+                    para2: true,
                     para3: '6 days ago',
                     para4: '16031',
                 },
                 {
                     para1: 'Thrift store #2',
-                    para2: 'sale',
+                    para2: true,
+                    para3: '6 days ago',
+                    para4: '16031',
+                },
+            ],
+        },
+        {
+            paras: [
+                {
+                    para1: 'Thrift store #2',
+                    para2: true,
+                    para3: '6 days ago',
+                    para4: '16031',
+                },
+                {
+                    para1: 'Thrift store #2',
+                    para2: true,
+                    para3: '6 days ago',
+                    para4: '16031',
+                },
+                {
+                    para1: 'Thrift store #2',
+                    para2: true,
+                    para3: '6 days ago',
+                    para4: '16031',
+                },
+            ],
+        },
+        {
+            paras: [
+                {
+                    para1: 'Thrift store #2',
+                    para2: true,
+                    para3: '6 days ago',
+                    para4: '16031',
+                },
+                {
+                    para1: 'Thrift store #2',
+                    para2: true,
+                    para3: '6 days ago',
+                    para4: '16031',
+                },
+                {
+                    para1: 'Thrift store #2',
+                    para2: true,
                     para3: '6 days ago',
                     para4: '16031',
                 },
@@ -185,7 +185,7 @@ const Matches = () => {
                                                             {data.paras.map((item, idx) => (
                                                                 <tr key={idx}>
                                                                     <td className='text-gray-900 text-sm px-4 py-2'>{item.para1}</td>
-                                                                    <td className='text-gray-900 text-sm px-4 py-2'>{item.para2}</td>
+                                                                    <td className='text-gray-900 text-sm px-4 py-2'>{item.para2 ? <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-books stroke-black w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z"></path><path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z"></path><path d="M5 8h4"></path><path d="M9 16h4"></path><path d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z"></path><path d="M14 9l4 -1"></path><path d="M16 16l3.923 -.98"></path></svg> : ''}</td>
                                                                     <td className='text-gray-900 text-sm px-4 py-2'>{item.para3}</td>
                                                                     <td className='text-gray-900 text-sm px-4 py-2'>{item.para4}</td>
                                                                 </tr>

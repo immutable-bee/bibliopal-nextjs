@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 // import 'bootstrap/dist/css/bootstrap.css';
 import ProfileSVG from "../../public/images/profile-icon.svg";
-import BookWorm from '../../assets/favicon2.webp'
+import BookWorm from '../../assets/worm.webp'
 const HeaderComponent = () => {
   const router = useRouter();
   const linkColor = (path) => {

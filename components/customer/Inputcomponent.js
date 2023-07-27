@@ -36,7 +36,7 @@ const Inputcomponent = ({
             </div>
             <div className="flex py-5 px-2 justify-center w-full items-center">
               <div className="w-full px-3 max-w-6xl border-none rounded-3xl">
-                <div className=" flex justify-between">
+                <div className=" sm:flex justify-between">
                   <input
                     type="text"
                     className=" px-6 rounded-full py-3 sm:py-4 border w-full focus:outline-none"
@@ -47,63 +47,66 @@ const Inputcomponent = ({
                     onChange={handleSearchTermChange}
                     onKeyDown={handleSearchKeyDown}
                   />
-                  <ul className=" flex items-center ml-2">
-                    <button
-                      onClick={() => handleActiveChange("Title")}
-                      className={`  rounded-full px-4 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${active == "Title" && "!bg-[#978367] !text-white"
-                        } `}
-                      id="pills-all-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-all"
-                      type="button"
-                      role="tab"
-                      aria-controls="pills-all"
-                      aria-selected="true"
-                    >
-                      Title
-                    </button>
-                    <button
-                      onClick={() => handleActiveChange("Author")}
-                      className={`  rounded-full px-4 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${active == "Author" && "!bg-[#978367] !text-white"
-                        } `}
-                      id="pills-profile-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-profile"
-                      type="button"
-                      role="tab"
-                      aria-controls="pills-profile"
-                      aria-selected="false"
-                    >
-                      Author
-                    </button>
-                  </ul>
+                  <div className="flex items-center justify-end mt-2 sm:mt-0">
+                    <ul className=" flex items-center ml-2">
+                      <button
+                        onClick={() => handleActiveChange("Title")}
+                        className={`  rounded-full px-6 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${active == "Title" && "!bg-[#978367] !text-white"
+                          } `}
+                        id="pills-all-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-all"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-all"
+                        aria-selected="true"
+                      >
+                        Title
+                      </button>
+                      <button
+                        onClick={() => handleActiveChange("Author")}
+                        className={`  rounded-full px-6 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${active == "Author" && "!bg-[#978367] !text-white"
+                          } `}
+                        id="pills-profile-tab"
+                        data-bs-toggle="pill"
+                        data-bs-target="#pills-profile"
+                        type="button"
+                        role="tab"
+                        aria-controls="pills-profile"
+                        aria-selected="false"
+                      >
+                        Author
+                      </button>
+                    </ul>
+                    <div className="ml-2 sm:ml-3">
+                      <button
+                        type="button"
+                        className="bg-[#9BCC2C] px-3 sm:px-4 py-3 sm:py-4 rounded-lg sm:rounded-xl"
+                        //onClick={fetchSearchResults}
+                        onClick={() => handleSearch(searchTerm, filter)}
+                      >
+                        <div>
+                          <svg
+                            class="text-white w-4"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="ml-3">
-                <button
-                  type="button"
-                  className="bg-[#9BCC2C] px-3 sm:px-4 py-3 sm:py-4 rounded-lg sm:rounded-xl"
-                  //onClick={fetchSearchResults}
-                  onClick={() => handleSearch(searchTerm, filter)}
-                >
-                  <div>
-                    <svg
-                      class="text-white w-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                      />
-                    </svg>
-                  </div>
-                </button>
-              </div>
+
             </div>
             <div className="sm:flex justify-center">
               <div className="px-3 sm:block sm:py-0 py-1 flex justify-center items-center">

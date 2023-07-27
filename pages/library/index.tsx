@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { TableData, useTableDataContext } from "../context/TableDataContext";
-import { setTableDataToStorage } from "../helpers/localstorage";
+import { TableData, useTableDataContext } from "@/context/TableDataContext";
+import { setTableDataToStorage } from "@/helpers/localstorage";
 
 import ListingComponent from "@/components/scoped/ListingComponent";
 
