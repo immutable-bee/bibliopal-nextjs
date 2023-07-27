@@ -8,7 +8,7 @@ import BookWorm from "../assets/worm.webp";
 function Header() {
   const router = useRouter();
 
-  const linkPrefix = () => {
+  const page = () => {
     // Define the routes to check
     const routes = ["/library", "/bookstore", "/thrift"];
 
@@ -91,7 +91,7 @@ function Header() {
 
       <div className="flex items-center">
         <Link
-          href={`/${linkPrefix()}/profile`}
+          href={`/${page()}/profile`}
           className="flex items-center no-underline"
         >
           {" "}

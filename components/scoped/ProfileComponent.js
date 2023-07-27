@@ -1,11 +1,18 @@
 import { useState } from "react";
 import Header from "@/components/Header";
-
+import { useRouter } from "next/router";
 const ProfileComponent = ({ }) => {
+    const router = useRouter();
+
+
     const [storeName, setStoreName] = useState("");
     const [storeType, setStoreType] = useState("");
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
+    const [physicalAddressSale, setPhysicalAddressSale] = useState("");
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [hoursSale, setHoursSale] = useState("");
     const [url, setUrl] = useState("");
     const [autoUpload, setAutoUpload] = useState(false);
     const [displayContactInfo, setDisplayContactInfo] = useState(false);
@@ -25,6 +32,23 @@ const ProfileComponent = ({ }) => {
             visibility,
             planOptions,
         });
+    };
+
+    const page = () => {
+        // Define the routes to check
+        const routes = ["/library", "/bookstore", "/thrift"];
+
+        // Check if the current path includes any of the routes
+        if (router.pathname.includes("/library")) {
+            return "library";
+        } else if (router.pathname.includes("/bookstore")) {
+            return "bookstore";
+        } else if (router.pathname.includes("/thrift")) {
+            return "thrift";
+        }
+
+        // Return an empty string if none of the routes match
+        return "";
     };
     return (
         <div className="min-h-screen bg-[#FEFBE8]">
@@ -81,6 +105,47 @@ const ProfileComponent = ({ }) => {
                                 onChange={(e) => setUrl(e.target.value)}
                             />
                         </div>
+                        {page() === 'library' ?
+                            <>
+                                <div className="py-2">
+                                    <label className="text-sm text-gray-700">Physical address of the sale</label>
+                                    <input
+                                        type="text"
+                                        className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                                        value={physicalAddressSale}
+                                        onChange={(e) => setPhysicalAddressSale(e.target.value)}
+                                    />
+                                </div>
+                                <div className="py-2">
+                                    <label className="text-sm text-gray-700">Start date</label>
+                                    <input
+                                        type="date"
+                                        className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                                        value={startDate}
+                                        onChange={(e) => setStartDate(e.target.value)}
+                                    />
+                                </div>
+                                <div className="py-2">
+                                    <label className="text-sm text-gray-700">End date</label>
+                                    <input
+                                        type="date"
+                                        className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                                        value={endDate}
+                                        onChange={(e) => setEndDate(e.target.value)}
+                                    />
+                                </div>
+                                <div className="py-2">
+                                    <label className="text-sm text-gray-700">Hours of the sale</label>
+                                    <input
+                                        type="text"
+                                        className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                                        value={hoursSale}
+                                        onChange={(e) => setHoursSale(e.target.value)}
+                                    />
+                                </div>
+                            </>
+                            : ''}
+
 
                         <label className="relative mt-6 flex items-center cursor-pointer">
                             <input
