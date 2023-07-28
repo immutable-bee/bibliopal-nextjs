@@ -29,14 +29,14 @@ function Header() {
     return router.pathname === path ? "#2EAAED" : "#828282";
   };
   return (
-    <header className="flex  mx-auto w-full justify-between items-center px-2 sm:px-4 py-3">
-      <div>
+    <header className="flex  mx-auto w-full justify-between items-center px-2 sm:px-4 py-3 overflow-x-auto">
+      <div className="w-20 sm:w-36 flex-shrink-0 pr-2 sm:pr-0">
         <Link href="">
           <Image
             src="/images/logo1.png"
             width={120}
             height={58}
-            className="w-20 sm:w-36"
+            className="w-full"
             alt="logo"
           />
         </Link>

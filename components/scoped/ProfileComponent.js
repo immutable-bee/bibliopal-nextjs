@@ -71,11 +71,13 @@ const ProfileComponent = ({ }) => {
                         <div className="py-2">
                             <label className="text-sm text-gray-700">Store Type</label>
                             <select
-                                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-select border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-select border border-gray-500 w-full rounded-lg  px-3 my-1 py-2"
                                 value={storeType}
                                 onChange={(e) => setStoreType(e.target.value)}
                             >
-                                <option value="1">1</option>
+                                <option value="Thrift">Thrift</option>
+                                <option value="Library">Library</option>
+                                <option value="Bookstore">Bookstore</option>
                             </select>
                         </div>
                         <div className="py-2">

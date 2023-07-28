@@ -135,7 +135,7 @@ const Home = () => {
                   {arrayToMap.map((data, i) => {
                     return (
                       <div
-                        className="px-4 py-4 cursor-pointer hover:opacity-80  rounded-lg border sm:mx-3 my-2 sm:my-3 w-full sm:w-96 border-[#2eaaed]"
+                        className="px-4 py-4 rounded-lg border sm:mx-3 my-2 sm:my-3 w-full sm:w-96 border-[#2eaaed]"
                         key={data.id}
                       >
                         <div className="flex">
@@ -163,7 +163,7 @@ const Home = () => {
                           </div>
                         </div>
                         <div className="flex justify-center">
-                          <button className="w-8 h-8 mx-1 bg-yellow-5000 flex justify-center items-center border border-blue-600 rounded-md">
+                          <span className="w-8 h-8 mx-1 bg-yellow-5000 flex justify-center items-center border border-blue-600 rounded-md">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-books stroke-black w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                               <path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
@@ -174,8 +174,8 @@ const Home = () => {
                               <path d="M14 9l4 -1" />
                               <path d="M16 16l3.923 -.98" />
                             </svg>
-                          </button>
-                          <button className="w-8 h-8 mx-1 bg-yellow-500 flex justify-center items-center border border-black rounded-md">
+                          </span>
+                          <button className="w-8 h-8 mx-1 bg-yellow-500 hover:bg-opacity-90 flex justify-center items-center border border-black rounded-md">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bookmark stroke-white w-6 h-6" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
                               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                               <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2" />
