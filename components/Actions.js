@@ -3,13 +3,13 @@ import Papa from "papaparse";
 import { useRef, useState } from "react";
 import { TableData, useTableDataContext } from "../context/TableDataContext";
 import { setTableDataToStorage } from "../helpers/localstorage";
-import Loading from "./utility/Loading";
+import LoadingComponent from "@/components/utility/Loading";
 
 const Actions = () => {
   const { tableData, setTableData } = useTableDataContext();
-  const [uploadLoading, setUploadLoading] = useState<boolean>(false);
+  const [uploadLoading, setUploadLoading] = useState < boolean > (false);
 
-  const anchorRef = useRef<HTMLAnchorElement>(null);
+  const anchorRef = useRef < HTMLAnchorElement > (null);
 
   const handleUpload = async () => {
     if (tableData.rows.length < 1) return;
@@ -27,7 +27,7 @@ const Actions = () => {
   };
 
   const handleReset = () => {
-    const resetObject: TableData = {
+    const resetObject = {
       rows: [],
     };
 
@@ -39,7 +39,7 @@ const Actions = () => {
   return (
     <div className="flex w-full justify-center items-center">
       {uploadLoading ? (
-        <Loading />
+        <LoadingComponent />
       ) : (
         <>
           <button
