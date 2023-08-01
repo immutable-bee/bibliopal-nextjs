@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import styles from "./home.module.scss";
-import Image from 'next/image';
+import Image from "next/image";
 // import Link from 'next/link';
 // import 'bootstrap/dist/css/bootstrap.css';
 import Inputcomponent from "@/components/customer/Inputcomponent";
 import HeaderComponent from "@/components/customer/HeaderComponent";
 import Loading from "../../components/utility/loading";
-import PaginationComponent from '../../components/utility/Pagination';
+import PaginationComponent from "../../components/utility/Pagination";
 // import ProfileComponent from '@/components/customer/ProfileComponent';
 const Home = () => {
   const [loadingListings, setLoadingListings] = useState(false);
@@ -140,7 +140,11 @@ const Home = () => {
                       >
                         <div className="flex">
                           <div className="w-24 flex-shrink-0 mr-3 rounded-lg">
-                            <Image src={data.image_url} className="rounded" alt="" />
+                            <img
+                              src={data.image_url}
+                              className="rounded"
+                              alt=""
+                            />
                           </div>
                           <div className="w-full mb-3 ">
                             <h3 className="text-black h-14 overflow-y-auto text-lg font-semibold">
@@ -158,14 +162,25 @@ const Home = () => {
                             <h6 className="text-sm text-gray-500 text-right">
                               {calculateDaysAgo(data.date_listed)}
                             </h6>
-
-
                           </div>
                         </div>
                         <div className="flex justify-center">
                           <span className="w-8 h-8 mx-1 bg-yellow-5000 flex justify-center items-center border border-blue-600 rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-books stroke-black w-6 h-6" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="icon icon-tabler icon-tabler-books stroke-black w-6 h-6"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="#2c3e50"
+                              fill="none"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"
+                              />
                               <path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
                               <path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
                               <path d="M5 8h4" />
@@ -176,35 +191,48 @@ const Home = () => {
                             </svg>
                           </span>
                           <button className="w-8 h-8 mx-1 bg-yellow-500 hover:bg-opacity-90 flex justify-center items-center border border-black rounded-md">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bookmark stroke-white w-6 h-6" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="icon icon-tabler icon-tabler-bookmark stroke-white w-6 h-6"
+                              width="44"
+                              height="44"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="#2c3e50"
+                              fill="none"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"
+                              />
                               <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2" />
                             </svg>
                           </button>
                         </div>
                       </div>
                     );
-                  })
-                  }
+                  })}
                 </div>
 
-                <div id="inventory-matches-pagination" className="flex justify-center">
-                  {
-                    arrayToMap?.length > 0 &&
-                    !loadingListings && (
-                      <PaginationComponent
-                        total={Math.ceil(
-                          arrayToMap.length /
-                          openRequestsItemsPerPage
-                        )}
-                        current={inventoryMatchesPage}
-                        onChange={(page) => setInventoryMatchesPage(page)}
-                      />
-                    )}
+                <div
+                  id="inventory-matches-pagination"
+                  className="flex justify-center"
+                >
+                  {arrayToMap?.length > 0 && !loadingListings && (
+                    <PaginationComponent
+                      total={Math.ceil(
+                        arrayToMap.length / openRequestsItemsPerPage
+                      )}
+                      current={inventoryMatchesPage}
+                      onChange={(page) => setInventoryMatchesPage(page)}
+                    />
+                  )}
                 </div>
               </div>
             )}
-
           </div>
         </div>
       </section>
