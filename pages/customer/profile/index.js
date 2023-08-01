@@ -210,56 +210,7 @@ const Profilecomponent = () => {
 
 						{/* <h3 className='text-xl mt-5 sm:mt-12 font-medium'>Subscription Plan</h3> */}
 						<PricingComponent />
-						<div className='pb-4 sm:pb-8'>
-							<div>
 
-								<h3 className='text-2xl mb-4 mt-5 sm:mt-12 font-semibold'>Buy More Alerts</h3>
-							</div>
-
-							<div className='flex justify-center'>
-								<button className='mx-1 bg-green-500 text-black py-2 px-4 rounded-xl'>
-									Keywords
-								</button>
-								<button className='mx-1 bg-gray-300 text-black py-2 px-4 rounded-xl'>
-									Zip Codes
-								</button>
-							</div>
-							<div className='flex justify-center mt-3'>
-								<h3 className='text-black font-medium text-lg'>Renewal frequency</h3>
-							</div>
-							<div className='flex justify-center mt-1'>
-								<button className='mx-1 bg-green-500 text-black py-2 px-4 rounded-xl'>
-									3-Month
-								</button>
-								<button className='mx-1 bg-gray-300 text-black py-2 px-4 rounded-xl'>
-									6-Month
-								</button>
-								<button className='mx-1 bg-gray-300 text-black py-2 px-4 rounded-xl'>
-									12-Month
-								</button>
-							</div>
-
-
-							<div className='flex justify-center mt-7 items-center'>
-
-								<div className='border-2 border-black rounded-full flex items-center justify-center w-24 text-xl font-bold h-24'>
-									<div>
-										<h3 className='flex text-center justify-center'>$0.67</h3>
-										<h3 className='flex text-center justify-center'>each</h3>
-									</div>
-								</div>
-							</div>
-
-
-							<div className='flex justify-center mt-7 items-center'>
-								<h3 className='text-xl font-medium mr-3'>Total</h3>
-								<div className='border-8 border-black px-3 py-1'>$8.00</div>
-							</div>
-							<div className='flex justify-center mt-7'>
-								<button className='sm:mx-2 duration-300 ease-in-out hover:bg-white font-bold border hover:border-green-600 bg-green-600 text-white px-12 hover:text-green-600 py-3 mx-auto rounded-full' type="btn" >Buy </button>
-							</div>
-
-						</div>
 						<div className='w-full mx-auto mt-2 sm:mt-0'>
 							<div className='flex items-center justify-center'>
 								<div className='mx-3 w-40'>
