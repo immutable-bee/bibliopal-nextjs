@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 // import 'bootstrap/dist/css/bootstrap.css';
 import Head from "next/head"
+import PricingComponent from '@/components/scoped/Pricing';
 import HeaderComponent from '@/components/customer/HeaderComponent';
 import FreePlan from '../../../assets/free.png'
 import BookWorm from '../../../assets/worm.webp'
@@ -207,56 +208,102 @@ const Profilecomponent = () => {
 							</div>
 						</div>
 
-
+						{/* <h3 className='text-xl mt-5 sm:mt-12 font-medium'>Subscription Plan</h3> */}
+						<PricingComponent />
 						<div className='pb-4 sm:pb-8'>
 							<div>
-								<h3 className='text-xl mt-5 sm:mt-12 font-medium'>Subscription Plan</h3>
+
+								<h3 className='text-2xl mb-4 mt-5 sm:mt-12 font-semibold'>Buy More Alerts</h3>
 							</div>
-							<div className='w-full mx-auto mt-2 sm:mt-0'>
-								<div className='flex items-center justify-center'>
-									<div className='mx-3 w-40'>
-										<div className='mx-auto w-full h-32 flex items-center justify-center'>
-											<Image
-												src={FreePlan}
-												alt="img"
 
-												className="w-20 sm:w-32"
-											/>
-										</div>
-										<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold uppercase'>FREE</h4>
-									</div>
+							<div className='flex justify-center'>
+								<button className='mx-1 bg-green-500 text-black py-2 px-4 rounded-xl'>
+									Keywords
+								</button>
+								<button className='mx-1 bg-gray-300 text-black py-2 px-4 rounded-xl'>
+									Zip Codes
+								</button>
+							</div>
+							<div className='flex justify-center mt-3'>
+								<h3 className='text-black font-medium text-lg'>Renewal frequency</h3>
+							</div>
+							<div className='flex justify-center mt-1'>
+								<button className='mx-1 bg-green-500 text-black py-2 px-4 rounded-xl'>
+									3-Month
+								</button>
+								<button className='mx-1 bg-gray-300 text-black py-2 px-4 rounded-xl'>
+									6-Month
+								</button>
+								<button className='mx-1 bg-gray-300 text-black py-2 px-4 rounded-xl'>
+									12-Month
+								</button>
+							</div>
 
-									<div className='mx-3 w-40'>
-										<div className='mx-auto w-full h-32 flex items-center justify-center'>
-											<Image
-												src={Tier2}
-												alt="img"
 
-												className="w-20 sm:w-32"
-											/>
-										</div>
-										<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold uppercase'>Owl</h4>
-									</div>
-									<div className='mx-3 w-40'>
-										<div className='mx-auto w-full h-32 flex items-center justify-center'>
-											<Image
-												src={BookWorm}
-												alt="img"
+							<div className='flex justify-center mt-7 items-center'>
 
-												className="w-20 sm:w-32"
-											/>
-										</div>
-										<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold uppercase'>Worm</h4>
+								<div className='border-2 border-black rounded-full flex items-center justify-center w-24 text-xl font-bold h-24'>
+									<div>
+										<h3 className='flex text-center justify-center'>$0.67</h3>
+										<h3 className='flex text-center justify-center'>each</h3>
 									</div>
 								</div>
-								<div className='flex mt-4 sm:mt-8 justify-center'>
-
-									<button type="btn" className='mx-1 sm:mx-2 duration-300 ease-in-out bg-white font-bold border border-[#eb5757] hover:bg-[#eb5757] hover:text-white px-6 text-[#eb5757] py-2 rounded-full'>Cancel</button>
+							</div>
 
 
-									<button className='mx-1 sm:mx-2 duration-300 ease-in-out hover:bg-white font-bold border hover:border-[#2EAAED] bg-[#2EAAED] text-white px-6 hover:text-[#2EAAED] py-2 rounded-full' type="btn" >Upgrade Now </button>
+							<div className='flex justify-center mt-7 items-center'>
+								<h3 className='text-xl font-medium mr-3'>Total</h3>
+								<div className='border-8 border-black px-3 py-1'>$8.00</div>
+							</div>
+							<div className='flex justify-center mt-7'>
+								<button className='sm:mx-2 duration-300 ease-in-out hover:bg-white font-bold border hover:border-green-600 bg-green-600 text-white px-12 hover:text-green-600 py-3 mx-auto rounded-full' type="btn" >Buy </button>
+							</div>
 
+						</div>
+						<div className='w-full mx-auto mt-2 sm:mt-0'>
+							<div className='flex items-center justify-center'>
+								<div className='mx-3 w-40'>
+									<div className='mx-auto w-full h-32 flex items-center justify-center'>
+										<Image
+											src={FreePlan}
+											alt="img"
+
+											className="w-20 sm:w-32"
+										/>
+									</div>
+									<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold uppercase'>FREE</h4>
 								</div>
+
+								<div className='mx-3 w-40'>
+									<div className='mx-auto w-full h-32 flex items-center justify-center'>
+										<Image
+											src={Tier2}
+											alt="img"
+
+											className="w-20 sm:w-32"
+										/>
+									</div>
+									<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold uppercase'>Owl</h4>
+								</div>
+								<div className='mx-3 w-40'>
+									<div className='mx-auto w-full h-32 flex items-center justify-center'>
+										<Image
+											src={BookWorm}
+											alt="img"
+
+											className="w-20 sm:w-32"
+										/>
+									</div>
+									<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold uppercase'>Worm</h4>
+								</div>
+							</div>
+							<div className='flex mt-4 sm:mt-8 justify-center'>
+
+								<button type="btn" className='mx-1 sm:mx-2 duration-300 ease-in-out bg-white font-bold border border-[#eb5757] hover:bg-[#eb5757] hover:text-white px-6 text-[#eb5757] py-2 rounded-full'>Cancel</button>
+
+
+								<button className='mx-1 sm:mx-2 duration-300 ease-in-out hover:bg-white font-bold border hover:border-[#2EAAED] bg-[#2EAAED] text-white px-6 hover:text-[#2EAAED] py-2 rounded-full' type="btn" >Upgrade Now </button>
+
 							</div>
 						</div>
 					</div>
