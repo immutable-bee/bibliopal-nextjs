@@ -145,13 +145,13 @@ const SignInPage = () => {
               </Button>
             </form>
             <div class="relative py-4">
-            <div class="absolute inset-0 flex items-center" aria-hidden="true">
-              <div class="w-full border-t border-[#ffc71f]"></div>
+              <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                <div class="w-full border-t border-[#ffc71f]"></div>
+              </div>
+              <div class="relative flex justify-center text-sm font-medium leading-6">
+                <span class="bg-white font-medium px-6 text-gray-600">Or</span>
+              </div>
             </div>
-            <div class="relative flex justify-center text-sm font-medium leading-6">
-              <span class="bg-white font-medium px-6 text-gray-600">Or</span>
-            </div>
-          </div>
             <div id="social-auth-container">
               <Button
                 size={""}
@@ -200,7 +200,7 @@ const SignInPage = () => {
         content={
           <div className="auth-content-container">
             {" "}
-            <Loading id="login-loading" size="xl"></Loading>
+            <Loading id="login-loading" size="xl"></loading>
           </div>
         }
       />

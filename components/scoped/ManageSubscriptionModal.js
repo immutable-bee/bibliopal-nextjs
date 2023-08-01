@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import ButtonComponent from '../utility/Button'
-import LoadingComponent from '../utility/Loading';
+import LoadingComponent from '../utility/loading';
 import ModalComponent from '../utility/Modal';
 const ManageSubscriptionModal = (props) => {
   const [subscriptionStatus, setSubscriptionStatus] = useState(
@@ -754,7 +754,7 @@ export default ManageSubscriptionModal;
 // import { useState, useEffect } from "react";
 // import { useSession } from "next-auth/react";
 // import ButtonComponent from '@/components/utility/Button'
-// import LoadingComponent from '@/components/utility/Loading';
+// import LoadingComponent from '@/components/utility/loading';
 // import ModalComponent from '@/components/utility/Modal';
 // const ManageSubscriptionModal = (props) => {
 //   const [subscriptionStatus, setSubscriptionStatus] = useState(

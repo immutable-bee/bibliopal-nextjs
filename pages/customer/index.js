@@ -5,7 +5,7 @@ import Image from 'next/image';
 // import 'bootstrap/dist/css/bootstrap.css';
 import Inputcomponent from "@/components/customer/Inputcomponent";
 import HeaderComponent from "@/components/customer/HeaderComponent";
-import Loading from "../../components/utility/Loading";
+import Loading from "../../components/utility/loading";
 import PaginationComponent from '../../components/utility/Pagination';
 // import ProfileComponent from '@/components/customer/ProfileComponent';
 const Home = () => {
