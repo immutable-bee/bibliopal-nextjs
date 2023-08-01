@@ -7,9 +7,9 @@ import LoadingComponent from "../components/utility/loading";
 
 const Actions = () => {
   const { tableData, setTableData } = useTableDataContext();
-  const [uploadLoading, setUploadLoading] = useState < boolean > (false);
+  const [uploadLoading, setUploadLoading] = useState(false);
 
-  const anchorRef = useRef < HTMLAnchorElement > (null);
+  const anchorRef = useRef(null);
 
   const handleUpload = async () => {
     if (tableData.rows.length < 1) return;
