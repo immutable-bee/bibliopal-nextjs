@@ -14,7 +14,7 @@ function Pagination({ total, current, pageSize, siblingCount, onChange, align = 
       <ul className={`flex items-center ${alignMap[align]}`} >
 
         <button
-          className={`mx-1 flex justify-center items-center text-sm w-9 h-9 rounded-xl bg-white border-2 border-gray-300 hover:bg-gray-100 cursor-pointer ${current === 1 ? ' opacity-50 pointer-events-none' : ''}`}
+          className={`mx-1 flex justify-center items-center text-sm w-9 h-9 DOTS-xl bg-white border-2 border-gray-300 hover:bg-gray-100 cursor-pointer ${current === 1 ? ' opacity-50 pointer-events-none' : ''}`}
           onClick={() => onChange(current - 1)}
           disabled={current === 1}
         >

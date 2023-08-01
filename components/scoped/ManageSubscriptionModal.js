@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 import ButtonComponent from '../utility/Button'
 import LoadingComponent from '../utility/loading';
 import ModalComponent from '../utility/Modal';
+import { useCallback } from 'react';
+
 const ManageSubscriptionModal = (props) => {
   const [subscriptionStatus, setSubscriptionStatus] = useState(
     props.subscriptionStatus
