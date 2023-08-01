@@ -200,7 +200,7 @@ const SignInPage = () => {
         content={
           <div className="auth-content-container">
             {" "}
-            <Loading id="login-loading" size="xl"></loading>
+            <Loading id="login-loading" size="xl" />
           </div>
         }
       />
