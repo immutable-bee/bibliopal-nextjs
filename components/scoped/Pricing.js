@@ -2,304 +2,280 @@ import React, { useState } from 'react';
 
 const Pricing = () => {
     const pricingData = [
-        {
-            "__1": "keywords",
-            "__2": "Monthly each",
-            "__3": "3 months",
-            "__4": "",
-            "__5": "Zip Codes",
-            "__6": "Monthly each",
-            "__7": "3 months"
-        },
-        {
-            "__1": 1,
-            "__2": "$0.67",
-            "__3": "$2.00",
-            "__4": "",
-            "__5": 1,
-            "__6": "$1.67",
-            "__7": "$5.00"
-        },
-        {
-            "__1": 2,
-            "__2": "$0.63",
-            "__3": "$3.80",
-            "__4": "",
-            "__5": 2,
-            "__6": "$1.58",
-            "__7": "$9.50"
-        },
-        {
-            "__1": 3,
-            "__2": "$0.60",
-            "__3": "$5.40",
-            "__4": "",
-            "__5": 3,
-            "__6": "$1.50",
-            "__7": "$13.50"
-        },
-        {
-            "__1": 4,
-            "__2": "$0.57",
-            "__3": "$6.80",
-            "__4": "",
-            "__5": 4,
-            "__6": "$1.42",
-            "__7": "$17.00"
-        },
-        {
-            "__1": 5,
-            "__2": "$0.53",
-            "__3": "$8.00",
-            "__4": "",
-            "__5": 5,
-            "__6": "$1.33",
-            "__7": "$20.00"
-        },
-        {
-            "__1": 6,
-            "__2": "$0.50",
-            "__3": "$9.00",
-            "__4": "",
-            "__5": 6,
-            "__6": "$1.25",
-            "__7": "$22.50"
-        },
-        {
-            "__1": 7,
-            "__2": "$0.47",
-            "__3": "$9.80",
-            "__4": "",
-            "__5": 7,
-            "__6": "$1.17",
-            "__7": "$24.50"
-        },
-        {
-            "__1": 8,
-            "__2": "$0.43",
-            "__3": "$10.40",
-            "__4": "",
-            "__5": 8,
-            "__6": "$1.08",
-            "__7": "$26.00"
-        },
-        {
-            "__1": 9,
-            "__2": "$0.40",
-            "__3": "$10.80",
-            "__4": "",
-            "__5": 9,
-            "__6": "$1.00",
-            "__7": "$27.00"
-        },
-        {
-            "__1": 10,
-            "__2": "$0.37",
-            "__3": "$11.00",
-            "__4": "",
-            "__5": 10,
-            "__6": "$0.92",
-            "__7": "$27.50"
-        },
 
         {
-            "__1": "keywords",
-            "__2": "Monthly each",
-            "__3": "6 months",
-            "__4": "",
-            "__5": "Zip Codes",
-            "__6": "Monthly each",
-            "__7": "6 months"
+            validity: '3 months',
+            keyword: 1,
+            keyword_price: "$0.67",
+            keyword_set_month_price: "$2.00",
+            zip_codes: 1,
+            zip_code_price: "$1.67",
+            zip_code_set_month_price: "$5.00"
         },
         {
-            "__1": 1,
-            "__2": "$0.50",
-            "__3": "$3.00",
-            "__4": "",
-            "__5": 1,
-            "__6": "$1.33",
-            "__7": "$8.00"
+            validity: '3 months',
+            keyword: 2,
+            keyword_price: "$0.63",
+            keyword_set_month_price: "$3.80",
+            zip_codes: 2,
+            zip_code_price: "$1.58",
+            zip_code_set_month_price: "$9.50"
         },
         {
-            "__1": 2,
-            "__2": "$0.48",
-            "__3": "$5.70",
-            "__4": "",
-            "__5": 2,
-            "__6": "$1.27",
-            "__7": "$15.20"
+            validity: '3 months',
+            keyword: 3,
+            keyword_price: "$0.60",
+            keyword_set_month_price: "$5.40",
+            zip_codes: 3,
+            zip_code_price: "$1.50",
+            zip_code_set_month_price: "$13.50"
         },
         {
-            "__1": 3,
-            "__2": "$0.45",
-            "__3": "$8.10",
-            "__4": "",
-            "__5": 3,
-            "__6": "$1.20",
-            "__7": "$21.60"
+            validity: '3 months',
+            keyword: 4,
+            keyword_price: "$0.57",
+            keyword_set_month_price: "$6.80",
+            zip_codes: 4,
+            zip_code_price: "$1.42",
+            zip_code_set_month_price: "$17.00"
         },
         {
-            "__1": 4,
-            "__2": "$0.43",
-            "__3": "$10.20",
-            "__4": "",
-            "__5": 4,
-            "__6": "$1.13",
-            "__7": "$27.20"
+            validity: '3 months',
+            keyword: 5,
+            keyword_price: "$0.53",
+            keyword_set_month_price: "$8.00",
+            zip_codes: 5,
+            zip_code_price: "$1.33",
+            zip_code_set_month_price: "$20.00"
         },
         {
-            "__1": 5,
-            "__2": "$0.40",
-            "__3": "$12.00",
-            "__4": "",
-            "__5": 5,
-            "__6": "$1.07",
-            "__7": "$32.00"
+            validity: '3 months',
+            keyword: 6,
+            keyword_price: "$0.50",
+            keyword_set_month_price: "$9.00",
+            zip_codes: 6,
+            zip_code_price: "$1.25",
+            zip_code_set_month_price: "$22.50"
         },
         {
-            "__1": 6,
-            "__2": "$0.38",
-            "__3": "$13.50",
-            "__4": "",
-            "__5": 6,
-            "__6": "$1.00",
-            "__7": "$36.00"
+            validity: '3 months',
+            keyword: 7,
+            keyword_price: "$0.47",
+            keyword_set_month_price: "$9.80",
+            zip_codes: 7,
+            zip_code_price: "$1.17",
+            zip_code_set_month_price: "$24.50"
         },
         {
-            "__1": 7,
-            "__2": "$0.35",
-            "__3": "$14.70",
-            "__4": "",
-            "__5": 7,
-            "__6": "$0.93",
-            "__7": "$39.20"
+            validity: '3 months',
+            keyword: 8,
+            keyword_price: "$0.43",
+            keyword_set_month_price: "$10.40",
+            zip_codes: 8,
+            zip_code_price: "$1.08",
+            zip_code_set_month_price: "$26.00"
         },
         {
-            "__1": 8,
-            "__2": "$0.33",
-            "__3": "$15.60",
-            "__4": "",
-            "__5": 8,
-            "__6": "$0.87",
-            "__7": "$41.60"
+            validity: '3 months',
+            keyword: 9,
+            keyword_price: "$0.40",
+            keyword_set_month_price: "$10.80",
+            zip_codes: 9,
+            zip_code_price: "$1.00",
+            zip_code_set_month_price: "$27.00"
         },
         {
-            "__1": 9,
-            "__2": "$0.30",
-            "__3": "$16.20",
-            "__4": "",
-            "__5": 9,
-            "__6": "$0.80",
-            "__7": "$43.20"
-        },
-        {
-            "__1": 10,
-            "__2": "$0.28",
-            "__3": "$16.50",
-            "__4": "",
-            "__5": 10,
-            "__6": "$0.73",
-            "__7": "$44.00"
+            validity: '3 months',
+            keyword: 10,
+            keyword_price: "$0.37",
+            keyword_set_month_price: "$11.00",
+            zip_codes: 10,
+            zip_code_price: "$0.92",
+            zip_code_set_month_price: "$27.50"
         },
 
+
         {
-            "__1": "keywords",
-            "__2": "Monthly each",
-            "__3": "12 months",
-            "__4": "",
-            "__5": "Zip Codes",
-            "__6": "Monthly each",
-            "__7": "12 months"
+            validity: '6 months',
+            keyword: 1,
+            keyword_price: "$0.50",
+            keyword_set_month_price: "$3.00",
+            zip_codes: 1,
+            zip_code_price: "$1.33",
+            zip_code_set_month_price: "$8.00"
         },
         {
-            "__1": 1,
-            "__2": "$0.33",
-            "__3": "$4.00",
-            "__4": "",
-            "__5": 1,
-            "__6": "$0.83",
-            "__7": "$10.00"
+            validity: '6 months',
+            keyword: 2,
+            keyword_price: "$0.48",
+            keyword_set_month_price: "$5.70",
+            zip_codes: 2,
+            zip_code_price: "$1.27",
+            zip_code_set_month_price: "$15.20"
         },
         {
-            "__1": 2,
-            "__2": "$0.32",
-            "__3": "$7.60",
-            "__4": "",
-            "__5": 2,
-            "__6": "$0.79",
-            "__7": "$19.00"
+            validity: '6 months',
+            keyword: 3,
+            keyword_price: "$0.45",
+            keyword_set_month_price: "$8.10",
+            zip_codes: 3,
+            zip_code_price: "$1.20",
+            zip_code_set_month_price: "$21.60"
         },
         {
-            "__1": 3,
-            "__2": "$0.30",
-            "__3": "$10.80",
-            "__4": "",
-            "__5": 3,
-            "__6": "$0.75",
-            "__7": "$27.00"
+            validity: '6 months',
+            keyword: 4,
+            keyword_price: "$0.43",
+            keyword_set_month_price: "$10.20",
+            zip_codes: 4,
+            zip_code_price: "$1.13",
+            zip_code_set_month_price: "$27.20"
         },
         {
-            "__1": 4,
-            "__2": "$0.28",
-            "__3": "$13.60",
-            "__4": "",
-            "__5": 4,
-            "__6": "$0.71",
-            "__7": "$34.00"
+            validity: '6 months',
+            keyword: 5,
+            keyword_price: "$0.40",
+            keyword_set_month_price: "$12.00",
+            zip_codes: 5,
+            zip_code_price: "$1.07",
+            zip_code_set_month_price: "$32.00"
         },
         {
-            "__1": 5,
-            "__2": "$0.27",
-            "__3": "$16.00",
-            "__4": "",
-            "__5": 5,
-            "__6": "$0.67",
-            "__7": "$40.00"
+            validity: '6 months',
+            keyword: 6,
+            keyword_price: "$0.38",
+            keyword_set_month_price: "$13.50",
+            zip_codes: 6,
+            zip_code_price: "$1.00",
+            zip_code_set_month_price: "$36.00"
         },
         {
-            "__1": 6,
-            "__2": "$0.25",
-            "__3": "$18.00",
-            "__4": "",
-            "__5": 6,
-            "__6": "$0.63",
-            "__7": "$45.00"
+            validity: '6 months',
+            keyword: 7,
+            keyword_price: "$0.35",
+            keyword_set_month_price: "$14.70",
+            zip_codes: 7,
+            zip_code_price: "$0.93",
+            zip_code_set_month_price: "$39.20"
         },
         {
-            "__1": 7,
-            "__2": "$0.23",
-            "__3": "$19.60",
-            "__4": "",
-            "__5": 7,
-            "__6": "$0.58",
-            "__7": "$49.00"
+            validity: '6 months',
+            keyword: 8,
+            keyword_price: "$0.33",
+            keyword_set_month_price: "$15.60",
+            zip_codes: 8,
+            zip_code_price: "$0.87",
+            zip_code_set_month_price: "$41.60"
         },
         {
-            "__1": 8,
-            "__2": "$0.22",
-            "__3": "$20.80",
-            "__4": "",
-            "__5": 8,
-            "__6": "$0.54",
-            "__7": "$52.00"
+            validity: '6 months',
+            keyword: 9,
+            keyword_price: "$0.30",
+            keyword_set_month_price: "$16.20",
+            zip_codes: 9,
+            zip_code_price: "$0.80",
+            zip_code_set_month_price: "$43.20"
         },
         {
-            "__1": 9,
-            "__2": "$0.20",
-            "__3": "$21.60",
-            "__4": "",
-            "__5": 9,
-            "__6": "$0.50",
-            "__7": "$54.00"
+            validity: '6 months',
+            keyword: 10,
+            keyword_price: "$0.28",
+            keyword_set_month_price: "$16.50",
+            zip_codes: 10,
+            zip_code_price: "$0.73",
+            zip_code_set_month_price: "$44.00"
+        },
+
+
+        {
+            validity: '12 months',
+            keyword: 1,
+            keyword_price: "$0.33",
+            keyword_set_month_price: "$4.00",
+            zip_codes: 1,
+            zip_code_price: "$0.83",
+            zip_code_set_month_price: "$10.00"
         },
         {
-            "__1": 10,
-            "__2": "$0.18",
-            "__3": "$22.00",
-            "__4": "",
-            "__5": 10,
-            "__6": "$0.46",
-            "__7": "$55.00"
+            validity: '12 months',
+            keyword: 2,
+            keyword_price: "$0.32",
+            keyword_set_month_price: "$7.60",
+            zip_codes: 2,
+            zip_code_price: "$0.79",
+            zip_code_set_month_price: "$19.00"
+        },
+        {
+            validity: '12 months',
+            keyword: 3,
+            keyword_price: "$0.30",
+            keyword_set_month_price: "$10.80",
+            zip_codes: 3,
+            zip_code_price: "$0.75",
+            zip_code_set_month_price: "$27.00"
+        },
+        {
+            validity: '12 months',
+            keyword: 4,
+            keyword_price: "$0.28",
+            keyword_set_month_price: "$13.60",
+            zip_codes: 4,
+            zip_code_price: "$0.71",
+            zip_code_set_month_price: "$34.00"
+        },
+        {
+            validity: '12 months',
+            keyword: 5,
+            keyword_price: "$0.27",
+            keyword_set_month_price: "$16.00",
+            zip_codes: 5,
+            zip_code_price: "$0.67",
+            zip_code_set_month_price: "$40.00"
+        },
+        {
+            validity: '12 months',
+            keyword: 6,
+            keyword_price: "$0.25",
+            keyword_set_month_price: "$18.00",
+            zip_codes: 6,
+            zip_code_price: "$0.63",
+            zip_code_set_month_price: "$45.00"
+        },
+        {
+            validity: '12 months',
+            keyword: 7,
+            keyword_price: "$0.23",
+            keyword_set_month_price: "$19.60",
+            zip_codes: 7,
+            zip_code_price: "$0.58",
+            zip_code_set_month_price: "$49.00"
+        },
+        {
+            validity: '12 months',
+            keyword: 8,
+            keyword_price: "$0.22",
+            keyword_set_month_price: "$20.80",
+            zip_codes: 8,
+            zip_code_price: "$0.54",
+            zip_code_set_month_price: "$52.00"
+        },
+        {
+            validity: '12 months',
+            keyword: 9,
+            keyword_price: "$0.20",
+            keyword_set_month_price: "$21.60",
+            zip_codes: 9,
+            zip_code_price: "$0.50",
+            zip_code_set_month_price: "$54.00"
+        },
+        {
+            validity: '12 months',
+            keyword: 10,
+            keyword_price: "$0.18",
+            keyword_set_month_price: "$22.00",
+            zip_codes: 10,
+            zip_code_price: "$0.46",
+            zip_code_set_month_price: "$55.00"
         }
     ]
     const [selectedFrequency, setSelectedFrequency] = useState('3 months');
@@ -307,51 +283,30 @@ const Pricing = () => {
     const [selectedCount, setSelectedCount] = useState(1);
     const [selectedKeywords, setSelectedKeywords] = useState(1);
 
-    const getFrequencyOffset = (frequency) => {
-        for (let i = 0; i < pricingData.length; i++) {
-            if (pricingData[i].__3 === frequency) {
-                return i;
-            }
-        }
-        return 0; // default to 0 if not found
-    };
+
 
 
 
     const getPrice = () => {
-        // Determine the index offset based on the selected frequency
-        let frequencyOffset;
-        switch (selectedFrequency) {
-            case '3 months':
-                frequencyOffset = 0;
-                break;
-            case '6 months':
-                frequencyOffset = 14;
-                break;
-            case '12 months':
-                frequencyOffset = 28;
-                break;
-            default:
-                return 'N/A';
-        }
-
-        // Determine the correct key based on the selected type
-        let priceKey;
-        if (selectedType === 'keywords') {
-            priceKey = '__2';
-        } else if (selectedType === 'zipCodes') {
-            priceKey = '__6';
-        } else {
-            return 'N/A';
-        }
-
-        // Convert selectedKeywords to a number, and find the correct object in pricingData
-        const index = frequencyOffset + Number(selectedKeywords);
-        const priceObj = pricingData[index];
-
-        // Return the appropriate price or 'N/A' if not found
-        return priceObj ? priceObj[priceKey] : 'N/A';
+        console.log(selectedFrequency, selectedKeywords)
+        const filtered = pricingData.filter(x => x.validity === selectedFrequency && x.keyword === Number(selectedKeywords))
+        console.log(filtered)
+        return filtered && filtered[0] && filtered[0][selectedType === 'keywords' ? 'keyword_price' : 'zip_code_price']
     };
+
+    const increase = () => {
+        if (selectedKeywords === 10) {
+            setSelectedKeywords(0);
+        } else {
+            setSelectedKeywords(selectedKeywords + 1);
+        }
+    }
+
+
+    const handleClick = (point) => {
+        setSelectedKeywords(point);
+    };
+
 
 
 
@@ -360,7 +315,8 @@ const Pricing = () => {
 
     const getTotal = () => {
         // You can implement your logic to calculate the total price here
-        return getPrice();
+        return parseFloat(getPrice().substring(1)) * selectedKeywords
+
     };
 
     return (
@@ -413,14 +369,28 @@ const Pricing = () => {
                     className='px-3 py-2 w-20 rounded-lg'
                     onChange={e => setSelectedKeywords(e.target.value)}
                     min="1"
+                    max="10"
                 />
             </div>
 
-            <div className="flex justify-center mt-3 items-center">
-                <div className="border-2 border-black rounded-full flex items-center justify-center w-24 text-xl font-bold h-24">
-                    <div>
-                        <h3 className="flex text-center justify-center">{getPrice()}</h3>
-                        <h3 className="flex text-center justify-center">each</h3>
+            <div className="flex justify-center mt-10 items-center">
+
+                <div className="relative border-2 border-black rounded-full w-24 h-24">
+
+
+                    {Array.from({ length: 10 }, (_, index) => (
+                        <div
+                            key={index}
+                            onClick={() => handleClick(index + 1)}
+                            className={`absolute w-2 h-2 bg-black rounded-full cursor-pointer point-${index + 1}`}
+                        />
+                    ))}
+                    <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
+
+                        <div className="text-xl font-bold">
+                            <h3 className="flex text-center justify-center">{getPrice()}</h3>
+                            <h3 className="flex text-center justify-center">each</h3>
+                        </div>
                     </div>
                 </div>
             </div>
