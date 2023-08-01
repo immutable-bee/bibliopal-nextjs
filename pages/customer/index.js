@@ -5,8 +5,8 @@ import styles from "./home.module.scss";
 // import 'bootstrap/dist/css/bootstrap.css';
 import Inputcomponent from "@/components/customer/Inputcomponent";
 import HeaderComponent from "@/components/customer/HeaderComponent";
-import Loading from "../../components/utilities/Loading";
-import PaginationComponent from '../../components/utilities/Pagination';
+import Loading from "../../components/utility/Loading";
+import PaginationComponent from '../../components/utility/Pagination';
 // import ProfileComponent from '@/components/customer/ProfileComponent';
 const Home = () => {
   const [loadingListings, setLoadingListings] = useState(false);

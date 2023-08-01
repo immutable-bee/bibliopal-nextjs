@@ -3,7 +3,7 @@ import Papa from "papaparse";
 import { useRef, useState } from "react";
 import { TableData, useTableDataContext } from "../context/TableDataContext";
 import { setTableDataToStorage } from "../helpers/localstorage";
-import Loading from "./utilities/Loading";
+import Loading from "./utility/Loading";
 
 const Actions = () => {
   const { tableData, setTableData } = useTableDataContext();
