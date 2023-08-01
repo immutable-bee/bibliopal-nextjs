@@ -64,7 +64,8 @@ const ManageSubscriptionModal = (props) => {
     return details;
   };
 
-  const upgradePlanDataHandler = async () => {
+  const upgradePlanDataHandler = useCallback(async () => {
+
     setAmountDueLoading(true);
     const response = await fetch(
       "api/stripe/get-subscription-upgrade-details",
@@ -79,7 +80,8 @@ const ManageSubscriptionModal = (props) => {
     const data = await response.json();
     setUpgradePlanData(data);
     setAmountDueLoading(false);
-  };
+  }, [upgradeRequest, subscriptionStatus]);
+
 
   const downgradeSubscription = async () => {
     setRequestResponseLoading(true);
@@ -147,16 +149,13 @@ const ManageSubscriptionModal = (props) => {
       }, 2500);
     }
   };
-
   const billingDateHandler = () => {
-    //if (subscriptionData) {
     const nextBillingDate = new Date(
       props.subscriptionData[0]?.current_period_end * 1000
     );
     const formattedDate = `${nextBillingDate.getMonth() + 1
       }/${nextBillingDate.getDate()}/${nextBillingDate.getFullYear()}`;
     return formattedDate;
-    //}
   };
 
   useEffect(() => {
@@ -166,6 +165,8 @@ const ManageSubscriptionModal = (props) => {
     }
   }, [props.subscriptionData]);
 
+
+
   useEffect(() => {
     if (props.subscriptionStatus) {
       setSubscriptionStatus(props.subscriptionStatus);
@@ -173,8 +174,11 @@ const ManageSubscriptionModal = (props) => {
   }, [props.subscriptionStatus]);
 
   useEffect(() => {
-    upgradePlanDataHandler();
-  }, [upgradeRequest]);
+    (async () => {
+      await upgradePlanDataHandler();
+    })();
+  }, [upgradeRequest, upgradePlanDataHandler]);
+
 
   const upgradePlanViewHandler = () => {
     setUpgradePlanView(!upgradePlanView);
@@ -674,7 +678,7 @@ const ManageSubscriptionModal = (props) => {
         ) : (
           <ButtonComponent className="!mx-1"
             color="blue" full rounded onClick={handleUnsubscribe} >
-            Yes I'm Sure
+            Yes I am Sure
           </ButtonComponent>
         )}
         <ButtonComponent

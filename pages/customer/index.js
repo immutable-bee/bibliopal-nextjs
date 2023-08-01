@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./home.module.scss";
-// import Image from 'next/image';
+import Image from 'next/image';
 // import Link from 'next/link';
 // import 'bootstrap/dist/css/bootstrap.css';
 import Inputcomponent from "@/components/customer/Inputcomponent";
@@ -140,7 +140,7 @@ const Home = () => {
                       >
                         <div className="flex">
                           <div className="w-24 flex-shrink-0 mr-3 rounded-lg">
-                            <img src={data.image_url} className="rounded" alt="" />
+                            <Image src={data.image_url} className="rounded" alt="" />
                           </div>
                           <div className="w-full mb-3 ">
                             <h3 className="text-black h-14 overflow-y-auto text-lg font-semibold">
