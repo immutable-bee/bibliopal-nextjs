@@ -118,15 +118,6 @@ const Inputcomponent = ({
                   type="text"
                 ></input>
               </div>
-              <div className="px-3 sm:block sm:py-0 py-1 flex justify-center items-center">
-                <label className="text-sm min-w-fit font-normal">
-                  ZIP CODE 2
-                </label>
-                <input
-                  className="w-full sm:w-auto focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 px-3 rounded-lg mx-2 py-2"
-                  type="text"
-                ></input>
-              </div>
             </div>
           </div>
         </section>

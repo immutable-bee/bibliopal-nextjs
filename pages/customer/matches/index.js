@@ -10,7 +10,7 @@ import Head from "next/head"
 const Matches = () => {
     const [active, setActive] = useState('all');
 
-    const headers = ['Store', 'Book sale', 'Date', 'Zip Code', ''];
+    const headers = ['Store', 'Library sale', 'Date', 'Zip Code', ''];
 
     const boxdata = [
         {

@@ -291,7 +291,7 @@ const Pricing = () => {
         console.log(selectedFrequency, computedSelectedKeyword())
         const filtered = pricingData.filter(x => x.validity === selectedFrequency && x.keyword === Number(computedSelectedKeyword()))
         console.log(filtered)
-        return filtered && filtered[0] && filtered[0][selectedType === 'keywords' ? 'keyword_price' : 'zip_code_price']
+        return filtered && filtered[0] ? filtered[0][selectedType === 'keywords' ? 'keyword_price' : 'zip_code_price'] : 0
     };
 
     const onChanged = (e) => {
@@ -307,7 +307,7 @@ const Pricing = () => {
     const getTotal = () => {
         console.log(computedSelectedKeyword())
         // You can implement your logic to calculate the total price here
-        return getPrice() && (parseFloat(getPrice().substring(1)) * computedSelectedKeyword()).toFixed(2)
+        return getPrice() ? (parseFloat(getPrice().substring(1)) * computedSelectedKeyword()).toFixed(2) : 0
 
     };
     const [value, setValue] = useState(0.25)
