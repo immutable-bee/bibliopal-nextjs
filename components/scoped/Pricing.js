@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Donut } from 'react-dial-knob'
-import { HydrationProvider, Server, Client } from "react-hydration-provider";
+import { CircularInput, CircularTrack, CircularProgress, CircularThumb } from 'react-circular-input';
 
 
 const Pricing = () => {
@@ -286,29 +285,18 @@ const Pricing = () => {
     const [selectedCount, setSelectedCount] = useState(1);
     const [selectedKeywords, setSelectedKeywords] = useState(1);
 
-
-
-
+    const computedSelectedKeyword = () => Math.round(stepValue(selectedKeywords) * 10)
 
     const getPrice = () => {
-        console.log(selectedFrequency, selectedKeywords)
-        const filtered = pricingData.filter(x => x.validity === selectedFrequency && x.keyword === Number(selectedKeywords))
+        console.log(selectedFrequency, computedSelectedKeyword())
+        const filtered = pricingData.filter(x => x.validity === selectedFrequency && x.keyword === Number(computedSelectedKeyword()))
         console.log(filtered)
         return filtered && filtered[0] && filtered[0][selectedType === 'keywords' ? 'keyword_price' : 'zip_code_price']
     };
 
-    const increase = () => {
-        if (selectedKeywords === 10) {
-            setSelectedKeywords(0);
-        } else {
-            setSelectedKeywords(selectedKeywords + 1);
-        }
+    const onChanged = (e) => {
+        console.log(e)
     }
-
-
-    const handleClick = (point) => {
-        setSelectedKeywords(point);
-    };
 
 
 
@@ -317,10 +305,18 @@ const Pricing = () => {
 
 
     const getTotal = () => {
+        console.log(computedSelectedKeyword())
         // You can implement your logic to calculate the total price here
-        return (parseFloat(getPrice().substring(1)) * selectedKeywords).toFixed(2)
+        return getPrice() && (parseFloat(getPrice().substring(1)) * computedSelectedKeyword()).toFixed(2)
 
     };
+    const [value, setValue] = useState(0.25)
+
+    const stepValue = v => Math.round(v * 9) / 9
+
+
+
+
 
     return (
         <div className="pb-4 sm:pb-8">
@@ -365,10 +361,10 @@ const Pricing = () => {
                 </button>
 
             </div> */}
-            <div className='flex justify-center mt-7 mb-5'>
+            <div className='flex justify-center mt-7 mb-10'>
                 <input
                     type="number"
-                    value={selectedKeywords}
+                    value={computedSelectedKeyword()}
 
                     className='px-3 py-2 w-20 rounded-lg border-2 border-gray-500'
 
@@ -378,50 +374,30 @@ const Pricing = () => {
             </div>
             <div className='relative w-20 mx-auto'>
                 <div className='flex justify-center'>
-                    <HydrationProvider>
-                        <Client>
-                            <Donut
-                                diameter={200}
-                                min={1}
-                                max={10}
-                                step={1}
-                                value={selectedKeywords}
-                                theme={{
-                                    donutColor: 'lightgrey',
-                                }}
-                                onValueChange={setSelectedKeywords}
-                            />
-                        </Client>
-                    </HydrationProvider>
+                    <CircularInput
+                        value={stepValue(selectedKeywords)}
+                        onChange={v => setSelectedKeywords(stepValue(v))}
+                    >
+                        <CircularTrack />
+                        <CircularProgress />
+                        <CircularThumb />
+
+                        <text x={100} y={100} textAnchor="middle" dy="0.3em" fontWeight="bold">
+
+
+                            {getPrice()}
+                            each
+                        </text>
+                    </CircularInput>
                 </div>
-                <div className="text-xl top-[4.5rem] bg-white z-50 absolute w-20 mx-auto font-bold">
+
+                {/* <div className="text-xl top-[4.5rem] bg-white z-50 absolute w-20 mx-auto font-bold">
                     <h3 className='text-center'>{getPrice()}</h3>
                     <h3 className='text-center'>each</h3>
-                </div>
+                </div> */}
 
             </div>
 
-            {/* <div className="flex justify-center mt-10 items-center">
-
-                <div className="relative border-2 border-black rounded-full w-24 h-24">
-
-
-                    {Array.from({ length: 10 }, (_, index) => (
-                        <div
-                            key={index}
-                            onClick={() => handleClick(index + 1)}
-                            className={`absolute w-2 h-2 bg-black rounded-full cursor-pointer point-${index + 1}`}
-                        />
-                    ))}
-                    <div className="absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
-
-                        <div className="text-xl font-bold">
-                            <h3 className="flex text-center justify-center">{getPrice()}</h3>
-                            <h3 className="flex text-center justify-center">each</h3>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
 
             <div className="flex justify-center mt-7 items-center">
                 <h3 className="text-xl font-medium mr-3">Total</h3>
