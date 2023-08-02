@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Donut } from 'react-dial-knob'
+import { HydrationProvider, Server, Client } from "react-hydration-provider";
+
 
 const Pricing = () => {
     const pricingData = [
@@ -315,7 +318,7 @@ const Pricing = () => {
 
     const getTotal = () => {
         // You can implement your logic to calculate the total price here
-        return parseFloat(getPrice().substring(1)) * selectedKeywords
+        return (parseFloat(getPrice().substring(1)) * selectedKeywords).toFixed(2)
 
     };
 
@@ -326,7 +329,7 @@ const Pricing = () => {
                     Buy More Alerts
                 </h3>
             </div>
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
                 <button
                     className={`${selectedType === 'keywords' ? 'bg-green-500 text-black' : 'bg-gray-300 text-black'} mx-1 py-2 px-4 rounded-xl`}
                     onClick={() => setSelectedType('keywords')}
@@ -361,19 +364,44 @@ const Pricing = () => {
                     12-Month
                 </button>
 
-            </div>
-            <div className='flex justify-center mt-7'>
+            </div> */}
+            <div className='flex justify-center mt-7 mb-5'>
                 <input
                     type="number"
                     value={selectedKeywords}
-                    className='px-3 py-2 w-20 rounded-lg'
-                    onChange={e => setSelectedKeywords(e.target.value)}
-                    min="1"
-                    max="10"
+
+                    className='px-3 py-2 w-20 rounded-lg border-2 border-gray-500'
+
+
+                    disabled
                 />
             </div>
+            <div className='relative w-20 mx-auto'>
+                <div className='flex justify-center'>
+                    <HydrationProvider>
+                        <Client>
+                            <Donut
+                                diameter={200}
+                                min={1}
+                                max={10}
+                                step={1}
+                                value={selectedKeywords}
+                                theme={{
+                                    donutColor: 'lightgrey',
+                                }}
+                                onValueChange={setSelectedKeywords}
+                            />
+                        </Client>
+                    </HydrationProvider>
+                </div>
+                <div className="text-xl top-[4.5rem] bg-white z-50 absolute w-20 mx-auto font-bold">
+                    <h3 className='text-center'>{getPrice()}</h3>
+                    <h3 className='text-center'>each</h3>
+                </div>
 
-            <div className="flex justify-center mt-10 items-center">
+            </div>
+
+            {/* <div className="flex justify-center mt-10 items-center">
 
                 <div className="relative border-2 border-black rounded-full w-24 h-24">
 
@@ -393,11 +421,11 @@ const Pricing = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="flex justify-center mt-7 items-center">
                 <h3 className="text-xl font-medium mr-3">Total</h3>
-                <div className="border-8 border-black px-3 py-1">{getTotal()}</div>
+                <div className="border-4 rounded-full border-green-600 px-3 py-1">${getTotal()}</div>
             </div>
             <div className="flex justify-center mt-7">
                 <button
