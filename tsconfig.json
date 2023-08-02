@@ -22,7 +22,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/api/fetch-isbnDB.js"
-, "components/Actions.js"  ],
+    "pages/api/fetch-isbnDB.js",
+    "components/Actions.js",
+    "pages/uploadlistings/index.js"
+  ],
   "exclude": ["node_modules"]
 }
