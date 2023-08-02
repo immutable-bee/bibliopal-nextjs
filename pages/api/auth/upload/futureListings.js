@@ -48,7 +48,7 @@ const handler = async (req, res) => {
 
     try {
       const newListings = await prisma.futurelisting.createMany({
-        data: dataWithOwnerId,
+        data: dataWithSale,
       });
       res.status(200).json({ message: "Listings created successfully" });
     } catch (error) {

@@ -10,15 +10,19 @@ const Actions = ({ isSale }) => {
 
   const anchorRef = useRef(null);
 
+  const routeHandler = () => {
+    return isSale ? "/api/upload/futureListings" : "/api/upload/listings";
+  };
+
   const handleUpload = async () => {
     if (tableData.rows.length < 1) return;
     setUploadLoading(true);
-    const response = await fetch("/api/upload/listings", {
+    const response = await fetch(routeHandler(), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ tableData: tableData.rows, isSale }),
+      body: JSON.stringify(tableData.rows),
     });
 
     const data = await response.json();
