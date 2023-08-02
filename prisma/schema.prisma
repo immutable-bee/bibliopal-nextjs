@@ -58,6 +58,18 @@ model Listing {
   author String
   format String?
   image_url String? @db.Text
+  savedListings SavedListing[]
+
+}
+
+model SavedListing {
+  id         String   @id @default(uuid())
+  consumer   Consumer @relation(fields: [consumerId], references: [id])
+  consumerId String
+  listing    Listing  @relation(fields: [listingId], references: [id])
+  listingId  String
+
+  @@unique([consumerId, listingId])
 }
 
 model FutureListing {
@@ -124,9 +136,13 @@ model Business {
   business_zip String
   url String?
   phone_number String?
+  membership MEMBERSHIP @default(FREE)
+  upload_cycle_start_date DateTime @default(now())
+  current_cycle_uploads Int @default(0)
   inventory Listing[]
   is_approved Boolean @default(false)
   library Library?
+
 }
 model Consumer {
 id String @id @default(uuid())
@@ -140,11 +156,18 @@ tracked_zips String[]
 paid_keywords String[]
 paid_zips String[]
 paid_alerts Int
+saved SavedListing[]
 }
 
 enum BUSINESSTYPE {
   THRIFT
   LIBRARY
   BOOKSTORE
+}
+
+enum MEMBERSHIP {
+  FREE
+  BASIC
+  PREMIUM
 }
 
