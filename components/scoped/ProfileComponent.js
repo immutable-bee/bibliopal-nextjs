@@ -170,7 +170,7 @@ const ProfileComponent = ({ }) => {
     const [url, setUrl] = useState("");
     const [autoUpload, setAutoUpload] = useState(false);
     const [displayContactInfo, setDisplayContactInfo] = useState(false);
-    const [visibility, setVisibility] = useState(false);
+    const [visibility, setVisibility] = useState(0);
     const [planOptions, setPlanOptions] = useState("Free");
 
     const handleSubmit = (e) => {
@@ -353,6 +353,16 @@ const ProfileComponent = ({ }) => {
                             </>
                             : ''}
 
+                        <div className="py-2">
+                            <label className="text-sm text-gray-700">30-day visibility</label>
+                            <input
+                                type="number"
+                                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                                value={visibility}
+                                onChange={(e) => setVisibility(e.target.value)}
+                            />
+                        </div>
+
 
                         <label className="relative mt-6 flex items-center cursor-pointer">
                             <input
@@ -381,17 +391,7 @@ const ProfileComponent = ({ }) => {
                             </span>
                         </label>
 
-                        <div className="mt-4">
-                            <label className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    className="bg-white form-checkbox ml-1 rounded-md h-6 w-6 text-[#2EAAED]"
-                                    checked={visibility}
-                                    onChange={() => setVisibility(!visibility)}
-                                />
-                                <span className="ml-6 text-gray-700">30-day visibility</span>
-                            </label>
-                        </div>
+
 
                         {/* <div className='mt-4'>
       <span className="text-lg text-gray-900 font-medium">Plan options:</span>

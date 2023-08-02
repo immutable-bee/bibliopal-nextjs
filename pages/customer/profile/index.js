@@ -211,52 +211,7 @@ const Profilecomponent = () => {
 						{/* <h3 className='text-xl mt-5 sm:mt-12 font-medium'>Subscription Plan</h3> */}
 						<PricingComponent />
 
-						<div className='w-full mx-auto mt-2 sm:mt-0'>
-							<div className='flex items-center justify-center'>
-								<div className='mx-3 w-40'>
-									<div className='mx-auto w-full h-32 flex items-center justify-center'>
-										<Image
-											src={FreePlan}
-											alt="img"
 
-											className="w-20 sm:w-32"
-										/>
-									</div>
-									<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold uppercase'>FREE</h4>
-								</div>
-
-								<div className='mx-3 w-40'>
-									<div className='mx-auto w-full h-32 flex items-center justify-center'>
-										<Image
-											src={Tier2}
-											alt="img"
-
-											className="w-20 sm:w-32"
-										/>
-									</div>
-									<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold uppercase'>Owl</h4>
-								</div>
-								<div className='mx-3 w-40'>
-									<div className='mx-auto w-full h-32 flex items-center justify-center'>
-										<Image
-											src={BookWorm}
-											alt="img"
-
-											className="w-20 sm:w-32"
-										/>
-									</div>
-									<h4 className='text-xl sm:text-2xl mt-3 sm:mt-4 text-center font-bold uppercase'>Worm</h4>
-								</div>
-							</div>
-							<div className='flex mt-4 sm:mt-8 justify-center'>
-
-								<button type="btn" className='mx-1 sm:mx-2 duration-300 ease-in-out bg-white font-bold border border-[#eb5757] hover:bg-[#eb5757] hover:text-white px-6 text-[#eb5757] py-2 rounded-full'>Cancel</button>
-
-
-								<button className='mx-1 sm:mx-2 duration-300 ease-in-out hover:bg-white font-bold border hover:border-[#2EAAED] bg-[#2EAAED] text-white px-6 hover:text-[#2EAAED] py-2 rounded-full' type="btn" >Upgrade Now </button>
-
-							</div>
-						</div>
 					</div>
 				</section>
 			</div >
