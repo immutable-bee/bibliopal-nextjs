@@ -1,20 +1,23 @@
-import { Button, Flex } from "@mantine/core";
 import Papa from "papaparse";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TableData, useTableDataContext } from "../context/TableDataContext";
 import { setTableDataToStorage } from "../helpers/localstorage";
 import LoadingComponent from "../components/utility/loading";
 
-const Actions = () => {
+const Actions = ({ isSale }) => {
   const { tableData, setTableData } = useTableDataContext();
   const [uploadLoading, setUploadLoading] = useState(false);
 
   const anchorRef = useRef(null);
 
+  const routeHandler = () => {
+    return isSale ? "/api/upload/futureListings" : "/api/upload/listings";
+  };
+
   const handleUpload = async () => {
     if (tableData.rows.length < 1) return;
     setUploadLoading(true);
-    const response = await fetch("/api/upload-tableData", {
+    const response = await fetch(routeHandler(), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

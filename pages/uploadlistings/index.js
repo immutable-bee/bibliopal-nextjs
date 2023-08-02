@@ -1,31 +1,14 @@
-//TODO: replace with landing page nate made in shopify, current code moved to - pages/addlistings
-
 import { useEffect, useState } from "react";
-import { TableData, useTableDataContext } from "../context/TableDataContext";
-import { setTableDataToStorage } from "../helpers/localstorage";
+import { useTableDataContext } from "../../context/TableDataContext";
+import { setTableDataToStorage } from "../../helpers/localstorage";
 
 import ListingComponent from "@/components/scoped/ListingComponent";
 
-export type ErrorT = string;
-export type SetError = React.Dispatch<React.SetStateAction<ErrorT>>;
-
-type NewBookInfo = {
-  title: string;
-  author: string;
-  format?: string;
-  isbn: string;
-  image_url?: string;
-};
-
-export type DeleteBookRow = (ISBN: string) => void;
-
-export type InputsFlowRef = { current: React.RefObject<HTMLInputElement[]> };
-
 const Index = () => {
   const { tableData, setTableData } = useTableDataContext();
-  const [error, setError] = useState<ErrorT>("");
+  const [error, setError] = useState("");
 
-  const createNewRow = (newBookInfo: NewBookInfo) => {
+  const createNewRow = (newBookInfo) => {
     let { rows } = tableData;
 
     const isISBNexist = rows.find((row) => row.isbn === newBookInfo.isbn);
@@ -40,7 +23,7 @@ const Index = () => {
         image_url: newBookInfo.image_url || "",
       });
 
-    const newTableData: TableData = {
+    const newTableData = {
       ...tableData,
       rows: [...rows],
     };
@@ -50,12 +33,11 @@ const Index = () => {
     setTableDataToStorage(newTableData);
   };
 
-  const deleteBookRow = (ISBN: string): void => {
+  const deleteBookRow = (ISBN) => {
     const newTableData = {
       ...tableData,
       rows: tableData.rows.filter((row) => row.isbn !== ISBN),
     };
-
     setTableData(newTableData);
 
     setTableDataToStorage(newTableData);

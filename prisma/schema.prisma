@@ -11,8 +11,45 @@ datasource db {
 }
 
 
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+
 model Listing {
   id String @id @default(uuid())
+  owner Business @relation(fields: [ownerId], references: [id])
   ownerId String
   date_listed DateTime @default(now())
   days_to_expiry Int @default(7)
@@ -21,4 +58,116 @@ model Listing {
   author String
   format String?
   image_url String? @db.Text
+  savedListings SavedListing[]
+
 }
+
+model SavedListing {
+  id         String   @id @default(uuid())
+  consumer   Consumer @relation(fields: [consumerId], references: [id])
+  consumerId String
+  listing    Listing  @relation(fields: [listingId], references: [id])
+  listingId  String
+
+  @@unique([consumerId, listingId])
+}
+
+model FutureListing {
+  id String @id @default(uuid())
+  sale BookSale @relation(fields: [saleId], references: [id])
+  saleId String
+  title String
+  isbn String?
+  author String
+  format String?
+  image_url String? @db.Text
+}
+
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  business Business?
+  consumer Consumer?
+
+}
+
+model Library {
+  id String @id @default(uuid())
+  business Business @relation(fields: [businessId], references: [id])
+  businessId String @unique
+  book_sales BookSale?
+  business_name String
+  email String
+  business_state String
+  business_city String
+  business_street String
+  business_zip String
+  url String?
+  phone_number String?
+
+}
+
+model BookSale {
+  id String @id @default(uuid())
+  owner Library @relation(fields: [ownerId], references: [id])
+  ownerId String @unique
+  date_starts DateTime
+  date_ends DateTime
+  hours String?
+  books FutureListing[]
+}
+
+model Business {
+  id String @id @default(uuid())
+  user User @relation(fields: [uid], references: [id])
+  uid String @unique
+  type BUSINESSTYPE
+  business_name String
+  email String
+  business_state String
+  business_city String
+  business_street String
+  business_zip String
+  url String?
+  phone_number String?
+  membership MEMBERSHIP @default(FREE)
+  upload_cycle_start_date DateTime @default(now())
+  current_cycle_uploads Int @default(0)
+  inventory Listing[]
+  is_approved Boolean @default(false)
+  library Library?
+
+}
+model Consumer {
+id String @id @default(uuid())
+user User @relation(fields: [uid], references: [id])
+uid String @unique
+username String
+email String
+tracked_titles String[]
+tracked_authors String[]
+tracked_zips String[]
+paid_keywords String[]
+paid_zips String[]
+paid_alerts Int
+saved SavedListing[]
+}
+
+enum BUSINESSTYPE {
+  THRIFT
+  LIBRARY
+  BOOKSTORE
+}
+
+enum MEMBERSHIP {
+  FREE
+  BASIC
+  PREMIUM
+}
+
