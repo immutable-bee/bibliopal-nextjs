@@ -32,12 +32,9 @@ const handler = async (req, res) => {
       });
       res.status(200).json({ message: "Listings created successfully" });
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          message:
-            "An error occured while uploading listings: " + error.message,
-        });
+      res.status(500).json({
+        message: "An error occured while uploading listings: " + error.message,
+      });
     }
   } else {
     res.status(405).json({ message: "Method not allowed" });

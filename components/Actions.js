@@ -1,11 +1,10 @@
-import { Button, Flex } from "@mantine/core";
 import Papa from "papaparse";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TableData, useTableDataContext } from "../context/TableDataContext";
 import { setTableDataToStorage } from "../helpers/localstorage";
 import LoadingComponent from "../components/utility/loading";
 
-const Actions = () => {
+const Actions = ({ isSale }) => {
   const { tableData, setTableData } = useTableDataContext();
   const [uploadLoading, setUploadLoading] = useState(false);
 
@@ -14,12 +13,12 @@ const Actions = () => {
   const handleUpload = async () => {
     if (tableData.rows.length < 1) return;
     setUploadLoading(true);
-    const response = await fetch("/api/upload-tableData", {
+    const response = await fetch("/api/upload/listings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(tableData.rows),
+      body: JSON.stringify({ tableData: tableData.rows, isSale }),
     });
 
     const data = await response.json();

@@ -58,7 +58,17 @@ model Listing {
   author String
   format String?
   image_url String? @db.Text
-  onSale Boolean @default(false)
+}
+
+model FutureListing {
+  id String @id @default(uuid())
+  sale BookSale @relation(fields: [saleId], references: [id])
+  saleId String
+  title String
+  isbn String?
+  author String
+  format String?
+  image_url String? @db.Text
 }
 
 
@@ -73,6 +83,32 @@ model User {
   business Business?
   consumer Consumer?
 
+}
+
+model Library {
+  id String @id @default(uuid())
+  business Business @relation(fields: [businessId], references: [id])
+  businessId String @unique
+  book_sales BookSale?
+  business_name String
+  email String
+  business_state String
+  business_city String
+  business_street String
+  business_zip String
+  url String?
+  phone_number String?
+
+}
+
+model BookSale {
+  id String @id @default(uuid())
+  owner Library @relation(fields: [ownerId], references: [id])
+  ownerId String @unique
+  date_starts DateTime
+  date_ends DateTime
+  hours String?
+  books FutureListing[]
 }
 
 model Business {
@@ -90,6 +126,7 @@ model Business {
   phone_number String?
   inventory Listing[]
   is_approved Boolean @default(false)
+  library Library?
 }
 model Consumer {
 id String @id @default(uuid())
