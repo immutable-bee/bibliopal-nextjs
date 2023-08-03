@@ -103,6 +103,44 @@ const Home = () => {
   const resultCount =
     searchResults.length > 0 ? searchResults.length : listings.length;
 
+  const testData = [
+    {
+      id: 1,
+      image_url: "",
+      title: "test title",
+      author: "test author",
+      ownerId: "test store",
+    },
+    {
+      id: 2,
+      image_url: "",
+      title: "test title",
+      author: "test author",
+      ownerId: "test store",
+    },
+    {
+      id: 3,
+      image_url: "",
+      title: "test title",
+      author: "test author",
+      ownerId: "test store",
+    },
+    {
+      id: 4,
+      image_url: "",
+      title: "test title",
+      author: "test author",
+      ownerId: "test store",
+    },
+    {
+      id: 5,
+      image_url: "",
+      title: "test title",
+      author: "test author",
+      ownerId: "test store",
+    },
+  ];
+
   return (
     <div className="bg-[#FEFBE8] min-h-screen">
       <HeaderComponent />
@@ -135,7 +173,7 @@ const Home = () => {
             ) : (
               <div className="">
                 <div className="sm:flex flex-wrap justify-center">
-                  {arrayToMap.map((data, i) => {
+                  {testData.map((data, i) => {
                     return (
                       <div
                         className="px-4 py-4 rounded-lg border sm:mx-3 my-2 sm:my-3 w-full sm:w-96 border-[#2eaaed]"
@@ -163,7 +201,9 @@ const Home = () => {
                               Zip Code: 59901
                             </label>
                             <h6 className="text-sm text-gray-500 text-right">
-                              {calculateDaysAgo(data.date_listed)}
+                              {data.date_listed
+                                ? calculateDaysAgo(data.date_listed)
+                                : "1 day ago"}
                             </h6>
                           </div>
                         </div>
