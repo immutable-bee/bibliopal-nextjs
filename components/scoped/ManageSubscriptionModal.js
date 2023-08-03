@@ -412,7 +412,7 @@ const ManageSubscriptionModal = (props) => {
               <LoadingComponent />
             ) : (
               <ButtonComponent
-                full rounded
+                full rounded color="blue"
                 onClick={upgradeSubscription}
 
               >

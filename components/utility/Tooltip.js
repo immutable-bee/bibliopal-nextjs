@@ -11,7 +11,7 @@ const Tooltip = ({ id, content, children, width = 'max-w-sm' }) => {
       {isOpen && (
         <div
           id={id}
-          className={`${width} mb-2 absolute cursor-text z-10 p-2 text-sm !w-full text-black bg-white rounded-xl !shadow bottom-full left-1/2 transform -translate-x-1/2`}
+          className={`${width} mb-2 absolute cursor-text z-10 p-2 text-sm w-full text-black bg-white rounded-xl !shadow bottom-full left-1/2 transform -translate-x-1/2`}
 
           onMouseLeave={() => setIsOpen(false)}
           style={{ bottom: '100%' }}
