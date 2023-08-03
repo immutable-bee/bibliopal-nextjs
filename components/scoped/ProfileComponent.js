@@ -2,6 +2,8 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import { useRouter } from "next/router";
 import ManageSubscriptionModal from "@/components/scoped/ManageSubscriptionModal";
+import { CircularInput, CircularTrack, CircularProgress, CircularThumb } from 'react-circular-input';
+import PricingComponent from '@/components/scoped/PricingCustomer';
 const ProfileComponent = ({ }) => {
     const router = useRouter();
     const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
@@ -171,6 +173,7 @@ const ProfileComponent = ({ }) => {
     const [autoUpload, setAutoUpload] = useState(false);
     const [displayContactInfo, setDisplayContactInfo] = useState(false);
     const [visibility, setVisibility] = useState(0);
+    const computedVisibility = () => Math.round(stepValue(visibility) * 10)
     const [planOptions, setPlanOptions] = useState("Free");
 
     const handleSubmit = (e) => {
@@ -250,6 +253,7 @@ const ProfileComponent = ({ }) => {
             }, 2500);
         }
     };
+    const stepValue = v => Math.round(v * 10) / 10
 
     const closeManageSubscriptionModalHandler = () => {
         console.log('close')
@@ -352,7 +356,6 @@ const ProfileComponent = ({ }) => {
                                 </div>
                             </>
                             : ''}
-
                         <div className="py-2">
                             <label className="text-sm text-gray-700">30-day visibility</label>
                             <input
@@ -362,34 +365,30 @@ const ProfileComponent = ({ }) => {
                                 onChange={(e) => setVisibility(e.target.value)}
                             />
                         </div>
-
-
-                        <label className="relative mt-6 flex items-center cursor-pointer">
+                        <PricingComponent />
+                        {/* <div className="py-2">
+                            <label className="text-sm text-gray-700">30-day visibility</label>
                             <input
-                                type="checkbox"
-                                value=""
-                                className="sr-only peer"
-                                checked={autoUpload}
-                                onChange={() => setAutoUpload(!autoUpload)}
+                                type="text"
+                                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+                                value={computedVisibility()}
+                                disabled
                             />
-                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#2EAAED]"></div>
-                            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                Auto upload
-                            </span>
-                        </label>
-                        <label className="relative mt-6 flex items-center cursor-pointer">
-                            <input
-                                type="checkbox"
-                                value=""
-                                className="sr-only peer"
-                                checked={displayContactInfo}
-                                onChange={() => setDisplayContactInfo(!displayContactInfo)}
-                            />
-                            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#2EAAED]"></div>
-                            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                Display contact info
-                            </span>
-                        </label>
+                            <div className='flex justify-cente mt-8'>
+                                <CircularInput
+                                    value={stepValue(visibility)}
+                                    onChange={v => setVisibility(stepValue(v))}
+                                >
+                                    <CircularTrack />
+                                    <CircularProgress />
+                                    <CircularThumb />
+                                    <text x={100} y={100} textAnchor="middle" dy="0.3em" fontWeight="bold">
+                                        {computedVisibility()}
+                                    </text>
+                                </CircularInput>
+                            </div>
+                        </div> */}
+
 
 
 
@@ -410,7 +409,7 @@ const ProfileComponent = ({ }) => {
           </label>
       </div>
   </div> */}
-                        <div className="mt-4">
+                        <div className="">
                             <button
                                 type="button"
                                 onClick={handleSubscriptionModal}
