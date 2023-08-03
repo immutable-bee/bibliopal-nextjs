@@ -130,7 +130,6 @@ model Business {
   current_cycle_uploads Int @default(0)
   upload_credits Int
   inventory Listing[]
-  is_approved Boolean @default(false)
   book_sale BookSale?
 
 }
