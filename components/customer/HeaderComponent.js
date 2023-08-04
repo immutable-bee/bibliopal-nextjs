@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 // import 'bootstrap/dist/css/bootstrap.css';
 import ProfileSVG from "../../public/images/profile-icon.svg";
-import BookWorm from '../../assets/worm.webp'
+import BookWorm from "../../assets/worm.webp";
 const HeaderComponent = () => {
   const router = useRouter();
   const linkColor = (path) => {
@@ -27,7 +27,7 @@ const HeaderComponent = () => {
       </div>
 
       <div className="flex items-center">
-        <Link className="no-underline	" href="/customer">
+        <Link className="no-underline	" href="/consumer">
           <span
             style={{ color: linkColor("/customer") }}
             className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
@@ -36,7 +36,7 @@ const HeaderComponent = () => {
             Home
           </span>
         </Link>
-        <Link className="no-underline	" href="/customer/matches">
+        <Link className="no-underline	" href="/consumer/matches">
           <span
             style={{ color: linkColor("/customer/matches") }}
             className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
@@ -45,20 +45,11 @@ const HeaderComponent = () => {
             Matches
           </span>{" "}
         </Link>
-        <Link className="no-underline	" href="/">
-          <span
-            style={{ color: linkColor("/") }}
-            className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
-          >
-            {" "}
-            Business
-          </span>{" "}
-        </Link>
       </div>
 
       <div className="flex items-center">
         <Link
-          href="/customer/profile"
+          href="/consumer/profile"
           className="flex items-center no-underline"
         >
           {" "}

@@ -1,7 +1,7 @@
 import { ActionIcon, Table } from "@mantine/core";
 import { useTableDataContext } from "../context/TableDataContext";
 import { Delete } from "../assets/svg/delete";
-import { DeleteBookRow } from "@/pages";
+import { DeleteBookRow } from "@/pages/business";
 
 export interface Rows {
   title: string;

@@ -8,30 +8,13 @@ import BookWorm from "../assets/worm.webp";
 function Header() {
   const router = useRouter();
 
-  const page = () => {
-    // Define the routes to check
-    const routes = ["/library", "/bookstore", "/thrift"];
-
-    // Check if the current path includes any of the routes
-    if (router.pathname.includes("/library")) {
-      return "library";
-    } else if (router.pathname.includes("/bookstore")) {
-      return "bookstore";
-    } else if (router.pathname.includes("/thrift")) {
-      return "thrift";
-    }
-
-    // Return an empty string if none of the routes match
-    return "";
-  };
-
   const linkColor = (path: string) => {
     return router.pathname === path ? "#2EAAED" : "#828282";
   };
   return (
     <header className="flex  mx-auto w-full justify-between items-center px-2 sm:px-4 py-3 overflow-x-auto">
       <div className="w-20 sm:w-36 flex-shrink-0 pr-2 sm:pr-0">
-        <Link href="">
+        <Link href="/business">
           <Image
             src="/images/logo1.png"
             width={120}
@@ -43,55 +26,28 @@ function Header() {
       </div>
 
       <nav className="text-center">
-        <Link href="/">
+        <Link href="/business/uploadlistings">
           <span
             style={{ color: linkColor("/") }}
             className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
           >
-            Listing
+            Add Listings
           </span>
         </Link>
 
-        <Link href="/library">
+        <Link href="/business/uploadlistings/future">
           <span
             style={{ color: linkColor("/library") }}
             className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
           >
-            Library
-          </span>
-        </Link>
-
-        <Link href="/bookstore">
-          <span
-            style={{ color: linkColor("/bookstore") }}
-            className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
-          >
-            Bookstore
-          </span>
-        </Link>
-
-        <Link href="/thrift">
-          <span
-            style={{ color: linkColor("/thrift") }}
-            className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
-          >
-            Thrift
-          </span>
-        </Link>
-
-        <Link href="/customer">
-          <span
-            style={{ color: linkColor("/customer") }}
-            className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
-          >
-            Customer
+            Schedule Booksale
           </span>
         </Link>
       </nav>
 
       <div className="flex items-center">
         <Link
-          href={`/${page()}/profile`}
+          href={`/business/profile`}
           className="flex items-center no-underline"
         >
           {" "}

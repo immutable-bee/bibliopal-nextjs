@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { TableData, useTableDataContext } from "@/context/TableDataContext";
-import { setTableDataToStorage } from "@/helpers/localstorage";
+//TODO: replace with landing page nate made in shopify, current code moved to - pages/addlistings
+
+import { useEffect, useState } from "react";
+import { TableData, useTableDataContext } from "../../context/TableDataContext";
+import { setTableDataToStorage } from "../../helpers/localstorage";
 
 import ListingComponent from "@/components/scoped/ListingComponent";
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SetError } from "@/pages";
+import { SetError } from "@/pages/business";
 
 interface Book {
   title: string;

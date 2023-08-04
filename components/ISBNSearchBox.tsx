@@ -1,7 +1,7 @@
 import { Flex, Stack, Text, TextInput } from "@mantine/core";
 import { useRef, useState } from "react";
 import useFetchBooks from "../hooks/useFetchBooks";
-import { ErrorT, SetError } from "../pages/index";
+import { ErrorT, SetError } from "../pages/business/index";
 
 interface ISBNSearchBoxProps {
   setError: SetError;
@@ -51,7 +51,7 @@ const ISBNSearchBox = ({
       <div className="pt-10">
         <div className="sm:flex items-center">
           <label className="text-2xl block sm:inline-block text-black font-bold">
-          EAN
+            EAN
           </label>
           <input
             ref={searchInputRef}

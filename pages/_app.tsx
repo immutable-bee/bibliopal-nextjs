@@ -6,18 +6,12 @@ import { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 // This default export is required in a new `pages/_app.js` file.
 export default function MyApp({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
   const router = useRouter();
-
-  const stripePromise = loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-  );
 
   const linkColor = (path: string) => {
     return router.pathname === path ? "#2EAAED" : "#828282";
@@ -97,9 +91,7 @@ export default function MyApp({
             withNormalizeCSS
           >
             <TableDataProvider>
-              <Elements stripe={stripePromise}>
-                <Component {...pageProps} />
-              </Elements>
+              <Component {...pageProps} />
             </TableDataProvider>
           </MantineProvider>
         </div>
