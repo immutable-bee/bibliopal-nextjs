@@ -16,7 +16,7 @@ const UnsubscribeModal = (props) => {
                 onClick={props.cancelbtn}
 
               >
-                Yes I'm sure
+                Yes I&apos;m sure
               </ButtonComponent>
               <ButtonComponent
                 full rounded
