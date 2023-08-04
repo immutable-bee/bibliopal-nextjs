@@ -85,7 +85,7 @@ const BusinessAuthContainer = () => {
 
             <div className="auth-content-container">
               <h2 className="text-xl font-medium text-center">
-                Welcome to the BiblioPal!
+                Welcome to BiblioPal!
               </h2>
               <h2 className="pt-5 text-sm text-center">
                 Get Started with a seller account by signing up below. You will
