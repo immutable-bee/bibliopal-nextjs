@@ -15,6 +15,7 @@ module.exports = {
         bronze: "#5C3COC",
         mine: "#242424",
         kidnapper: "#DDE5CB",
+        biblioSeafoam: "#d2e2ae",
       },
       animation: {
         bounce200: "bounce 1s infinite 200ms",
