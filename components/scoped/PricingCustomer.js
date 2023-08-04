@@ -1,8 +1,69 @@
 import React, { useState } from 'react';
 import { CircularInput, CircularTrack, CircularProgress, CircularThumb } from 'react-circular-input';
 import TooltipComponent from "@/components/utility/Tooltip";
+import BuySubscriptionModal from "@/components/scoped/BuySubscriptionModal";
+const Pricing = ({ onBuy }) => {
 
-const Pricing = () => {
+    // view states
+    const [view, setView] = useState("lReceived");
+    const [completedOfferView, setCompletedOfferView] = useState(false);
+    const [showAddTrackingModal, setShowAddTrackingModal] = useState(false);
+    const [showRequestOfferDetails, setShowRequestOfferDetails] = useState(false);
+    const [connectModalVisible, setConnectModalVisible] = useState(false);
+    const [paymentMethodModalVisible, setPaymentMethodModalVisible] =
+        useState(false);
+    const [showOfferDetailsModal, setShowOfferDetailsModal] = useState(false);
+    const [submitPaymentLoading, setSubmitPaymentLoading] = useState(false);
+    const paymentModalHandler = () => {
+        setPaymentMethodModalVisible(!paymentMethodModalVisible);
+    };
+
+    const acceptRequestOffer = async (offerId) => {
+        setOfferStatusById(offerId, { loading: true });
+        setSubmitPaymentLoading(true);
+
+        const paymentResponse = await fetch("api/stripe/purchase", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ offerId }),
+        });
+
+        const paymentResult = await paymentResponse.json();
+
+        if (paymentResult.error) {
+            console.error(paymentResult.error);
+        } else {
+            await fetch("api/updaterequestoffer", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    action: "confirm",
+                    id: offerId,
+                    email: session.user.email,
+                }),
+            }).then((response) => {
+                setOfferStatusById(offerId, {
+                    loading: false,
+                    acceptMessage: "Offer Accepted",
+                    declineMessage: null,
+                });
+                setTimeout(() => {
+                    setOfferStatusById(offerId, {
+                        ...offerStatus[offerId],
+                        acceptMessage: null,
+                    });
+                }, 3000);
+                fetchRequestOffers();
+                return response.json();
+            });
+        }
+        setSubmitPaymentLoading(false);
+        setPaymentMethodModalVisible(false);
+    };
     const pricingData = [
 
         {
@@ -314,6 +375,13 @@ const Pricing = () => {
 
     return (
         <div className="pb-4 sm:pb-8">
+            <BuySubscriptionModal
+                isOpen={paymentMethodModalVisible}
+                onClose={paymentModalHandler}
+                details={{}}
+                onSubmit={acceptRequestOffer}
+                loading={submitPaymentLoading}
+            />
             <div className='flex items-center sm:mt-12 mb-4 mt-5'>
                 <h3 className="text-2xl font-semibold">
                     Buy More Alerts
@@ -413,6 +481,7 @@ const Pricing = () => {
             </div>
             <div className="flex justify-center mt-7">
                 <button
+                    onClick={() => setPaymentMethodModalVisible(true)}
                     className="sm:mx-2 duration-300 ease-in-out hover:bg-white font-bold border hover:border-green-600 bg-green-600 text-white px-12 hover:text-green-600 py-3 mx-auto rounded-full"
                     type="btn"
                 >

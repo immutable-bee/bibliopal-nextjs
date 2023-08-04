@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { useRouter } from "next/router";
 import ManageSubscriptionModal from "@/components/scoped/ManageSubscriptionModal";
+import SubscriptionModal from "@/components/scoped/SubscriptionModal";
+import UnsubscribeModal from "@/components/scoped/UnsubscribeModal";
+import PaymentMethodsModal from "@/components/scoped/PaymentMethodsModal";
 import { CircularInput, CircularTrack, CircularProgress, CircularThumb } from 'react-circular-input';
 import PricingComponent from '@/components/scoped/PricingCustomer';
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import ButtonComponent from "@/components/utility/Button";
 const ProfileComponent = ({ }) => {
+
+
+
+    //   
+
     const router = useRouter();
     const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
     const [isManageSubscriptionModalOpen, setIsManageSubscriptionModalOpen] =
@@ -214,9 +224,10 @@ const ProfileComponent = ({ }) => {
 
     const handleSubscriptionModal = () => {
         // subscriptionStatus === "Not Subscribed"
-        //     ? setIsSubscriptionModalOpen(!isSubscriptionModalOpen)
-        //     :
-        setIsManageSubscriptionModalOpen(!isManageSubscriptionModalOpen);
+        //     ? 
+        setIsSubscriptionModalOpen(!isSubscriptionModalOpen)
+        // : 
+        // setIsManageSubscriptionModalOpen(!isManageSubscriptionModalOpen);
     };
 
 
@@ -259,6 +270,130 @@ const ProfileComponent = ({ }) => {
         console.log('close')
         setIsManageSubscriptionModalOpen(false);
     };
+
+
+
+    // 
+    // 
+    // const { data: session } = useSession({ required: true });
+    const stripe = useStripe();
+    const elements = useElements();
+    const [isUnsubscribeModalOpen, setIsUnsubscribeModalOpen] = useState(false);
+    const [isPaymentMethodsModalOpen, setIsPaymentMethodsModalOpen] =
+        useState(false);
+
+    const [senderEmail, setSenderEmail] = useState();
+    const [formData, setFormData] = useState();
+    const [loading, setLoading] = useState(false);
+    const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [connectAccountStatus, setConnectAccountStatus] = useState("");
+    const [userData, setUserData] = useState({
+        business_name: "",
+        business_street: "",
+        business_city: "",
+        business_state: "",
+        business_zip: "",
+        business_phone: "",
+        business_email: "",
+        business_website: "",
+        shipping_city: "",
+        shipping_state: "",
+        shipping_zip: "",
+        shipping_street: "",
+        role: "",
+        _count: { requests: "", inventory: "" },
+    });
+
+    const [subLoading, setSubLoading] = useState(false);
+    const [subMessage, setSubMessage] = useState("");
+    const [cancelMessage, setCancelMessage] = useState("");
+
+    const [subscriptionSectionLoading, setSubscriptionSectionLoading] =
+        useState(false);
+    const [accountSectionLoading, setAccountSectionLoading] = useState(false);
+    const [connectSectionLoading, setConnectSectionLoading] = useState(false);
+
+    // Email Preferences Modal
+    const [emailPreferencesOpen, setEmailPreferencesOpen] = useState(false);
+
+    const emailModalCloseHandler = () => {
+        setEmailPreferencesOpen(false);
+    };
+
+    //
+
+    const closeSubscriptionModal = () => {
+        setIsSubscriptionModalOpen(!isSubscriptionModalOpen);
+    };
+
+
+    const openPaymentMethodsModal = () => {
+        setIsPaymentMethodsModalOpen(true);
+    };
+
+    const closePaymentMethodsModal = () => {
+        setIsPaymentMethodsModalOpen(false);
+    };
+
+
+
+    const closeUnsubModal = () => {
+        setIsUnsubscribeModalOpen(false);
+    };
+
+
+    const handleChange = (e) => {
+        console.log(e)
+        const { name, value } = e.target;
+        console.log(name, value)
+        if (name === "business_state") {
+            setFormData({ ...formData, [name]: value.toUpperCase() });
+        } else {
+            // Handle other inputs
+            setFormData({ ...formData, [name]: value });
+        }
+        console.log(formData)
+    };
+
+
+
+
+    const fetchConnectAccountStatus = async () => {
+        if (userData.stripe_connect_id) {
+            try {
+                const response = await fetch("/api/stripe/connect-account-status", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ accountId: userData.stripe_connect_id }),
+                });
+
+                if (response.ok) {
+                    const { status } = await response.json();
+                    setConnectAccountStatus(status);
+                } else {
+                    console.error("Failed to fetch connect account status");
+                }
+            } catch (error) {
+                console.error("Error fetching connect account status: ", error);
+            }
+        }
+        setConnectSectionLoading(false);
+    };
+
+    useEffect(() => {
+        fetchConnectAccountStatus();
+    }, [userData]);
+
+    useEffect(() => {
+        if (router.query.emailPreferencesOpen === "true") {
+            setEmailPreferencesOpen(true);
+        }
+    }, [router]);
+
+
     return (
         <div className="min-h-screen bg-[#FEFBE8]">
             <Header />
@@ -409,29 +544,52 @@ const ProfileComponent = ({ }) => {
           </label>
       </div>
   </div> */}
+                        <ButtonComponent rounded full
+                            color="blue" className="!my-1"
+                            onClick={openPaymentMethodsModal}
+                            id="manage-payment-btn"
+                        >
+                            Manage Payment Methods
+                        </ButtonComponent>
                         <div className="">
-                            <button
+                            <ButtonComponent rounded full color="blue"
                                 type="button"
                                 onClick={handleSubscriptionModal}
-                                className=" w-full hover:opacity-90 bg-[#2EAAED] px-3 py-2.5 rounded-3xl border-2 text-white border-black"
+
                             >
                                 Manage Subscription
-                            </button>
+                            </ButtonComponent>
 
                         </div>
                         <div className="mt-4">
-                            <button
+                            <ButtonComponent rounded full color="blue"
                                 onClick={() => alert("Manage Subscription")}
                                 type="submit"
-                                className=" w-full hover:opacity-90 bg-[#2EAAED] px-3 py-2.5 rounded-3xl border-2 text-white border-black"
+
                             >
                                 Submit
-                            </button>
+                            </ButtonComponent>
 
                         </div>
                     </form>
                 </div>
             </div>
+            <SubscriptionModal
+                isSubscriptionModalOpen={isSubscriptionModalOpen}
+                closeSubscriptionModal={closeSubscriptionModal}
+            />
+            <UnsubscribeModal
+                isUnsubscribeModalOpen={isUnsubscribeModalOpen}
+                handleSubscriptionModal={closeUnsubModal}
+                loading={subLoading}
+                cancelMessage={cancelMessage}
+                cancelbtn={handleUnsubscribe}
+                closebtn={closeUnsubModal}
+            />
+            <PaymentMethodsModal
+                isOpen={isPaymentMethodsModalOpen}
+                onClose={closePaymentMethodsModal}
+            />
             <ManageSubscriptionModal
                 unsubscribeHandler={handleUnsubscribe}
                 visible={isManageSubscriptionModalOpen}
@@ -439,6 +597,8 @@ const ProfileComponent = ({ }) => {
                 subscriptionData={subscriptionData}
                 subscriptionStatus={subscriptionStatus}
             />
+
+
         </div>
     );
 };

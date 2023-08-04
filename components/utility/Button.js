@@ -25,7 +25,7 @@ function ButtonComponent({ children, onClick, icon, id, className = '', rounded 
 
     <button
       id={id}
-      className={`flex items-center my-1 text-sm font-normal
+      className={`flex items-center my-1 text-sm font-normal min-w-fit
         ${rounded ? 'rounded-full' : ''}
         ${full ? 'w-full' : ''}
         ${border ? 'border border-black' : ''}
