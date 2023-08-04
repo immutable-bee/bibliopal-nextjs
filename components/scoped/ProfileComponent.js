@@ -186,9 +186,10 @@ const ProfileComponent = ({ }) => {
     const computedVisibility = () => Math.round(stepValue(visibility) * 10)
     const [planOptions, setPlanOptions] = useState("Free");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({
+
+        const JSON = {
             storeName,
             storeType,
             email,
@@ -198,7 +199,26 @@ const ProfileComponent = ({ }) => {
             displayContactInfo,
             visibility,
             planOptions,
-        });
+        }
+
+        console.log(JSON)
+
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            await fetch("/api/onboarding", {
+                method: "POST",
+                body: JSON.stringify([senderEmail, JSON]),
+            });
+            setLoading(false);
+            setSuccessMessage("Onboarding form submitted");
+            setErrorMessage("");
+        } catch (error) {
+            setLoading(false);
+            setErrorMessage("An error occurred while sending your data");
+            setSuccessMessage("");
+        }
     };
 
     const page = () => {
@@ -343,7 +363,7 @@ const ProfileComponent = ({ }) => {
     };
 
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         console.log(e)
         const { name, value } = e.target;
         console.log(name, value)
@@ -354,6 +374,23 @@ const ProfileComponent = ({ }) => {
             setFormData({ ...formData, [name]: value });
         }
         console.log(formData)
+
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            await fetch("/api/onboarding", {
+                method: "POST",
+                body: JSON.stringify([senderEmail, formData]),
+            });
+            setLoading(false);
+            setSuccessMessage("Onboarding form submitted");
+            setErrorMessage("");
+        } catch (error) {
+            setLoading(false);
+            setErrorMessage("An error occurred while sending your data");
+            setSuccessMessage("");
+        }
     };
 
 
@@ -501,49 +538,7 @@ const ProfileComponent = ({ }) => {
                             />
                         </div>
                         <PricingComponent />
-                        {/* <div className="py-2">
-                            <label className="text-sm text-gray-700">30-day visibility</label>
-                            <input
-                                type="text"
-                                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                                value={computedVisibility()}
-                                disabled
-                            />
-                            <div className='flex justify-cente mt-8'>
-                                <CircularInput
-                                    value={stepValue(visibility)}
-                                    onChange={v => setVisibility(stepValue(v))}
-                                >
-                                    <CircularTrack />
-                                    <CircularProgress />
-                                    <CircularThumb />
-                                    <text x={100} y={100} textAnchor="middle" dy="0.3em" fontWeight="bold">
-                                        {computedVisibility()}
-                                    </text>
-                                </CircularInput>
-                            </div>
-                        </div> */}
 
-
-
-
-                        {/* <div className='mt-4'>
-      <span className="text-lg text-gray-900 font-medium">Plan options:</span>
-      <div className="mt-2">
-          <label className="flex items-center py-1.5">
-              <input type="radio" className="bg-white form-radio h-6 w-6 text-[#2EAAED]" value="Free" checked={planOptions === 'Free'} onChange={() => setPlanOptions('Free')} />
-              <span className="ml-2 text-gray-700">Free</span>
-          </label>
-          <label className="flex items-center py-1.5">
-              <input type="radio" className="bg-white form-radio h-6 w-6 text-[#2EAAED]" value="Tier 1" checked={planOptions === 'Tier 1'} onChange={() => setPlanOptions('Tier 1')} />
-              <span className="ml-2 text-gray-700">Tier 1</span>
-          </label>
-          <label className="flex items-center py-1.5">
-              <input type="radio" className="bg-white form-radio h-6 w-6 text-[#2EAAED]" value="Tier 2" checked={planOptions === 'Tier 2'} onChange={() => setPlanOptions('Tier 2')} />
-              <span className="ml-2 text-gray-700">Tier 2</span>
-          </label>
-      </div>
-  </div> */}
                         <ButtonComponent rounded full
                             color="blue" className="!my-1"
                             onClick={openPaymentMethodsModal}
@@ -563,7 +558,7 @@ const ProfileComponent = ({ }) => {
                         </div>
                         <div className="mt-4">
                             <ButtonComponent rounded full color="blue"
-                                onClick={() => alert("Manage Subscription")}
+
                                 type="submit"
 
                             >
