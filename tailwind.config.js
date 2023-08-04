@@ -16,6 +16,7 @@ module.exports = {
         mine: "#242424",
         kidnapper: "#DDE5CB",
         biblioSeafoam: "#d2e2ae",
+        blbBlue: "#2eaaed",
       },
       animation: {
         bounce200: "bounce 1s infinite 200ms",
