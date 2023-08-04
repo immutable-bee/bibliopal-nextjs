@@ -10,36 +10,36 @@ import TooltipComponent from "@/components/utility/Tooltip";
 const Pricing = () => {
   const pricingData = [
     {
-      price: 0.99,
+      price: 2.99,
       amount: 3,
     },
     {
-      price: 2.99,
+      price: 4.99,
       amount: 10,
     },
     {
-      price: 4.99,
-      amount: 20,
-    },
-    {
       price: 9.99,
-      amount: 50,
+      amount: 25,
     },
     {
       price: 14.99,
-      amount: 80,
+      amount: 50,
     },
     {
       price: 19.99,
-      amount: 125,
+      amount: 75,
     },
     {
       price: 29.99,
+      amount: 125,
+    },
+    {
+      price: 39.99,
       amount: 200,
     },
     {
       price: 49.99,
-      amount: 400,
+      amount: 325,
     },
     {
       price: 74.99,
