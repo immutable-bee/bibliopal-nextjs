@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './profile.module.scss';
 import Image from 'next/image';
+import TooltipComponent from "@/components/utility/Tooltip";
 import Link from 'next/link';
 // import 'bootstrap/dist/css/bootstrap.css';
 import Head from "next/head"
@@ -89,12 +90,8 @@ const Profilecomponent = () => {
 									className="bg-white form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 my-1 py-2" type="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='MohammedIsmail@gmail.com' />
 							</div>
 						</div>
-						<div className='flex items-center mt-6'>
-							<span className="text-sm mr-3 font-medium text-gray-900 dark:text-gray-300">
-								Subscribing
-							</span>
-							<label className="relative  flex items-center cursor-pointer">
-
+						<div className="flex items-center mt-6">
+							<label className="relative flex items-center cursor-pointer">
 								<input
 									type="checkbox"
 									value=""
@@ -106,8 +103,24 @@ const Profilecomponent = () => {
 								<span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
 									Email alerts
 								</span>
+
 							</label>
+							<TooltipComponent
+								rounded
+								placement="rightStart"
+								width="!w-64"
+								id="shipping-status-tooltip"
+								css={{ zIndex: 10000 }}
+								content={
+									'Lorem ipsum dolar sit amit Lorem ipsum dolar sit amit Lorem ipsum dolar sit amit'
+								}
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 ml-3 cursor-pointer">
+									<path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+								</svg>
+							</TooltipComponent>
 						</div>
+
 
 						<div>
 							<h3 className='text-xl mt-2 sm:mt-7 font-medium'>Book Alerts</h3>

@@ -176,7 +176,7 @@ const Home = () => {
                   {testData.map((data, i) => {
                     return (
                       <div
-                        className="px-4 py-4 rounded-lg border sm:mx-3 my-2 sm:my-3 w-full sm:w-96 border-[#2eaaed]"
+                        className="px-4 py-4 relative rounded-lg border sm:mx-3 my-2 sm:my-3 w-full sm:w-96 border-[#2eaaed]"
                         key={data.id}
                       >
                         <div className="flex">
@@ -200,7 +200,7 @@ const Home = () => {
                             <label className="text-gray-500 text-base">
                               Zip Code: 59901
                             </label>
-                            <h6 className="text-sm text-gray-500 text-right">
+                            <h6 className="text-sm absolute bottom-3 right-3 text-gray-500 text-right">
                               {data.date_listed
                                 ? calculateDaysAgo(data.date_listed)
                                 : "1 day ago"}

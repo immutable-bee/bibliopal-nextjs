@@ -10,7 +10,13 @@ import Head from "next/head"
 const Matches = () => {
     const [active, setActive] = useState('all');
 
-    const headers = ['Store', 'Library sale', 'Date', 'Zip Code', ''];
+    const headers = [
+        { title: 'Store', width: '!min-w-[8rem]' },
+        { title: 'Library sale', width: '!min-w-[8rem]' },
+        { title: 'Date', width: '!min-w-[7rem]' },
+        { title: 'Zip Code', width: '!min-w-[7rem]' },
+        { title: '', width: '!min-w-[4rem]' },
+    ];
 
     const boxdata = [
         {
@@ -294,8 +300,8 @@ const Matches = () => {
                                                                 <thead>
                                                                     <tr>
                                                                         {headers.map((header, index) => (
-                                                                            <th key={index} className={`text-base font-medium leading-5 text-gray-600 text-left px-4 py-2`}>
-                                                                                {header}
+                                                                            <th key={index} className={`${header.width} text-base font-medium leading-5 text-gray-600 text-left px-4 py-2`}>
+                                                                                {header.title}
                                                                             </th>
                                                                         ))}
                                                                     </tr>
