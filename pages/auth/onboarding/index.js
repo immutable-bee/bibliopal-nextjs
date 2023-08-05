@@ -10,7 +10,7 @@ import {
 import { useState, useEffect } from "react";
 import AuthContainer from "../../../components/containers/AuthContainer";
 import { useRouter } from "next/router";
-import IconChevron from "../assets/svg/icon-chevron.svg";
+
 const TCModal = (props) => {
   return (
     <Modal
@@ -281,7 +281,7 @@ const OnboardingFormPage = () => {
               size={""}
             >
               <Image
-                src="https://www.buylocalbooksnetwork.com/icons/icon-chevron.svg"
+                src="/images/icons/icon-chevron.svg"
                 alt="chevron icon"
                 height="17"
                 width="17"
