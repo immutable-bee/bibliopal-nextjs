@@ -5,7 +5,9 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import ProfileSVG from "../public/images/profile-icon.svg";
 import BookWorm from "../assets/worm.webp";
+import { useUser } from "@/context/UserContext";
 function Header() {
+  const { user } = useUser();
   const router = useRouter();
 
   const linkColor = (path: string) => {
@@ -61,7 +63,9 @@ function Header() {
             />
           </div>
           <span className="!ml-3 hidden sm:block text-black font-semibold text-lg">
-            Hi, Demo User!
+            {user?.business.business_name
+              ? `Hi, ${user.business.business_name}!`
+              : ""}
           </span>
         </Link>
       </div>
