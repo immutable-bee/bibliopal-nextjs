@@ -18,7 +18,7 @@ import UsernameInput from "../../../components/customer/profile/UsernameInput";
 import Alerts from "../../../components/customer/profile/Alerts";
 
 const Profilecomponent = () => {
-  const { user, updateUserUsername } = useUser();
+  const { user, updateUserUsername, fetchUserData } = useUser();
 
   const [type, setType] = useState([]);
 
@@ -85,7 +85,15 @@ const Profilecomponent = () => {
               <h3 className="text-xl mt-2 sm:mt-7 font-medium">Book Alerts</h3>
             </div>
 
-            <Alerts />
+            <Alerts
+              props={{
+                email: user?.email,
+                titles: user?.consumer.tracked_titles,
+                authors: user?.consumer.tracked_authors,
+                zipCodes: user?.consumer.tracked_zips,
+              }}
+              fetchUserData={fetchUserData}
+            />
 
             <div className="flex justify-center items-center mt-5">
               <h3 class="text-xl font-medium mr-3">Total alerts</h3>

@@ -1,14 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const Alerts = () => {
-  const [newTitle, setNewTitle] = useState();
-  const [newAuthor, setNewAuthor] = useState();
-  const [newZip, setNewZip] = useState();
+const Alerts = ({ props, fetchUserData }) => {
+  const [newTitle, setNewTitle] = useState("");
+  const [newAuthor, setNewAuthor] = useState("");
+  const [newZip, setNewZip] = useState("");
 
   const [titles, setTitles] = useState([]);
   const [authors, setAuthors] = useState([]);
   const [zipCodes, setZipCodes] = useState([]);
+
+  useEffect(() => {
+    if (props) {
+      setTitles(props.titles);
+      setAuthors(props.authors);
+      setZipCodes(props.zipCodes);
+    }
+  }, [props]);
 
   const handleTitleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +28,7 @@ const Alerts = () => {
         },
         body: JSON.stringify({
           email: props.email,
-          title: newTitletitle,
+          title: newTitle,
           type: "add",
         }),
       });
@@ -28,7 +36,7 @@ const Alerts = () => {
         return;
       }
 
-      setTitles([...titles, newTitle]);
+      fetchUserData();
       setNewTitle("");
     }
   };
@@ -43,7 +51,7 @@ const Alerts = () => {
         },
         body: JSON.stringify({
           email: props.email,
-          author: newAuthorauthor,
+          author: newAuthor,
           type: "add",
         }),
       });
@@ -51,7 +59,7 @@ const Alerts = () => {
         return;
       }
 
-      setAuthors([...authors, newAuthor]);
+      fetchUserData();
       setNewAuthor("");
     }
   };
@@ -70,7 +78,7 @@ const Alerts = () => {
         return;
       }
 
-      setZipCodes([...zipCodes, newZip]);
+      fetchUserData();
       setNewZip("");
     }
   };
@@ -87,9 +95,7 @@ const Alerts = () => {
         type: "delete",
       }),
     });
-    const newTitles = [...titles];
-    newTitles.splice(index, 1);
-    setTitles(newTitles);
+    fetchUserData();
   };
 
   const deleteAuthor = async (index) => {
@@ -104,9 +110,7 @@ const Alerts = () => {
         type: "delete",
       }),
     });
-    const newAuthors = [...authors];
-    newAuthors.splice(index, 1);
-    setAuthors(newAuthors);
+    fetchUserData();
   };
 
   const deleteZipCode = async (index) => {
@@ -121,9 +125,7 @@ const Alerts = () => {
         type: "delete",
       }),
     });
-    const newZipCodes = [...zipCodes];
-    newZipCodes.splice(index, 1);
-    setZipCodes(newZipCodes);
+    fetchUserData();
   };
 
   return (
@@ -153,7 +155,7 @@ const Alerts = () => {
           </form>
         </div>
         <div className="flex items-center mt-3">
-          {titles.map((title, index) => (
+          {titles?.map((title, index) => (
             <div key={index} className="flex mx-1">
               <p className="rounded-full flex items-center border text-xs sm:text-sm font-medium border-[#2eaaed] px-2 py-1">
                 {title}
@@ -165,6 +167,8 @@ const Alerts = () => {
                     src={"/images/close-circle.svg"}
                     alt=""
                     className="w-3 sm:w-4"
+                    width={4}
+                    height={4}
                   />
                 </span>
               </p>
@@ -197,7 +201,7 @@ const Alerts = () => {
           </form>
         </div>
         <div className="flex items-center mt-3">
-          {authors.map((author, index) => (
+          {authors?.map((author, index) => (
             <div key={index} className="flex mx-1">
               <p className="rounded-full flex items-center border text-sm font-medium border-[#2eaaed] px-2 py-1">
                 {author}
@@ -209,6 +213,8 @@ const Alerts = () => {
                     src={"/images/close-circle.svg"}
                     alt=""
                     className="w-4"
+                    width={4}
+                    height={4}
                   />
                 </span>
               </p>
@@ -249,7 +255,7 @@ const Alerts = () => {
             </form>
           </div>
           <div className="flex items-center mt-3">
-            {zipCodes.map((row, index) => (
+            {zipCodes?.map((row, index) => (
               <div key={index} className="flex mx-1">
                 <p className="rounded-full flex items-center border text-sm font-medium border-[#2eaaed] px-2 py-1">
                   {row}
@@ -261,6 +267,8 @@ const Alerts = () => {
                       src={"/images/close-circle.svg"}
                       alt=""
                       className="w-4"
+                      width={4}
+                      height={4}
                     />
                   </span>
                 </p>
