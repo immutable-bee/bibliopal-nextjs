@@ -16,10 +16,11 @@ const handler = async (req, res) => {
             },
           },
         });
-        res.status(200).json;
+        res.status(200).json({ message: "Title added successfully" });
       } catch (error) {
         res.status(500).json({ message: error.message });
       }
+      break;
     case "delete":
       try {
         const consumer = await prisma.consumer.findUnique({
@@ -39,10 +40,11 @@ const handler = async (req, res) => {
             tracked_titles: updatedTitles,
           },
         });
-        res.status(200).json;
+        res.status(200).json({ updateConsumer });
       } catch (error) {
         res.status(500).json({ message: error.message });
       }
+      break;
     default:
       res.status(400).json({ message: "Invalid type or no type provided" });
   }
