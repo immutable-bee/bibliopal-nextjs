@@ -6,6 +6,16 @@ const UserContext = createContext();
 
 export const useUser = () => useContext(UserContext);
 
+const ACCESS_RULES = {
+  consumer: ["/consumer", "/consumer/profile", "/consumer/matches"],
+  business: [
+    "/business",
+    "/business/profile",
+    "/business/uploadlistings",
+    "/business/uploadlistings/future",
+  ],
+};
+
 export const UserProvider = ({ children }) => {
   const { data: session } = useSession();
   const router = useRouter();
@@ -35,6 +45,17 @@ export const UserProvider = ({ children }) => {
       if (user) {
         if (!user.onboarding_complete) {
           router.push("/auth/onboarding");
+        }
+
+        const role = user.consumer
+          ? "consumer"
+          : user.business
+          ? "business"
+          : null;
+        const allowedRoutes = ACCESS_RULES[role] || [];
+
+        if (role && !allowedRoutes.includes(router.pathname)) {
+          router.push(allowedRoutes[0]);
         }
       }
     }
