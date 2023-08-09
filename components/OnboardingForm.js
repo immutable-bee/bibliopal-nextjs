@@ -137,7 +137,7 @@ const OnboardingForm = ({ isCompleteHandler, loadingHandler }) => {
             <>
               <>
                 <select
-                  name="BUSINESSTYPE"
+                  name="type"
                   onChange={handleChange}
                   className="
                           border-[#f1f3f5] w-full

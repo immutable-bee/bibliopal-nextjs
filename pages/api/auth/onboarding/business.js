@@ -4,10 +4,12 @@ import { authOptions } from "../../auth/[...nextauth]";
 
 const handler = async (req, res) => {
   const session = await getServerSession(req, res, authOptions);
-  const { data } = req.body;
+  const data = req.body;
+
+  console.log(data);
 
   try {
-    const user = await prisma.business.create({
+    const business = await prisma.business.create({
       data: {
         ...data,
         email: session.user.email,
@@ -18,7 +20,14 @@ const handler = async (req, res) => {
         },
       },
     });
-    res.status(200).json({ user });
+    const user = await prisma.user.update({
+      where: { email: session.user.email },
+      data: {
+        onboarding_complete: true,
+      },
+    });
+
+    res.status(200).json({ business });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
