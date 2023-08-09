@@ -140,6 +140,8 @@ user User @relation(fields: [uid], references: [id])
 uid String @unique
 username String
 email String @unique
+alerts_paused Boolean @default(false)
+email_alerts_on Boolean @default(true)
 tracked_titles String[]
 tracked_authors String[]
 tracked_zips String[]
