@@ -119,7 +119,7 @@ model Business {
   uid String @unique
   type BUSINESSTYPE
   business_name String
-  email String
+  email String @unique
   business_state String
   business_city String
   business_street String
@@ -139,7 +139,7 @@ id String @id @default(uuid())
 user User @relation(fields: [uid], references: [id])
 uid String @unique
 username String
-email String
+email String @unique
 tracked_titles String[]
 tracked_authors String[]
 tracked_zips String[]
