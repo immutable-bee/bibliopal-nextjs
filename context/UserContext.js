@@ -32,25 +32,27 @@ export const UserProvider = ({ children }) => {
     });
   };
 
+  const fetchUserData = async () => {
+    if (!session) return;
+
+    const res = await fetch("/api/fetchuser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(session.user.email),
+    });
+
+    if (!res.ok) {
+      return;
+    }
+
+    const data = await res.json();
+    setUser(data);
+  };
+
   useEffect(() => {
     if (session) {
-      const fetchUserData = async () => {
-        const res = await fetch("/api/fetchuser", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(session.user.email),
-        });
-
-        if (!res.ok) {
-          return;
-        }
-
-        const data = await res.json();
-        setUser(data);
-      };
-
       fetchUserData();
       if (user) {
         if (!user.onboarding_complete) {
@@ -72,7 +74,7 @@ export const UserProvider = ({ children }) => {
   }, [session, user?.onboarding_complete]);
 
   return (
-    <UserContext.Provider value={{ user, updateUserUsername }}>
+    <UserContext.Provider value={{ user, updateUserUsername, fetchUserData }}>
       {children}
     </UserContext.Provider>
   );
