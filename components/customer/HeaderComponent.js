@@ -6,7 +6,9 @@ import Link from "next/link";
 // import 'bootstrap/dist/css/bootstrap.css';
 import ProfileSVG from "../../public/images/profile-icon.svg";
 import BookWorm from "../../assets/worm.webp";
+import { useUser } from "../../context/UserContext";
 const HeaderComponent = () => {
+  const { user } = useUser();
   const router = useRouter();
   const linkColor = (path) => {
     return router.pathname === path ? "#2EAAED" : "#828282";
@@ -63,7 +65,7 @@ const HeaderComponent = () => {
             />
           </div>
           <span className="!ml-3 hidden sm:block text-black font-semibold text-lg">
-            Hi, Demo User!
+            {user?.consumer.username ? `Hi, ${user.consumer.username}!` : ""}
           </span>
         </Link>
       </div>
