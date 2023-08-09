@@ -9,5 +9,6 @@ export const config = {
     "/business/profile",
     "/business/uploadlistings",
     "/business/uploadlistings/future",
+    "/auth/onboarding",
   ],
 };
