@@ -1,11 +1,11 @@
 import Image from "next/image";
-import PeopleSVG from "../../assets/svg/people.svg";
-import Logo from "../../public/logo.png";
+import PeopleSVG from "../assets/svg/people.svg";
+import Logo from "../public/logo.png";
 import { Button, Input, Loading } from "@nextui-org/react";
 import { useMemo, useState } from "react";
-import IconGoogle from "../../assets/svg/icon-google.svg";
+import IconGoogle from "../assets/svg/icon-google.svg";
 import { useSession, signIn } from "next-auth/react";
-import IconEnvelope from "../../assets/svg/icons_envelope.svg";
+import IconEnvelope from "../assets/svg/icons_envelope.svg";
 import Link from "next/link";
 
 const providers = [
@@ -23,7 +23,7 @@ const providers = [
   },
 ];
 
-const BusinessAuthContainer = () => {
+const SignIn = ({ props }) => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -35,7 +35,7 @@ const BusinessAuthContainer = () => {
 
     signIn("email", { email, redirect: false }).then(
       setTimeout(() => {
-        setLoginSuccess(true), setLoading(false);
+        setLoading(false);
       }, 3000)
     );
   };
@@ -88,8 +88,7 @@ const BusinessAuthContainer = () => {
                 Welcome to BiblioPal!
               </h2>
               <h2 className="pt-5 text-sm text-center">
-                Get Started with a seller account by signing up below. You will
-                be able to start listing your inventory after signing up.
+                Get started by signing up/in below.
               </h2>
               <form id="login-form" className="mt-6" onSubmit={handleSubmit}>
                 <Input
@@ -148,14 +147,8 @@ const BusinessAuthContainer = () => {
                 ></Button>
               </div>
               <p className="text-center pt-2 text-sm">
-                Did you mean to sign up for a reader account?<br></br>Click{" "}
-                <Link
-                  className="text-blbBlue text-md"
-                  href={"/auth?type=consumer"}
-                >
-                  {" "}
-                  Here{" "}
-                </Link>
+                You will be able to choose your account type (Reader, Seller)
+                after signup.
               </p>
               <h6 className="text-xs text-center text-gray-500 mt-3">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -171,4 +164,4 @@ const BusinessAuthContainer = () => {
   );
 };
 
-export default BusinessAuthContainer;
+export default SignIn;

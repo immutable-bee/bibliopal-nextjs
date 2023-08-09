@@ -92,6 +92,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  onboarding_complete Boolean @default(false)
   business Business?
   consumer Consumer?
 

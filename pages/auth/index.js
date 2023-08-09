@@ -1,37 +1,24 @@
-import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { Loading } from "@nextui-org/react";
 import AuthContainer from "../../components/containers/AuthContainer";
-import ConsumerAuthContainer from "../../components/containers/ConsumerAuthContainer";
-import BusinessAuthContainer from "../../components/containers/BusinessAuthContainer";
+import SignIn from "../../components/SignIn";
 
 const SignInPage = () => {
   const { data: session, status } = useSession();
 
-  const router = useRouter();
-  const { type } = router.query;
-
-  useEffect(() => {
-    if (type) {
-      setLoading(false);
-    }
-  }, [type]);
-
-  const [loading, setLoading] = useState(true);
-
   if (status == "loading")
     return (
-      <AuthContainer id="login-loader" content={<Loading size={"lg"} />} />
+      <AuthContainer
+        id="login-loader"
+        content={
+          <div className="flex justify-center">
+            <Loading size={"lg"} />{" "}
+          </div>
+        }
+      />
     );
 
-  return loading ? (
-    <AuthContainer id="login-loader" content={<Loading size={"lg"} />} />
-  ) : type === "consumer" ? (
-    <ConsumerAuthContainer />
-  ) : (
-    <BusinessAuthContainer />
-  );
+  return <SignIn />;
 };
 
 export default SignInPage;

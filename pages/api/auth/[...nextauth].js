@@ -51,8 +51,8 @@ export const authOptions = {
     strategy: "jwt",
   },
   pages: {
-    signIn: "/auth/signin",
-    newUser: "/",
+    signIn: "/auth",
+    newUser: "/auth/onboarding",
   },
 
   callbacks: {
@@ -67,6 +67,7 @@ export const authOptions = {
           user.id = emailUser.id;
         }
       }
+
       return true;
     },
   },
