@@ -99,7 +99,9 @@ const Profilecomponent = () => {
               <h3 class="text-xl font-medium mr-3">Total alerts</h3>
               <input
                 type="number"
-                value={""}
+                value={
+                  user?.consumer.paid_alerts ? user.consumer.paid_alerts : ""
+                }
                 className="px-3 py-3 w-32 rounded-xl border-2 border-gray-500"
                 disabled
               />
