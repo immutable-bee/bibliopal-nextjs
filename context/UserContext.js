@@ -22,6 +22,16 @@ export const UserProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
 
+  const updateUserUsername = (newUsername) => {
+    setUser({
+      ...user,
+      consumer: {
+        ...user.consumer,
+        username: newUsername,
+      },
+    });
+  };
+
   useEffect(() => {
     if (session) {
       const fetchUserData = async () => {
@@ -62,6 +72,8 @@ export const UserProvider = ({ children }) => {
   }, [session, user?.onboarding_complete]);
 
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, updateUserUsername }}>
+      {children}
+    </UserContext.Provider>
   );
 };
