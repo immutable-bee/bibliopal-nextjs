@@ -17,7 +17,7 @@ import { useUser } from "../../../context/UserContext";
 import UsernameInput from "../../../components/customer/profile/UsernameInput";
 
 const Profilecomponent = () => {
-  const { user } = useUser();
+  const { user, updateUserUsername } = useUser();
   const [newTitle, setNewTitle] = useState("");
   const [newZipCode, setNewZipCode] = useState("");
   const [newAuthor, setNewAuthor] = useState("");
@@ -83,6 +83,7 @@ const Profilecomponent = () => {
                 email: user?.email,
                 username: user?.consumer.username ? user.consumer.username : "",
               }}
+              onUsernameUpdate={updateUserUsername}
             />
             <div className="flex items-center mt-6">
               <label className="relative flex items-center cursor-pointer">
