@@ -63,7 +63,7 @@ function Header() {
             />
           </div>
           <span className="!ml-3 hidden sm:block text-black font-semibold text-lg">
-            {user?.business.business_name
+            {user?.business?.business_name
               ? `Hi, ${user.business.business_name}!`
               : ""}
           </span>
