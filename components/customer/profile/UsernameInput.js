@@ -2,11 +2,10 @@ import { Loading } from "@nextui-org/react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-const UsernameInput = ({ props }) => {
+const UsernameInput = ({ props, onUsernameUpdate }) => {
   const [loading, setLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [username, setUsername] = useState(props.username);
-  const [isUsernameUpdated, setisUsernameUpdated] = useState(false);
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -21,7 +20,8 @@ const UsernameInput = ({ props }) => {
       setLoading(false);
     }
     setLoading(false);
-    setisUsernameUpdated(true);
+    setUsername("");
+    onUsernameUpdate(username);
   };
 
   const handleChange = (e) => {
@@ -29,8 +29,6 @@ const UsernameInput = ({ props }) => {
     const value = e.target.value;
     setUsername(value);
   };
-
-  useEffect(() => {}, [isUsernameUpdated]);
 
   return (
     <div className="py-2 mt-0 sm:mt-6">
@@ -41,6 +39,7 @@ const UsernameInput = ({ props }) => {
           type="text"
           placeholder={props.username}
           onChange={handleChange}
+          value={username}
         />
         {isTyping && !loading ? (
           <button
