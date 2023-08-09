@@ -13,8 +13,11 @@ import Tier2 from "../../../assets/owl.png";
 import CloseCircle from "../../../public/images/close-circle.svg";
 import CopySVG from "../../../public/images/copy.svg";
 import { signOut } from "next-auth/react";
+import { useUser } from "../../../context/UserContext";
+import UsernameInput from "../../../components/customer/profile/UsernameInput";
 
 const Profilecomponent = () => {
+  const { user } = useUser();
   const [newTitle, setNewTitle] = useState("");
   const [newZipCode, setNewZipCode] = useState("");
   const [newAuthor, setNewAuthor] = useState("");
@@ -75,30 +78,12 @@ const Profilecomponent = () => {
 
         <section className="px-5 ">
           <div className="max-w-xl mx-auto">
-            <div className="py-2 mt-0 sm:mt-6">
-              <label className="text-sm text-black font-medium">Name</label>
-              <div>
-                <input
-                  className="bg-white form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                  type="text"
-                  placeholder="John Doe"
-                />
-              </div>
-            </div>
-            <div className="py-2 ">
-              <label className="text-sm text-black font-medium">
-                Email address
-              </label>
-              <div>
-                <input
-                  className="bg-white form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                  type="email"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="MohammedIsmail@gmail.com"
-                />
-              </div>
-            </div>
+            <UsernameInput
+              props={{
+                email: user?.email,
+                username: user?.consumer.username ? user.consumer.username : "",
+              }}
+            />
             <div className="flex items-center mt-6">
               <label className="relative flex items-center cursor-pointer">
                 <input
