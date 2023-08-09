@@ -129,7 +129,7 @@ model Business {
   membership MEMBERSHIP @default(FREE)
   upload_cycle_start_date DateTime @default(now())
   current_cycle_uploads Int @default(0)
-  upload_credits Int
+  upload_credits Int @default(0)
   inventory Listing[]
   book_sale BookSale?
 
