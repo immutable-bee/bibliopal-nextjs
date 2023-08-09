@@ -1,17 +1,8 @@
 import React, { useState } from "react";
-import styles from "./profile.module.scss";
-import Image from "next/image";
 import TooltipComponent from "@/components/utility/Tooltip";
-import Link from "next/link";
-// import 'bootstrap/dist/css/bootstrap.css';
 import Head from "next/head";
 import PricingComponent from "@/components/scoped/Pricing";
 import HeaderComponent from "@/components/customer/HeaderComponent";
-import FreePlan from "../../../assets/free.png";
-import BookWorm from "../../../assets/worm.webp";
-import Tier2 from "../../../assets/owl.png";
-import CloseCircle from "../../../public/images/close-circle.svg";
-import CopySVG from "../../../public/images/copy.svg";
 import { signOut } from "next-auth/react";
 import { useUser } from "../../../context/UserContext";
 import UsernameInput from "../../../components/customer/profile/UsernameInput";
