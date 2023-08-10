@@ -21,6 +21,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               error={error}
               setError={setError}
               createNewRow={createNewRow}
+              title={"Upload Listings"}
             />
 
             <div className=" flex justify-center">
