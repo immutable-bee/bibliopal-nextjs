@@ -7,13 +7,14 @@ interface ISBNSearchBoxProps {
   setError: SetError;
   error: ErrorT;
   createNewRow: Function;
-  booksale: Object;
+  title: String;
 }
 
 const ISBNSearchBox = ({
   createNewRow,
   error,
   setError,
+  title,
 }: ISBNSearchBoxProps) => {
   const { fetchByISBN } = useFetchBooks();
   const [searchValue, setSearchValue] = useState<string>("");
@@ -47,7 +48,7 @@ const ISBNSearchBox = ({
   return (
     <div>
       <h1 className="text-gray-900 text-2xl sm:text-3xl sm:text-center font-bold">
-        Book Listing Application
+        {title}
       </h1>
       <div className="pt-10">
         <div className="flex flex-row">

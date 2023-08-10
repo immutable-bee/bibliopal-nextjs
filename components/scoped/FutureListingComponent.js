@@ -5,6 +5,7 @@ import Actions from "@/components/Actions";
 import ISBNSearchBox from "@/components/ISBNSearchBox";
 import ContentTable from "@/components/ContentTable";
 import Image from "next/image";
+import EditBookSale from "../EditBookSale";
 const FutureListingComponent = ({
   error,
   setError,
@@ -18,6 +19,10 @@ const FutureListingComponent = ({
     return new Date(date).toLocaleDateString();
   };
 
+  const isEditinghandler = () => {
+    setIsEditing(!isEditing);
+  };
+
   return (
     <div className="min-h-screen bg-[#FEFBE8]">
       <Header />
@@ -29,11 +34,14 @@ const FutureListingComponent = ({
                 error={error}
                 setError={setError}
                 createNewRow={createNewRow}
+                title={"Schedule Listings"}
               />
 
               <Actions isSale={true} />
             </div>
-            {isEditing ? null : (
+            {isEditing ? (
+              <EditBookSale isEditinghandler={isEditinghandler} />
+            ) : (
               <div className="">
                 <div className="flex">
                   <h6 className="text-lg font-bold">BookSale Info</h6>
