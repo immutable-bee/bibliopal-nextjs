@@ -12,8 +12,6 @@ import AlertPreferences from "../../../components/customer/profile/AlertPreferen
 const Profilecomponent = () => {
   const { user, updateUserUsername, fetchUserData } = useUser();
 
-  const [type, setType] = useState([]);
-
   return (
     <div className="bg-[#FEFBE8] min-h-screen">
       <Head>

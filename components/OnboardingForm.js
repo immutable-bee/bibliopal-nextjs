@@ -82,8 +82,6 @@ const OnboardingForm = ({ isCompleteHandler, loadingHandler }) => {
     const { name, value } = e.target;
 
     setFormData({ ...formData, [name]: value });
-
-    console.log(formData);
   };
 
   const handleSubmit = async (e) => {

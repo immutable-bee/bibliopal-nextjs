@@ -4,41 +4,32 @@ import ManageSubscriptionModal from "@/components/scoped/ManageSubscriptionModal
 import SubscriptionModal from "@/components/scoped/SubscriptionModal";
 import UnsubscribeModal from "@/components/scoped/UnsubscribeModal";
 import ButtonComponent from "@/components/utility/Button";
+import { useUser } from "@/context/UserContext";
 
 const ProfileComponent = ({}) => {
+  const { user, fetchUserData } = useUser();
+
+  const [formData, setFormData] = useState();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const JSON = {
-      storeName,
-      storeType,
-      email,
-      address,
-      url,
-      autoUpload,
-      displayContactInfo,
-      visibility,
-      planOptions,
-    };
-
-    console.log(JSON);
-
-    e.preventDefault();
-    setLoading(true);
-
     try {
-      await fetch("/api/onboarding", {
+      await fetch("/api/business/updateData", {
         method: "POST",
-        body: JSON.stringify([senderEmail, JSON]),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: user.email, data: formData }),
       });
-      setLoading(false);
-      setSuccessMessage("Onboarding form submitted");
-      setErrorMessage("");
-    } catch (error) {
-      setLoading(false);
-      setErrorMessage("An error occurred while sending your data");
-      setSuccessMessage("");
-    }
+      fetchUserData();
+    } catch (error) {}
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({ ...formData, [name]: value });
   };
 
   const manageSubscriptionModalHandler = () => {
@@ -107,85 +98,55 @@ const ProfileComponent = ({}) => {
             <div className="py-2">
               <label className="text-sm text-gray-700">Store name</label>
               <input
+                name="business_name"
                 type="text"
                 className="bg-white form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                onChange={(e) => setStoreName(e.target.value)}
+                onChange={handleChange}
+                placeholder={
+                  user?.business?.business_name
+                    ? user.business.business_name
+                    : ""
+                }
               />
             </div>
             <div className="py-2">
               <label className="text-sm text-gray-700">Store Type</label>
               <select
+                name="type"
+                value={user?.business?.type}
                 className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-select border border-gray-500 w-full rounded-lg  px-3 my-1 py-2"
-                onChange={(e) => setStoreType(e.target.value)}
+                onChange={handleChange}
               >
-                <option value="Thrift">Thrift</option>
-                <option value="Library">Library</option>
-                <option value="Bookstore">Bookstore</option>
+                <option value="THRIFT">Thrift</option>
+                <option value="LIBRARY">Library</option>
+                <option value="BOOKSTORE">Bookstore</option>
               </select>
             </div>
+
             <div className="py-2">
-              <label className="text-sm text-gray-700">Email</label>
+              <label className="text-sm text-gray-700">Street Address</label>
               <input
-                type="email"
-                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="py-2">
-              <label className="text-sm text-gray-700">Address</label>
-              <input
+                name="business_street"
                 type="text"
                 className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                onChange={(e) => setAddress(e.target.value)}
+                onChange={handleChange}
+                placeholder={
+                  user?.business?.business_street
+                    ? user.business.business_street
+                    : ""
+                }
               />
             </div>
-            <div className="py-2">
+            <div className="py-2 mb-5">
               <label className="text-sm text-gray-700">URL</label>
               <input
+                name="url"
                 type="url"
                 className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                onChange={(e) => setUrl(e.target.value)}
+                onChange={handleChange}
+                placeholder={user?.business?.url ? user.business.url : ""}
               />
             </div>
-
-            <>
-              <div className="py-2">
-                <label className="text-sm text-gray-700">
-                  Physical address of the sale
-                </label>
-                <input
-                  type="text"
-                  className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                  onChange={(e) => setPhysicalAddressSale(e.target.value)}
-                />
-              </div>
-              <div className="py-2">
-                <label className="text-sm text-gray-700">Start date</label>
-                <input
-                  type="date"
-                  className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                  onChange={(e) => setStartDate(e.target.value)}
-                />
-              </div>
-              <div className="py-2">
-                <label className="text-sm text-gray-700">End date</label>
-                <input
-                  type="date"
-                  className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                  onChange={(e) => setEndDate(e.target.value)}
-                />
-              </div>
-              <div className="py-2">
-                <label className="text-sm text-gray-700">
-                  Hours of the sale
-                </label>
-                <input
-                  type="text"
-                  className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                  onChange={(e) => setHoursSale(e.target.value)}
-                />
-              </div>
-            </>
 
             <ButtonComponent
               rounded
