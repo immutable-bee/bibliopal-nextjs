@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useTableDataContext } from "../../../../context/TableDataContext";
 import { setTableDataToStorage } from "../../../../helpers/localstorage";
-
+import BookSale from "../../../../components/BookSale";
 import FutureListingComponent from "../../../../components/scoped/FutureListingComponent";
+import { useUser } from "../../../../context/UserContext";
 
 const Index = () => {
+  const { user } = useUser();
   const { tableData, setTableData } = useTableDataContext();
   const [error, setError] = useState("");
 
@@ -47,14 +49,19 @@ const Index = () => {
     setError("");
   }, [tableData]);
 
-  return (
-    <FutureListingComponent
-      error={error}
-      setError={setError}
-      createNewRow={createNewRow}
-      deleteBookRow={deleteBookRow}
-    />
-  );
+  if (!user?.booksale) {
+    return <BookSale />;
+  } else {
+    return (
+      <FutureListingComponent
+        error={error}
+        setError={setError}
+        createNewRow={createNewRow}
+        deleteBookRow={deleteBookRow}
+        user={user}
+      />
+    );
+  }
 };
 
 export default Index;

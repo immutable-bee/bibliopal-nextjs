@@ -7,6 +7,7 @@ interface ISBNSearchBoxProps {
   setError: SetError;
   error: ErrorT;
   createNewRow: Function;
+  booksale: Object;
 }
 
 const ISBNSearchBox = ({
@@ -49,20 +50,22 @@ const ISBNSearchBox = ({
         Book Listing Application
       </h1>
       <div className="pt-10">
-        <div className="sm:flex items-center">
-          <label className="text-2xl block sm:inline-block text-black font-bold">
-            EAN
-          </label>
-          <input
-            ref={searchInputRef}
-            value={searchValue}
-            onChange={handleChange}
-            onKeyDown={handlePress}
-            type="url"
-            className="bg-white sm:ml-3 w-80 focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-300  rounded-lg  px-4 my-1 py-3.5"
-          />
+        <div className="flex flex-row">
+          <div className="sm:flex items-center">
+            <label className="text-2xl block sm:inline-block text-black font-bold">
+              EAN
+            </label>
+            <input
+              ref={searchInputRef}
+              value={searchValue}
+              onChange={handleChange}
+              onKeyDown={handlePress}
+              type="url"
+              className="bg-white sm:ml-3 w-80 focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-300  rounded-lg  px-4 my-1 py-3.5"
+            />
+          </div>
+          <p className="text-base mt-1 text-red-500 text-center">{error}</p>
         </div>
-        <p className="text-base mt-1 text-red-500 text-center">{error}</p>
       </div>
     </div>
   );

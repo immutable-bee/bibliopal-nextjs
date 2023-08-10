@@ -49,6 +49,31 @@ export const UserProvider = ({ children }) => {
 
     const data = await res.json();
     setUser(data);
+
+    if (data.business) {
+      fetchBusinessData();
+    }
+  };
+
+  const fetchBusinessData = async () => {
+    const res = await fetch("/api/business/getData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(session.user.email),
+    });
+
+    if (!res.ok) {
+      return;
+    }
+
+    const data = await res.json();
+
+    setUser((prevUser) => ({
+      ...prevUser,
+      booksale: data.book_sale,
+    }));
   };
 
   useEffect(() => {
