@@ -1,9 +1,11 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"); */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 * {
   /* font-family: "Poppins", sans-serif; */
   font-family: "Inter";
 }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,12 +19,14 @@
 
 #social-auth-container button {
   width: 100% !important;
-  @apply py-2 bg-white !border border-solid !border-gray-500 hover:bg-gray-50
+  @apply py-2 bg-white !border border-solid !border-gray-500
 }
+
 #login-form button {
   width: 100% !important;
   @apply mt-8 bg-[#ffc71f]
 }
+
 #login-form input {
   width: 100% !important;
 }
@@ -39,9 +43,11 @@
   width: 100% !important;
   @apply mt-8 bg-[#ffc71f]
 }
+
 #onboarding-form input {
   width: 100% !important;
 }
+
 /* #onboarding-form div {
   width: 100% !important;
 } */
@@ -49,6 +55,7 @@
 #blue-button {
   background-color: #2EAAED !important;
 }
+
 #download_csv {
   background-color: #9BCC2C !important;
 }
@@ -99,6 +106,7 @@ td {
   width: 100%;
   max-width: 100%;
 }
+
 .input-root {
   width: 100%;
   display: flex;
@@ -111,4 +119,64 @@ td {
   .input-root {
     display: block;
   }
+}
+
+.point-1 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg) translateX(-56px) rotate(0deg);
+}
+
+.point-2 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(36deg) translateX(-56px) rotate(-36deg);
+}
+
+.point-3 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(72deg) translateX(-56px) rotate(-72deg);
+}
+
+.point-4 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(108deg) translateX(-56px) rotate(-108deg);
+}
+
+.point-5 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(144deg) translateX(-56px) rotate(-144deg);
+}
+
+.point-6 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(180deg) translateX(-56px) rotate(-180deg);
+}
+
+.point-7 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(216deg) translateX(-56px) rotate(-216deg);
+}
+
+.point-8 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(252deg) translateX(-56px) rotate(-252deg);
+}
+
+.point-9 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(288deg) translateX(-56px) rotate(-288deg);
+}
+
+.point-10 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(324deg) translateX(-56px) rotate(-324deg);
 }

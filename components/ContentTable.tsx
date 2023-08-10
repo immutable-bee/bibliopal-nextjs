@@ -1,12 +1,14 @@
 import { ActionIcon, Table } from "@mantine/core";
 import { useTableDataContext } from "../context/TableDataContext";
 import { Delete } from "../assets/svg/delete";
-import { DeleteBookRow } from "@/pages";
+import { DeleteBookRow } from "@/pages/business";
 
 export interface Rows {
   title: string;
   author: string;
-  ISBN: string;
+  isbn: string;
+  format: string;
+  image_url: string;
 }
 
 const TableHead = () => {
@@ -48,7 +50,7 @@ const TableBody = ({ deleteBookRow }: { deleteBookRow: DeleteBookRow }) => {
   return (
     <tbody className="border-2 text-gray-700 text-xs sm:text-sm font-light border-[rgb(222, 226, 230)]">
       {tableData.rows.map((row) => (
-        <tr className=" border-b  " key={row.ISBN}>
+        <tr className=" border-b  " key={row.isbn}>
           <td className="border-2 border-[rgb(222, 226, 230)] px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
             {row?.title}
           </td>
@@ -56,10 +58,10 @@ const TableBody = ({ deleteBookRow }: { deleteBookRow: DeleteBookRow }) => {
             {row?.author}
           </td>
           <td className="border-2 border-[rgb(222, 226, 230)] px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-            {row?.ISBN}
+            {row?.isbn}
           </td>
           <td className="border-2 border-[rgb(222, 226, 230)] px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-            <ActionIcon onClick={() => handleDelete(row?.ISBN)}>
+            <ActionIcon onClick={() => handleDelete(row?.isbn)}>
               <Delete />
             </ActionIcon>
           </td>

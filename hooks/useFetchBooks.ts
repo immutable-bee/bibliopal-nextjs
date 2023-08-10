@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SetError } from "@/pages";
+import { SetError } from "@/pages/business";
 
 interface Book {
   title: string;
@@ -27,8 +27,12 @@ const useFetchBooks = () => {
       const extracetdData = {
         title: data.book?.title,
         author: data.book?.authors.join(", "),
-        ISBN,
+        isbn: data.book?.isbn13,
+        format: data.book?.binding,
+        image_url: data.book?.image,
       };
+
+      console.log("Extracted Data:", extracetdData);
 
       if (!extracetdData.title) throw new Error("This book missed a title");
 
