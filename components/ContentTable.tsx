@@ -11,6 +11,11 @@ export interface Rows {
   image_url: string;
 }
 
+interface ContentTableProps {
+  deleteBookRow: DeleteBookRow;
+  isSale: boolean;
+}
+
 const TableHead = () => {
   return (
     <thead className="text-base font-semibold text-gray-700   ">
@@ -42,14 +47,18 @@ const TableHead = () => {
   );
 };
 
-const TableBody = ({ deleteBookRow }: { deleteBookRow: DeleteBookRow }) => {
-  const { tableData } = useTableDataContext();
+const TableBody: React.FC<ContentTableProps> = ({ deleteBookRow, isSale }) => {
+  const { tableData, bookSaleTableData } = useTableDataContext();
+
+  const tableHandler = () => {
+    return isSale ? bookSaleTableData : tableData;
+  };
 
   const handleDelete = (ISBN: string) => deleteBookRow(ISBN);
 
   return (
     <tbody className="border-2 text-gray-700 text-xs sm:text-sm font-light border-[rgb(222, 226, 230)]">
-      {tableData.rows.map((row) => (
+      {tableHandler().rows.map((row) => (
         <tr className=" border-b  " key={row.isbn}>
           <td className="border-2 border-[rgb(222, 226, 230)] px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
             {row?.title}
@@ -71,12 +80,15 @@ const TableBody = ({ deleteBookRow }: { deleteBookRow: DeleteBookRow }) => {
   );
 };
 
-const ContentTable = ({ deleteBookRow }: { deleteBookRow: DeleteBookRow }) => {
+const ContentTable: React.FC<ContentTableProps> = ({
+  deleteBookRow,
+  isSale,
+}) => {
   return (
     <div className="relative mt-6 overflow-x-auto">
       <table className="w-full rounded-lg border-2 border-[rgb(222, 226, 230)]  text-sm text-left text-gray-500 ">
         <TableHead />
-        <TableBody deleteBookRow={deleteBookRow} />
+        <TableBody isSale={isSale} deleteBookRow={deleteBookRow} />
       </table>
     </div>
   );

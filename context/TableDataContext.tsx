@@ -6,7 +6,10 @@ import {
   useState,
 } from "react";
 import { Rows } from "../components/ContentTable";
-import { getTableDataFromStorage } from "../helpers/localstorage";
+import {
+  getTableDataFromStorage,
+  getFutureTableDataFromStorage,
+} from "../helpers/localstorage";
 
 //? Types
 export interface TableData {
@@ -23,13 +26,23 @@ export const DEFAULT_TABLE_DATA: TableData = {
 
 const TableDataProvider = ({ children }: { children: ReactNode }) => {
   const [tableData, setTableData] = useState<TableData>(DEFAULT_TABLE_DATA);
+  const [bookSaleTableData, setBookSaleTableData] =
+    useState<TableData>(DEFAULT_TABLE_DATA);
 
   useEffect(() => {
     setTableData(getTableDataFromStorage());
+    setBookSaleTableData(getFutureTableDataFromStorage());
   }, []);
 
   return (
-    <TableDataContext.Provider value={{ tableData, setTableData }}>
+    <TableDataContext.Provider
+      value={{
+        tableData,
+        setTableData,
+        bookSaleTableData,
+        setBookSaleTableData,
+      }}
+    >
       {children}
     </TableDataContext.Provider>
   );
@@ -39,6 +52,8 @@ export const useTableDataContext = () => {
   const context = useContext(TableDataContext) as {
     tableData: TableData;
     setTableData: SetTableData;
+    bookSaleTableData: TableData;
+    setBookSaleTableData: SetTableData;
   };
 
   if (!context)

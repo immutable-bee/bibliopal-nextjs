@@ -5,12 +5,6 @@ import Actions from "@/components/Actions";
 import ISBNSearchBox from "@/components/ISBNSearchBox";
 import ContentTable from "@/components/ContentTable";
 const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
-  const [isSale, setIsSale] = useState(false);
-
-  const isSaleHandler = () => {
-    setIsSale((prevIsSale) => !prevIsSale);
-  };
-
   return (
     <div className="min-h-screen bg-[#FEFBE8]">
       <Header />
@@ -34,11 +28,11 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               </label>{" "}
             </div>
 
-            <Actions isSale={isSale} />
+            <Actions isSale={false} />
           </div>
         </div>
 
-        <ContentTable deleteBookRow={deleteBookRow} />
+        <ContentTable isSale={false} deleteBookRow={deleteBookRow} />
       </div>
     </div>
   );
