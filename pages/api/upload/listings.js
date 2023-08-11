@@ -5,7 +5,7 @@ const handler = async (req, res) => {
   if (req.method === "POST") {
     const tableData = req.body;
     const businessData = req.businessData;
-    const ownerId = businessData.businessId;
+    const ownerId = businessData.id;
     const memberCreditsCost = businessData.memberCreditsCost;
     const paidCreditsCost = businessData.paidCreditsCost;
 

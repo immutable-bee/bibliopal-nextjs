@@ -5,14 +5,14 @@ const handler = async (req, res) => {
   if (req.method === "POST") {
     const tableData = req.body;
     const businessData = req.businessData;
-    const ownerId = businessData.businessId;
+    const ownerId = businessData.id;
     const memberCreditsCost = businessData.memberCreditsCost;
     const paidCreditsCost = businessData.paidCreditsCost;
 
     let saleId;
 
     try {
-      const sale = await prisma.booksale.findUnique({
+      const sale = await prisma.bookSale.findUnique({
         where: { ownerId: ownerId },
       });
       saleId = sale.id;
@@ -29,7 +29,7 @@ const handler = async (req, res) => {
 
     try {
       const [newListings, creditUpdate] = await prisma.$transaction([
-        prisma.futurelisting.createMany({
+        prisma.futureListing.createMany({
           data: dataWithSale,
         }),
         prisma.business.update({
