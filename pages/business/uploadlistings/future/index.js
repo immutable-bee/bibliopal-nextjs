@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { useTableDataContext } from "../../../../context/TableDataContext";
-import { setTableDataToStorage } from "../../../../helpers/localstorage";
+import { setFutureTableDataToStorage } from "../../../../helpers/localstorage";
 import BookSale from "../../../../components/BookSale";
 import FutureListingComponent from "../../../../components/scoped/FutureListingComponent";
 import { useUser } from "../../../../context/UserContext";
 
 const Index = () => {
   const { user } = useUser();
-  const { tableData, setTableData } = useTableDataContext();
+  const { bookSaleTableData, setBookSaleTableData } = useTableDataContext();
   const [error, setError] = useState("");
 
   const createNewRow = (newBookInfo) => {
-    let { rows } = tableData;
+    let { rows } = bookSaleTableData;
 
     const isISBNexist = rows.find((row) => row.isbn === newBookInfo.isbn);
     if (isISBNexist) return setError("This ISBN already exists");
@@ -26,28 +26,28 @@ const Index = () => {
       });
 
     const newTableData = {
-      ...tableData,
+      ...bookSaleTableData,
       rows: [...rows],
     };
 
-    setTableData(newTableData);
+    setBookSaleTableData(newTableData);
 
-    setTableDataToStorage(newTableData);
+    setFutureTableDataToStorage(newTableData);
   };
 
   const deleteBookRow = (ISBN) => {
     const newTableData = {
-      ...tableData,
-      rows: tableData.rows.filter((row) => row.isbn !== ISBN),
+      ...bookSaleTableData,
+      rows: bookSaleTableData.rows.filter((row) => row.isbn !== ISBN),
     };
-    setTableData(newTableData);
+    setBookSaleTableData(newTableData);
 
-    setTableDataToStorage(newTableData);
+    setFutureTableDataToStorage(newTableData);
   };
 
   useEffect(() => {
     setError("");
-  }, [tableData]);
+  }, [bookSaleTableData]);
 
   if (!user?.booksale) {
     return <BookSale />;

@@ -1,4 +1,3 @@
-import { Flex, Stack, Text, TextInput } from "@mantine/core";
 import { useRef, useState } from "react";
 import useFetchBooks from "../hooks/useFetchBooks";
 import { ErrorT, SetError } from "../pages/business/index";
@@ -21,13 +20,17 @@ const ISBNSearchBox = ({
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  const isSaleHandler = () => {
+    return title === "Schedule Listings" ? true : false;
+  };
+
   const handleSearch = async () => {
     if (!searchValue) {
       setError("Please write book ISBN");
       return;
     }
 
-    const bookData = await fetchByISBN(searchValue, setError);
+    const bookData = await fetchByISBN(searchValue, isSaleHandler(), setError);
 
     console.log(bookData);
 

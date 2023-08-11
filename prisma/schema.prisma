@@ -49,7 +49,7 @@ model VerificationToken {
 
 model Listing {
   id String @id @default(uuid())
-  owner Business @relation(fields: [ownerId], references: [id])
+  owner Business @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId String
   date_listed DateTime @default(now())
   days_to_expiry Int @default(7)
@@ -59,14 +59,25 @@ model Listing {
   format String?
   image_url String? @db.Text
   savedListings SavedListing[]
+  matches Match[]
 
 }
 
 model SavedListing {
   id         String   @id @default(uuid())
-  consumer   Consumer @relation(fields: [consumerId], references: [id])
+  consumer   Consumer @relation(fields: [consumerId], references: [id], onDelete: Cascade)
   consumerId String
-  listing    Listing  @relation(fields: [listingId], references: [id])
+  listing    Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId  String
+
+  @@unique([consumerId, listingId])
+}
+
+model Match {
+  id         String   @id @default(uuid())
+  consumer   Consumer @relation(fields: [consumerId], references: [id], onDelete: Cascade)
+  consumerId String
+  listing    Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
   listingId  String
 
   @@unique([consumerId, listingId])
@@ -74,7 +85,7 @@ model SavedListing {
 
 model FutureListing {
   id String @id @default(uuid())
-  sale BookSale @relation(fields: [saleId], references: [id])
+  sale BookSale @relation(fields: [saleId], references: [id], onDelete: Cascade)
   saleId String
   title String
   isbn String?
@@ -99,7 +110,7 @@ model User {
 }
 model BookSale {
   id String @id @default(uuid())
-  owner Business @relation(fields: [ownerId], references: [id])
+  owner Business @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId String @unique
   date_starts DateTime
   date_ends DateTime
@@ -147,6 +158,7 @@ tracked_authors String[]
 tracked_zips String[]
 paid_alerts Int @default(25)
 saved SavedListing[]
+matches Match[]
 }
 
 enum BUSINESSTYPE {

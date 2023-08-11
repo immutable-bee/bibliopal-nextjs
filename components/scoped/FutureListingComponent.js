@@ -81,7 +81,7 @@ const FutureListingComponent = ({
           </div>
         </div>
 
-        <ContentTable deleteBookRow={deleteBookRow} />
+        <ContentTable isSale={true} deleteBookRow={deleteBookRow} />
       </div>
     </div>
   );

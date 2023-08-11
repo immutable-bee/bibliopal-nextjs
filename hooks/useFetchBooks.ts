@@ -11,9 +11,19 @@ const useFetchBooks = () => {
     title: "",
   });
 
-  const fetchByISBN = async (ISBN: string, setError?: SetError) => {
+  const fetchByISBN = async (
+    ISBN: string,
+    isSale: boolean,
+    setError?: SetError
+  ) => {
+    const pathHandler = () => {
+      return isSale
+        ? `../../api/fetch-isbnDB?isbn=${ISBN}`
+        : `../api/fetch-isbnDB?isbn=${ISBN}`;
+    };
+
     try {
-      const response = await fetch(`../api/fetch-isbnDB?isbn=${ISBN}`);
+      const response = await fetch(pathHandler());
 
       if (!response.ok)
         throw new Error(

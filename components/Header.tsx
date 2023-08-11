@@ -28,7 +28,7 @@ function Header() {
       </div>
 
       <nav className="text-center">
-        <Link href="/business/uploadlistings">
+        <Link href="/business">
           <span
             style={{ color: linkColor("/") }}
             className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"

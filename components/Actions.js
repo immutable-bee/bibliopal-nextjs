@@ -5,13 +5,20 @@ import { setTableDataToStorage } from "../helpers/localstorage";
 import LoadingComponent from "../components/utility/loading";
 
 const Actions = ({ isSale }) => {
-  const { tableData, setTableData } = useTableDataContext();
+  const { tableData, setTableData, bookSaleTableData, setBookSaleTableData } =
+    useTableDataContext();
   const [uploadLoading, setUploadLoading] = useState(false);
 
   const anchorRef = useRef(null);
 
   const routeHandler = () => {
     return isSale ? "/api/upload/futureListings" : "/api/upload/listings";
+  };
+
+  const bodyHandler = () => {
+    return isSale
+      ? JSON.stringify(bookSaleTableData.rows)
+      : JSON.stringify(tableData.rows);
   };
 
   const handleUpload = async () => {
@@ -22,7 +29,7 @@ const Actions = ({ isSale }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(tableData.rows),
+      body: bodyHandler(),
     });
 
     const data = await response.json();
