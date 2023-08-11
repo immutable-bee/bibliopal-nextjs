@@ -5,6 +5,7 @@ import SubscriptionModal from "@/components/scoped/SubscriptionModal";
 import UnsubscribeModal from "@/components/scoped/UnsubscribeModal";
 import ButtonComponent from "@/components/utility/Button";
 import { useUser } from "@/context/UserContext";
+import { signOut } from "next-auth/react";
 
 const ProfileComponent = ({}) => {
   const { user, fetchUserData } = useUser();
@@ -169,6 +170,12 @@ const ProfileComponent = ({}) => {
             </div>
           </form>
         </div>
+        <button
+          className="bg-blbBlue border border-black rounded-lg px-8 py-2 mb-10 text-white"
+          onClick={() => signOut()}
+        >
+          Sign Out
+        </button>
       </div>
       <SubscriptionModal isSubscriptionModalOpen={isSubscriptionModalOpen} />
     </div>
