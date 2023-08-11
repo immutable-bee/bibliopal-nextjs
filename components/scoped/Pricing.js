@@ -11,7 +11,7 @@ const Pricing = () => {
   const pricingData = [
     {
       price: 2.99,
-      amount: 3,
+      amount: 5,
     },
     {
       price: 4.99,
@@ -27,23 +27,23 @@ const Pricing = () => {
     },
     {
       price: 19.99,
-      amount: 75,
+      amount: 100,
     },
     {
       price: 29.99,
-      amount: 125,
-    },
-    {
-      price: 39.99,
       amount: 200,
     },
     {
+      price: 39.99,
+      amount: 300,
+    },
+    {
       price: 49.99,
-      amount: 325,
+      amount: 500,
     },
     {
       price: 74.99,
-      amount: 750,
+      amount: 800,
     },
     {
       price: 99.99,
@@ -51,10 +51,63 @@ const Pricing = () => {
     },
   ];
 
+  const subscriptionPricingData = [
+    {
+      price: 2.99,
+      amount: 6,
+    },
+    {
+      price: 4.99,
+      amount: 13,
+    },
+    {
+      price: 9.99,
+      amount: 31,
+    },
+    {
+      price: 14.99,
+      amount: 63,
+    },
+    {
+      price: 19.99,
+      amount: 125,
+    },
+    {
+      price: 29.99,
+      amount: 250,
+    },
+    {
+      price: 39.99,
+      amount: 375,
+    },
+    {
+      price: 49.99,
+      amount: 625,
+    },
+    {
+      price: 74.99,
+      amount: 1000,
+    },
+    {
+      price: 99.99,
+      amount: 1500,
+    },
+  ];
+
+  const [isSubscription, setIsSubscription] = useState(false);
   const [value, setValue] = useState(0.1);
   const stepValue = (v) => Math.round(v * 10) / 10;
 
+  const handleIsSubscriptionChange = (e) => {
+    const newValue = e.target.checked;
+    setIsSubscription(newValue);
+  };
+
   useEffect(() => {}, [value]);
+
+  const priceDataHandler = () => {
+    return isSubscription ? subscriptionPricingData : pricingData;
+  };
 
   const getIndex = () => {
     if (value === 1) {
@@ -68,17 +121,24 @@ const Pricing = () => {
   };
 
   const getAmount = () => {
-    return pricingData[getIndex()]?.amount;
+    return priceDataHandler()[getIndex()]?.amount;
   };
 
   const getTotal = () => {
-    return pricingData[getIndex()]?.price;
+    return priceDataHandler()[getIndex()]?.price;
   };
 
   const getEach = () => {
     const rawPrice =
-      pricingData[getIndex()]?.price / pricingData[getIndex()]?.amount;
+      priceDataHandler()[getIndex()]?.price /
+      priceDataHandler()[getIndex()]?.amount;
     return rawPrice ? rawPrice.toFixed(2) : null;
+  };
+
+  const handleTextHighlight = () => {
+    return isSubscription
+      ? "ml-3 text-sm font-medium text-black dark:text-black"
+      : "ml-3 text-sm font-medium text-gray-900 dark:text-gray-300";
   };
 
   return (
@@ -140,6 +200,22 @@ const Pricing = () => {
             </text>
           </CircularInput>
         </div>
+      </div>
+
+      <div className="flex justify-center my-5 ">
+        <label className="relative flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            value=""
+            className="sr-only peer"
+            checked={isSubscription}
+            onChange={handleIsSubscriptionChange}
+          />
+          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-[#2EAAED]"></div>
+          <span className={handleTextHighlight()}>
+            Recurring? 25% more alerts
+          </span>
+        </label>
       </div>
 
       <div className="flex justify-center mt-7 items-center">
