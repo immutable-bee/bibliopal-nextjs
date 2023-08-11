@@ -1,7 +1,10 @@
 import Papa from "papaparse";
 import { useEffect, useRef, useState } from "react";
 import { TableData, useTableDataContext } from "../context/TableDataContext";
-import { setTableDataToStorage } from "../helpers/localstorage";
+import {
+  setTableDataToStorage,
+  setFutureTableDataToStorage,
+} from "../helpers/localstorage";
 import LoadingComponent from "../components/utility/loading";
 
 const Actions = ({ isSale }) => {
@@ -41,9 +44,13 @@ const Actions = ({ isSale }) => {
       rows: [],
     };
 
-    setTableData(resetObject);
-
-    setTableDataToStorage(resetObject);
+    if (isSale) {
+      setBookSaleTableData(resetObject);
+      setFutureTableDataToStorage(resetObject);
+    } else {
+      setTableData(resetObject);
+      setTableDataToStorage(resetObject);
+    }
   };
 
   return (
