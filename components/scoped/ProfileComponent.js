@@ -6,6 +6,7 @@ import UnsubscribeModal from "@/components/scoped/UnsubscribeModal";
 import ButtonComponent from "@/components/utility/Button";
 import { useUser } from "@/context/UserContext";
 import { signOut } from "next-auth/react";
+import BusinessPricing from "../business/profile/BusinessPricing";
 
 const ProfileComponent = ({}) => {
   const { user, fetchUserData } = useUser();
@@ -148,6 +149,8 @@ const ProfileComponent = ({}) => {
                 placeholder={user?.business?.url ? user.business.url : ""}
               />
             </div>
+
+            <BusinessPricing />
 
             <ButtonComponent
               rounded
