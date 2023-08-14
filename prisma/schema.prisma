@@ -164,6 +164,7 @@ matches Match[]
 enum BUSINESSTYPE {
   THRIFT
   BOOKSTORE
+  LIBRARY
 }
 
 enum MEMBERSHIP {
