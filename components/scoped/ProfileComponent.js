@@ -169,7 +169,7 @@ const ProfileComponent = ({}) => {
 
             <div className="my-5">
               <ButtonComponent rounded full color="blue" type="submit">
-                Submit
+                Update
               </ButtonComponent>
             </div>
 
