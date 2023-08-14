@@ -6,6 +6,7 @@ import UnsubscribeModal from "@/components/scoped/UnsubscribeModal";
 import ButtonComponent from "@/components/utility/Button";
 import { useUser } from "@/context/UserContext";
 import { signOut } from "next-auth/react";
+import BusinessPricing from "../business/profile/BusinessPricing";
 
 const ProfileComponent = ({}) => {
   const { user, fetchUserData } = useUser();
@@ -87,6 +88,19 @@ const ProfileComponent = ({}) => {
     setIsManageSubscriptionModalOpen(false);
   };
 
+  const remainingCreditsHandler = () => {
+    switch (user.business.membership) {
+      case "FREE":
+        return 250 - user.business.current_cycle_uploads;
+
+      case "BASIC":
+        return 1000 - user.business.current_cycle_uploads;
+
+      case "PREMIUM":
+        return 5000 - user.business.current_cycle_uploads;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#FEFBE8]">
       <Header />
@@ -148,6 +162,34 @@ const ProfileComponent = ({}) => {
                 placeholder={user?.business?.url ? user.business.url : ""}
               />
             </div>
+
+            <div className="mt-10">
+              <h6 className="mb-5 text-2xl font-bold text-center">
+                Upload Credits
+              </h6>
+              <div className="flex gap-5 justify-center">
+                <div className="flex justify-center items-center mt-5">
+                  <h3 class="text-xl font-medium mr-3">Membership</h3>
+                  <input
+                    type="number"
+                    value={user?.business ? remainingCreditsHandler() : ""}
+                    className="px-3 py-3 w-32 rounded-xl border-2 border-gray-500"
+                    disabled
+                  />
+                </div>
+                <div className="flex justify-center items-center mt-5">
+                  <h3 class="text-xl font-medium mr-3">Purchased</h3>
+                  <input
+                    type="number"
+                    value={user?.business?.upload_credits}
+                    className="px-3 py-3 w-32 rounded-xl border-2 border-gray-500"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+
+            <BusinessPricing />
 
             <ButtonComponent
               rounded

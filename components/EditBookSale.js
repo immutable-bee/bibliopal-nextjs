@@ -37,9 +37,9 @@ const EditBookSale = ({ isEditinghandler }) => {
   };
 
   return (
-    <div>
+    <div className="">
       <div className="ml-96 absolute">
-        <button className="ml-40" onClick={isEditinghandler}>
+        <button className="ml-10" onClick={isEditinghandler}>
           <Image
             src={"/images/icons/icon-pencil.svg"}
             width={20}

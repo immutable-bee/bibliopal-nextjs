@@ -1,10 +1,19 @@
 import { useState } from "react";
 import Header from "@/components/Header";
-
+import { useUser } from "@/context/UserContext";
 import Actions from "@/components/Actions";
 import ISBNSearchBox from "@/components/ISBNSearchBox";
 import ContentTable from "@/components/ContentTable";
 const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
+  const { user } = useUser();
+
+  const [isAutoUpload, setIsAutoUpload] = useState(false);
+
+  const handleAutoUploadChange = (e) => {
+    const newValue = e.target.checked;
+    setIsAutoUpload(newValue);
+  };
+
   return (
     <div className="min-h-screen bg-[#FEFBE8]">
       <Header />
@@ -20,7 +29,12 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
 
             <div className=" flex justify-center">
               <label className="relative mx-3 inline-flex items-center mt-4 mb-7 cursor-pointer">
-                <input type="checkbox" value="" className="sr-only peer" />
+                <input
+                  type="checkbox"
+                  value={isAutoUpload}
+                  onChange={handleAutoUploadChange}
+                  className="sr-only peer"
+                />
                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                 <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Auto Upload
@@ -28,7 +42,16 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               </label>{" "}
             </div>
 
-            <Actions isSale={false} />
+            <Actions isSale={false} isAutoUpload={isAutoUpload} />
+          </div>
+          <div className="flex pl-2 items-center mb-5">
+            <h3 class="text-lg font-medium mr-3">Uploads this Cycle</h3>
+            <input
+              type="number"
+              value={user?.business?.current_cycle_uploads}
+              className="px-3 py-3 w-16 rounded-xl border-2 border-gray-500"
+              disabled
+            />
           </div>
         </div>
 
