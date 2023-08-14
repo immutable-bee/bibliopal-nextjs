@@ -7,7 +7,7 @@ import ButtonComponent from "@/components/utility/Button";
 import { useUser } from "@/context/UserContext";
 import { signOut } from "next-auth/react";
 import BusinessPricing from "../business/profile/BusinessPricing";
-
+import { Tooltip } from "@nextui-org/react";
 const ProfileComponent = ({}) => {
   const { user, fetchUserData } = useUser();
 
@@ -101,6 +101,10 @@ const ProfileComponent = ({}) => {
     }
   };
 
+  const handleInventoryReset = async () => {
+    const response = await fetch("/api/business/resetInventory");
+  };
+
   return (
     <div className="min-h-screen bg-[#FEFBE8]">
       <Header />
@@ -161,6 +165,18 @@ const ProfileComponent = ({}) => {
                 onChange={handleChange}
                 placeholder={user?.business?.url ? user.business.url : ""}
               />
+            </div>
+
+            <div className="flex justify-center">
+              <Tooltip
+                content={
+                  "Delete all listings in your inventory. Also deletes any scheduled book sales"
+                }
+              >
+                <button className="text-white px-8 py-3 bg-blbBlue border border-black rounded-lg">
+                  Reset Inventory
+                </button>
+              </Tooltip>
             </div>
 
             <div className="mt-10">
