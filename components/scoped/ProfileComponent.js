@@ -167,13 +167,19 @@ const ProfileComponent = ({}) => {
               />
             </div>
 
+            <div className="my-5">
+              <ButtonComponent rounded full color="blue" type="submit">
+                Submit
+              </ButtonComponent>
+            </div>
+
             <div className="flex justify-center">
               <Tooltip
                 content={
                   "Delete all listings in your inventory. Also deletes any scheduled book sales"
                 }
               >
-                <button className="text-white px-8 py-3 bg-blbBlue border border-black rounded-lg">
+                <button className="text-white text-sm px-8 py-2 mt-5 bg-blbBlue border border-black rounded-full">
                   Reset Inventory
                 </button>
               </Tooltip>
