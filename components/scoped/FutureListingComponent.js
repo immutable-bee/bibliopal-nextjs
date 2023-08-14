@@ -37,7 +37,7 @@ const FutureListingComponent = ({
                 title={"Schedule Listings"}
               />
               <div className="w-1/3">
-                <Actions isSale={true} />
+                <Actions isSale={true} isAutoUpload={false} />
               </div>
               <div className="ml-2 flex self-start items-center">
                 <h3 class="text-lg font-medium mr-3">Uploads this Cycle</h3>

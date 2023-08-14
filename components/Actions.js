@@ -26,11 +26,15 @@ const Actions = ({ isSale, isAutoUpload }) => {
       : JSON.stringify(tableData.rows);
   };
 
-  const handleUpload = async () => {
-    if (tableData.rows.length < 1) return;
+  const dataHandler = () => {
+    return isSale ? bookSaleTableData : tableData;
+  };
 
-    const notificationTitle = tableData.rows[0].title;
-    const notificationOtherUploadCount = tableData.rows.length - 1;
+  const handleUpload = async () => {
+    if (dataHandler().rows.length < 1) return;
+
+    const notificationTitle = dataHandler().rows[0].title;
+    const notificationOtherUploadCount = dataHandler().rows.length - 1;
 
     setUploadLoading(true);
     const response = await fetch(routeHandler(), {
