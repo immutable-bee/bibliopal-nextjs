@@ -7,7 +7,7 @@ import {
 } from "../helpers/localstorage";
 import LoadingComponent from "../components/utility/loading";
 import NotificationContainer from "../components/containers/NotificationContainer";
-const Actions = ({ isSale, isAutoUpload }) => {
+const Actions = ({ isSale, isAutoUpload, daysToExpiry }) => {
   const { tableData, setTableData, bookSaleTableData, setBookSaleTableData } =
     useTableDataContext();
   const [uploadLoading, setUploadLoading] = useState(false);
