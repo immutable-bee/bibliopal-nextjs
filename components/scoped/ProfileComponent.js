@@ -8,10 +8,13 @@ import { useUser } from "@/context/UserContext";
 import { signOut } from "next-auth/react";
 import BusinessPricing from "../business/profile/BusinessPricing";
 import { Tooltip } from "@nextui-org/react";
+import ResetInventoryModal from "../modals/ResetInventory";
 const ProfileComponent = ({}) => {
   const { user, fetchUserData } = useUser();
 
   const [formData, setFormData] = useState();
+  const [isResetInventoryModalOpen, setIsResetInventoryModalOpen] =
+    useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -101,8 +104,12 @@ const ProfileComponent = ({}) => {
     }
   };
 
-  const handleInventoryReset = async () => {
-    const response = await fetch("/api/business/resetInventory");
+  const openResetInventoryModal = () => {
+    setIsResetInventoryModalOpen(true);
+  };
+
+  const closeResetInventoryModal = () => {
+    setIsResetInventoryModalOpen(false);
   };
 
   return (
@@ -179,11 +186,19 @@ const ProfileComponent = ({}) => {
                   "Delete all listings in your inventory. Also deletes any scheduled book sales"
                 }
               >
-                <button className="text-white text-sm px-8 py-2 mt-5 bg-blbBlue border border-black rounded-full">
+                <button
+                  onClick={openResetInventoryModal}
+                  className="text-white text-sm px-8 py-2 mt-5 bg-blbBlue border border-black rounded-full"
+                >
                   Reset Inventory
                 </button>
               </Tooltip>
             </div>
+
+            <ResetInventoryModal
+              visible={isResetInventoryModalOpen}
+              closeHandler={closeResetInventoryModal}
+            />
 
             <div className="mt-10">
               <h6 className="mb-5 text-2xl font-bold text-center">
