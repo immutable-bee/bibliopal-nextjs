@@ -96,7 +96,7 @@ const BusinessPricing = () => {
           id="shipping-status-tooltip"
           css={{ zIndex: 10000 }}
           content={
-            "Lorem ipsum dolar sit amit Lorem ipsum dolar sit amit Lorem ipsum dolar sit amit"
+            "Running low on upload credits? Top them off with a one time purchase. Basic plan members get 10% off and Premium plan members get 20% off."
           }
         >
           <svg

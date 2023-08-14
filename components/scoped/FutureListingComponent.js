@@ -28,21 +28,31 @@ const FutureListingComponent = ({
       <Header />
       <div className=" px-3 sm:px-8 py-3 sm:py-4 mx-auto">
         <div className="px-3 sm:px-0 border border-black rounded-2xl">
-          <div className="flex justify-around  w-full  py-8 mx-auto">
-            <div className="">
+          <div className="flex w-full  py-8 mx-auto">
+            <div className="flex w-4/5 items-center flex-col gap-1">
               <ISBNSearchBox
                 error={error}
                 setError={setError}
                 createNewRow={createNewRow}
                 title={"Schedule Listings"}
               />
-
-              <Actions isSale={true} />
+              <div className="w-1/3">
+                <Actions isSale={true} />
+              </div>
+              <div className="ml-2 flex self-start items-center">
+                <h3 class="text-lg font-medium mr-3">Uploads this Cycle</h3>
+                <input
+                  type="number"
+                  value={user?.business?.current_cycle_uploads}
+                  className="px-3 py-3 w-16 rounded-xl border-2 border-gray-500"
+                  disabled
+                />
+              </div>
             </div>
             {isEditing ? (
               <EditBookSale isEditinghandler={isEditinghandler} />
             ) : (
-              <div className="">
+              <div className="w1/5">
                 <div className="flex">
                   <h6 className="text-lg font-bold">BookSale Info</h6>
                   <button onClick={() => setIsEditing(!isEditing)}>
@@ -51,7 +61,7 @@ const FutureListingComponent = ({
                       width={20}
                       height={20}
                       alt="Edit Book Sale Icon"
-                      className="ml-20"
+                      className="ml-5"
                     />
                   </button>
                 </div>

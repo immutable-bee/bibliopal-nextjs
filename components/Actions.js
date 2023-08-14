@@ -6,11 +6,13 @@ import {
   setFutureTableDataToStorage,
 } from "../helpers/localstorage";
 import LoadingComponent from "../components/utility/loading";
-
-const Actions = ({ isSale }) => {
+import NotificationContainer from "../components/containers/NotificationContainer";
+const Actions = ({ isSale, isAutoUpload }) => {
   const { tableData, setTableData, bookSaleTableData, setBookSaleTableData } =
     useTableDataContext();
   const [uploadLoading, setUploadLoading] = useState(false);
+
+  const [UploadNotifications, setUploadNotifications] = useState([]);
 
   const anchorRef = useRef(null);
 
@@ -26,6 +28,10 @@ const Actions = ({ isSale }) => {
 
   const handleUpload = async () => {
     if (tableData.rows.length < 1) return;
+
+    const notificationTitle = tableData.rows[0].title;
+    const notificationOtherUploadCount = tableData.rows.length - 1;
+
     setUploadLoading(true);
     const response = await fetch(routeHandler(), {
       method: "POST",
@@ -36,7 +42,15 @@ const Actions = ({ isSale }) => {
     });
 
     const data = await response.json();
+    setUploadNotifications([
+      ...UploadNotifications,
+      {
+        title: notificationTitle,
+        numberOfOtherBooks: notificationOtherUploadCount,
+      },
+    ]);
     setUploadLoading(false);
+    handleReset();
   };
 
   const handleReset = () => {
@@ -52,6 +66,13 @@ const Actions = ({ isSale }) => {
       setTableDataToStorage(resetObject);
     }
   };
+
+  useEffect(() => {
+    if (tableData.rows.length < 1) return;
+    if (isAutoUpload) {
+      handleUpload();
+    }
+  }, [tableData.rows.length]);
 
   return (
     <div className="flex w-full justify-center items-center">
@@ -73,6 +94,10 @@ const Actions = ({ isSale }) => {
           </button>
         </>
       )}
+      <NotificationContainer
+        notifications={UploadNotifications}
+        setNotifications={setUploadNotifications}
+      />
     </div>
   );
 };
