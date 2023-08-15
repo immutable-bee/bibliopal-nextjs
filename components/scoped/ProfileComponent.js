@@ -9,7 +9,7 @@ import { signOut } from "next-auth/react";
 import BusinessPricing from "../business/profile/BusinessPricing";
 import TooltipComponent from "@/components/utility/Tooltip";
 import ResetInventoryModal from "../modals/ResetInventory";
-const ProfileComponent = ({ }) => {
+const ProfileComponent = ({}) => {
   const { user, fetchUserData } = useUser();
 
   const [formData, setFormData] = useState();
@@ -28,7 +28,7 @@ const ProfileComponent = ({ }) => {
         body: JSON.stringify({ email: user.email, data: formData }),
       });
       fetchUserData();
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const handleChange = (e) => {
@@ -69,7 +69,7 @@ const ProfileComponent = ({ }) => {
         const errorData = await response.json();
         setCancelMessage(
           errorData.message ||
-          "An error occurred while canceling the subscription"
+            "An error occurred while canceling the subscription"
         );
       }
     } catch (error) {
@@ -182,7 +182,7 @@ const ProfileComponent = ({ }) => {
 
             <div className="flex justify-center w-full mt-5">
               <TooltipComponent
-                tailwind="!w-full"
+                tailwind="!w-full flex justify-center"
                 width="max-w-lg"
                 content={
                   "Delete all listings in your inventory. Also deletes any scheduled book sales"
@@ -190,7 +190,7 @@ const ProfileComponent = ({ }) => {
               >
                 <button
                   onClick={openResetInventoryModal}
-                  className="text-white text-sm w-full px-8 py-2.5 bg-red-600 border border-black rounded-full"
+                  className="text-white text-sm px-8 py-2.5 bg-red-600 border border-black rounded-full"
                 >
                   Reset Inventory
                 </button>
@@ -244,20 +244,18 @@ const ProfileComponent = ({ }) => {
                 Manage Subscription
               </ButtonComponent>
             </div>
-            <div className="mt-4">
-              <ButtonComponent rounded full color="blue" type="submit">
-                Submit
-              </ButtonComponent>
-            </div>
           </form>
           <div className="mt-4 w-full max-w-lg">
-            <ButtonComponent full rounded color="blue" onClick={() => signOut()}>
+            <ButtonComponent
+              full
+              rounded
+              color="blue"
+              onClick={() => signOut()}
+            >
               Sign Out
             </ButtonComponent>
           </div>
         </div>
-
-
       </div>
       <SubscriptionModal isSubscriptionModalOpen={isSubscriptionModalOpen} />
     </div>
