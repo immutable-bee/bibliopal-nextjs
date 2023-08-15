@@ -173,7 +173,7 @@ const Home = () => {
             ) : (
               <div className="">
                 <div className="sm:flex flex-wrap justify-center">
-                  {testData.map((data, i) => {
+                  {arrayToMap.map((data, i) => {
                     return (
                       <div
                         className="px-4 py-4 relative rounded-lg border sm:mx-3 my-2 sm:my-3 w-full sm:w-96 border-[#2eaaed]"
@@ -214,9 +214,7 @@ const Home = () => {
                             width="!w-24"
                             id="shipping-status-tooltip"
                             css={{ zIndex: 10000 }}
-                            content={
-                              'Library Sale'
-                            }
+                            content={"Library Sale"}
                           >
                             <span className="w-8 h-8 mx-1 bg-yellow-5000 flex justify-center items-center border border-blue-600 rounded-md">
                               <svg
@@ -250,9 +248,7 @@ const Home = () => {
                             width="!w-28"
                             id="shipping-status-tooltip"
                             css={{ zIndex: 10000 }}
-                            content={
-                              'Add to Saved'
-                            }
+                            content={"Add to Saved"}
                           >
                             <button className="w-8 h-8 mx-1 bg-yellow-500 hover:bg-opacity-90 flex justify-center items-center border border-black rounded-md">
                               <svg
