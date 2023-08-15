@@ -28,15 +28,15 @@ const FutureListingComponent = ({
       <Header />
       <div className=" px-3 sm:px-8 py-3 sm:py-4 mx-auto">
         <div className="px-3 sm:px-0 border border-black rounded-2xl">
-          <div className="flex w-full  py-8 mx-auto">
-            <div className="flex w-4/5 items-center flex-col gap-1">
+          <div className="sm:flex w-full  py-8 mx-auto">
+            <div className="flex w-full items-center flex-col gap-1">
               <ISBNSearchBox
                 error={error}
                 setError={setError}
                 createNewRow={createNewRow}
                 title={"Schedule Listings"}
               />
-              <div className="w-1/3">
+              <div className="w-full my-5">
                 <Actions isSale={true} isAutoUpload={false} />
               </div>
               <div className="ml-2 flex self-start items-center">
@@ -52,7 +52,7 @@ const FutureListingComponent = ({
             {isEditing ? (
               <EditBookSale isEditinghandler={isEditinghandler} />
             ) : (
-              <div className="w1/5">
+              <div className=" sm:w-56 w-full flex-shrink-0">
                 <div className="flex">
                   <h6 className="text-lg font-bold">BookSale Info</h6>
                   <button onClick={() => setIsEditing(!isEditing)}>
