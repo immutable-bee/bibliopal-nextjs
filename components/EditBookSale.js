@@ -37,18 +37,16 @@ const EditBookSale = ({ isEditinghandler }) => {
   };
 
   return (
-    <div className="">
-      <div className="ml-96 absolute">
-        <button className="ml-10" onClick={isEditinghandler}>
-          <Image
-            src={"/images/icons/icon-pencil.svg"}
-            width={20}
-            height={20}
-            alt="Edit Book Sale Icon"
-            className=""
-          />
-        </button>
-      </div>
+    <div className="sm:mt-5">
+
+      <button className="" onClick={isEditinghandler}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
+        </svg>
+
+
+      </button>
+
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
 
@@ -111,7 +109,7 @@ const EditBookSale = ({ isEditinghandler }) => {
 
         </div>
 
-        <div className="mt-5">
+        <div className="mt-3 w-full">
           <ButtonComponent rounded full color="blue" type="submit">
             Submit
           </ButtonComponent>

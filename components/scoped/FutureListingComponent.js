@@ -39,12 +39,12 @@ const FutureListingComponent = ({
               <div className="w-full max-w-sm my-5">
                 <Actions isSale={true} isAutoUpload={false} />
               </div>
-              <div className="flex self-start items-center">
+              <div className="flex self-start items-center w-full sm:max-w-sm sm:mx-auto justify-between">
                 <h3 class="text-lg font-medium mr-3">Uploads this Cycle</h3>
                 <input
                   type="number"
                   value={user?.business?.current_cycle_uploads}
-                  className="px-3 py-3 w-16 rounded-xl border-2 border-gray-500"
+                  className="px-3 py-2.5 sm:py-3 w-16 rounded-xl border-2 border-gray-500"
                   disabled
                 />
               </div>
@@ -53,7 +53,7 @@ const FutureListingComponent = ({
               <EditBookSale isEditinghandler={isEditinghandler} />
             ) : (
               <div className=" sm:w-56 w-full flex-shrink-0">
-                <div className="flex">
+                <div className="flex justify-between w-full mb-1">
                   <h6 className="text-lg font-bold">BookSale Info</h6>
                   <button onClick={() => setIsEditing(!isEditing)}>
                     <Image
