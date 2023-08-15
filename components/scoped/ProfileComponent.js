@@ -190,7 +190,7 @@ const ProfileComponent = ({ }) => {
               >
                 <button
                   onClick={openResetInventoryModal}
-                  className="text-white text-sm w-full px-8 py-2  bg-blbBlue border border-black rounded-full"
+                  className="text-white text-sm w-full px-8 py-2.5 bg-red-600 border border-black rounded-full"
                 >
                   Reset Inventory
                 </button>
