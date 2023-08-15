@@ -33,7 +33,7 @@ const EditBookSale = ({ isEditinghandler }) => {
       });
       fetchUserData();
       isEditinghandler();
-    } catch (error) {}
+    } catch (error) { }
   };
 
   return (
@@ -50,66 +50,65 @@ const EditBookSale = ({ isEditinghandler }) => {
         </button>
       </div>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        <div className="flex justify-center items-center">
-          <div className="flex flex-col items-center">
-            <div className="py-2 w-2/3">
-              <label className="text-sm text-gray-700">Start date</label>
-              <input
-                name="date_starts"
-                type="date"
-                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="py-2 w-2/3">
-              <label className="text-sm text-gray-700">End date</label>
-              <input
-                name="date_ends"
-                type="date"
-                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="py-2 w-2/3">
-              <label className="text-sm text-gray-700">Hours of the sale</label>
-              <input
-                name="hours"
-                type="text"
-                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="py-2 w-2/3">
-              <label className="text-sm text-gray-700">Street Address</label>
-              <input
-                name="business_street"
-                type="text"
-                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg my-1 py-2"
-                onChange={handleChange}
-              />
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
 
-            <div className="py-2 w-2/3">
-              <label className="text-sm text-gray-700">City</label>
-              <input
-                name="business_city"
-                type="text"
-                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg   my-1 py-2"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="py-2 w-2/3">
-              <label className="text-sm text-gray-700">Zip Code</label>
-              <input
-                name="business_zip"
-                type="text"
-                className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  my-1 py-2"
-                onChange={handleChange}
-              />
-            </div>
+          <div className="py-2">
+            <label className="text-sm text-gray-700">Start date</label>
+            <input
+              name="date_starts"
+              type="date"
+              className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+              onChange={handleChange}
+            />
           </div>
+          <div className="py-2">
+            <label className="text-sm text-gray-700">End date</label>
+            <input
+              name="date_ends"
+              type="date"
+              className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="py-2">
+            <label className="text-sm text-gray-700">Hours of the sale</label>
+            <input
+              name="hours"
+              type="text"
+              className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="py-2">
+            <label className="text-sm text-gray-700">Street Address</label>
+            <input
+              name="business_street"
+              type="text"
+              className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg my-1 py-2"
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="py-2">
+            <label className="text-sm text-gray-700">City</label>
+            <input
+              name="business_city"
+              type="text"
+              className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg   my-1 py-2"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="py-2">
+            <label className="text-sm text-gray-700">Zip Code</label>
+            <input
+              name="business_zip"
+              type="text"
+              className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  my-1 py-2"
+              onChange={handleChange}
+            />
+          </div>
+
         </div>
         <button
           type="submit"

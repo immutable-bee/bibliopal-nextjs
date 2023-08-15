@@ -36,7 +36,7 @@ const FutureListingComponent = ({
                 createNewRow={createNewRow}
                 title={"Schedule Listings"}
               />
-              <div className="w-full my-5">
+              <div className="w-full max-w-sm my-5">
                 <Actions isSale={true} isAutoUpload={false} />
               </div>
               <div className="ml-2 flex self-start items-center">
