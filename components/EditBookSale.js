@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useUser } from "../context/UserContext";
-
+import ButtonComponent from "@/components/utility/Button";
 const EditBookSale = ({ isEditinghandler }) => {
   const [formData, setFormData] = useState();
 
@@ -52,7 +52,7 @@ const EditBookSale = ({ isEditinghandler }) => {
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
 
-          <div className="py-2">
+          <div>
             <label className="text-sm text-gray-700">Start date</label>
             <input
               name="date_starts"
@@ -61,7 +61,7 @@ const EditBookSale = ({ isEditinghandler }) => {
               onChange={handleChange}
             />
           </div>
-          <div className="py-2">
+          <div>
             <label className="text-sm text-gray-700">End date</label>
             <input
               name="date_ends"
@@ -70,7 +70,7 @@ const EditBookSale = ({ isEditinghandler }) => {
               onChange={handleChange}
             />
           </div>
-          <div className="py-2">
+          <div>
             <label className="text-sm text-gray-700">Hours of the sale</label>
             <input
               name="hours"
@@ -80,7 +80,7 @@ const EditBookSale = ({ isEditinghandler }) => {
             />
           </div>
 
-          <div className="py-2">
+          <div>
             <label className="text-sm text-gray-700">Street Address</label>
             <input
               name="business_street"
@@ -90,7 +90,7 @@ const EditBookSale = ({ isEditinghandler }) => {
             />
           </div>
 
-          <div className="py-2">
+          <div>
             <label className="text-sm text-gray-700">City</label>
             <input
               name="business_city"
@@ -99,7 +99,7 @@ const EditBookSale = ({ isEditinghandler }) => {
               onChange={handleChange}
             />
           </div>
-          <div className="py-2">
+          <div>
             <label className="text-sm text-gray-700">Zip Code</label>
             <input
               name="business_zip"
@@ -110,12 +110,12 @@ const EditBookSale = ({ isEditinghandler }) => {
           </div>
 
         </div>
-        <button
-          type="submit"
-          className="bg-blbBlue mt-5 px-10 py-2 rounded-lg text-white border border-black"
-        >
-          Submit
-        </button>
+
+        <div className="mt-5">
+          <ButtonComponent rounded full color="blue" type="submit">
+            Submit
+          </ButtonComponent>
+        </div>
       </form>
     </div>
   );

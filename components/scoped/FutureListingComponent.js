@@ -27,7 +27,7 @@ const FutureListingComponent = ({
     <div className="min-h-screen bg-[#FEFBE8]">
       <Header />
       <div className=" px-3 sm:px-8 py-3 sm:py-4 mx-auto">
-        <div className="px-3 sm:px-0 border border-black rounded-2xl">
+        <div className="px-3 sm:px-4 border border-black rounded-2xl">
           <div className="sm:flex w-full  py-8 mx-auto">
             <div className="flex w-full items-center flex-col gap-1">
               <ISBNSearchBox
@@ -39,7 +39,7 @@ const FutureListingComponent = ({
               <div className="w-full max-w-sm my-5">
                 <Actions isSale={true} isAutoUpload={false} />
               </div>
-              <div className="ml-2 flex self-start items-center">
+              <div className="flex self-start items-center">
                 <h3 class="text-lg font-medium mr-3">Uploads this Cycle</h3>
                 <input
                   type="number"
