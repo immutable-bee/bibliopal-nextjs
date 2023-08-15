@@ -56,23 +56,23 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               daysToExpiry={daysToExpiry}
             />
           </div>
-          <div className="flex px-2 justify-between items-center mb-5">
-            <div className="flex items-center">
-              <h3 class="text-lg font-medium mr-3">Uploads this Cycle</h3>
+          <div className="sm:flex px-2 sm:px-5 justify-between items-center mb-5">
+            <div className="flex sm:justify-start sm:py-0 py-1 justify-between items-center">
+              <h3 class="text-base sm:text-lg font-medium mr-3">Uploads this Cycle</h3>
               <input
                 type="number"
                 value={user?.business?.current_cycle_uploads}
-                className="px-3 py-3 w-16 rounded-xl border-2 border-gray-500"
+                className="px-3 sm:py-3 py-2.5 w-16 rounded-xl border-2 border-gray-500"
                 disabled
               />
             </div>
-            <div className="flex items-center">
-              <h3 class="text-lg font-medium mr-3">Days to Expiry</h3>
+            <div className="flex sm:justify-start sm:py-0 py-1 justify-between items-center">
+              <h3 class="text-base sm:text-lg font-medium mr-3">Days to Expiry</h3>
               <input
                 type="number"
                 value={daysToExpiry}
                 onChange={daysToExpiryHandler}
-                className="px-3 py-3 w-16 rounded-xl border-2 border-gray-500"
+                className="px-3 sm:py-3 py-2.5 w-16 rounded-xl border-2 border-gray-500"
               />
             </div>
           </div>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-const Tooltip = ({ id, content, children, width = 'max-w-sm' }) => {
+const Tooltip = ({ id, content, children, width = 'max-w-sm', tailwind }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative inline-block"
+    <div className={`${tailwind} relative inline-block`}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >

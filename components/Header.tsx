@@ -11,7 +11,7 @@ function Header() {
   const router = useRouter();
 
   const linkColor = (path: string) => {
-    return router.pathname === path ? "#2EAAED" : "#828282";
+    return router.pathname === path ? "#9BCC2C" : "#828282";
   };
   return (
     <header className="flex  mx-auto w-full justify-between items-center px-2 sm:px-4 py-3 overflow-x-auto">
@@ -30,8 +30,8 @@ function Header() {
       <nav className="text-center">
         <Link href="/business">
           <span
-            style={{ color: linkColor("/") }}
-            className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
+            style={{ color: linkColor("/business") }}
+            className="!mx-1 font-medium sm:!mx-5 text-sm sm:text-2xl"
           >
             Add Listings
           </span>
@@ -39,8 +39,8 @@ function Header() {
 
         <Link href="/business/uploadlistings/future">
           <span
-            style={{ color: linkColor("/library") }}
-            className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
+            style={{ color: linkColor("/business/uploadlistings/future") }}
+            className="!mx-1 font-medium sm:!mx-5 text-sm sm:text-2xl"
           >
             Schedule Booksale
           </span>
@@ -53,12 +53,12 @@ function Header() {
           className="flex items-center no-underline"
         >
           {" "}
-          <div className="border rounded-full w-14 h-14 flex-shrink-0 flex items-center justify-center">
+          <div className="border rounded-full w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0 flex items-center justify-center">
             <Image
               src={BookWorm}
               width={40}
               height={40}
-              className="w-10 rounded-full"
+              className="w-8 sm:w-10 rounded-full"
               alt="logo"
             />
           </div>
