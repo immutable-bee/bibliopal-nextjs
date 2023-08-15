@@ -212,7 +212,7 @@ const ProfileComponent = ({ }) => {
                   <input
                     type="number"
                     value={user?.business ? remainingCreditsHandler() : ""}
-                    className="px-3 sm:py-3 py-2.5 w-32 rounded-xl border-2 border-gray-500"
+                    className="px-3 sm:py-3 py-2.5 w-32 rounded-xl border-2 border-gray-500 bg-white"
                     disabled
                   />
                 </div>
@@ -221,7 +221,7 @@ const ProfileComponent = ({ }) => {
                   <input
                     type="number"
                     value={user?.business?.upload_credits}
-                    className="px-3 sm:py-3 py-2.5 w-32 rounded-xl border-2 border-gray-500"
+                    className="px-3 sm:py-3 py-2.5 w-32 rounded-xl border-2 border-gray-500 bg-white"
                     disabled
                   />
                 </div>
