@@ -14,6 +14,7 @@ const Home = () => {
   const [listings, setListings] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchZipCode, setSearchZipCode] = useState("");
   const [filter, setFilter] = useState("title");
 
   const [loadingSearchResults, setLoadingSearchResults] = useState(false);
@@ -80,7 +81,7 @@ const Home = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ searchTerm, filter }),
+      body: JSON.stringify({ searchTerm, filter, searchZipCode }),
     });
 
     if (res.status === 200) {
@@ -146,10 +147,11 @@ const Home = () => {
       <HeaderComponent />
       <Inputcomponent
         handleSearch={fetchSearchResults}
-        filter={filter}
         setFilter={setFilter}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
+        searchZipCode={searchZipCode}
+        setSearchZipCode={setSearchZipCode}
       />
 
       <section className="px-2 sm:px-5 mt-6 border-t-2 border-black py-3">
@@ -191,14 +193,14 @@ const Home = () => {
                             <h3 className="text-black h-14 overflow-y-auto text-lg font-semibold">
                               {data.title}
                             </h3>
-                            <p className="text-gray-800 text-base leading-5">
+                            <p className=" mb-3 text-gray-800 text-base leading-5">
                               {data.author}
                             </p>
                             <p className="text-gray-800 text-base leading-5">
-                              {data.ownerId}
+                              {data.owner.business_name}
                             </p>
                             <label className="text-gray-500 text-base">
-                              Zip Code: 59901
+                              Zip Code: {data.owner.business_zip}
                             </label>
                             <h6 className="text-sm absolute bottom-3 right-3 text-gray-500 text-right">
                               {data.date_listed

@@ -1,10 +1,12 @@
 import { useState } from "react";
 const Inputcomponent = ({
   handleSearch,
-  filter,
+
   searchTerm,
   setFilter,
   setSearchTerm,
+  searchZipCode,
+  setSearchZipCode,
 }) => {
   const [active, setActive] = useState("Title");
 
@@ -12,10 +14,14 @@ const Inputcomponent = ({
     setSearchTerm(e.target.value);
   };
 
+  const handleZipCodeChange = (e) => {
+    setSearchZipCode(e.target.value);
+  };
+
   const handleSearchKeyDown = (e) => {
     if (e.key === "Enter") {
       //fetchSearchResults();
-      handleSearch(searchTerm, filter);
+      handleSearch();
     }
   };
 
@@ -85,7 +91,7 @@ const Inputcomponent = ({
                         type="button"
                         className="bg-[#9BCC2C] px-3 sm:px-4 py-3 sm:py-4 rounded-lg sm:rounded-xl"
                         //onClick={fetchSearchResults}
-                        onClick={() => handleSearch(searchTerm, filter)}
+                        onClick={() => handleSearch()}
                       >
                         <div>
                           <svg
@@ -117,6 +123,9 @@ const Inputcomponent = ({
                 <input
                   className="w-full sm:w-auto focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border px-3 rounded-lg mx-2 py-2"
                   type="text"
+                  onChange={handleZipCodeChange}
+                  onKeyDown={handleSearchKeyDown}
+                  value={searchZipCode}
                 ></input>
               </div>
             </div>
