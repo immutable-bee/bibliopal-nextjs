@@ -27,24 +27,24 @@ const FutureListingComponent = ({
     <div className="min-h-screen bg-[#FEFBE8]">
       <Header />
       <div className=" px-3 sm:px-8 py-3 sm:py-4 mx-auto">
-        <div className="px-3 sm:px-0 border border-black rounded-2xl">
-          <div className="flex w-full  py-8 mx-auto">
-            <div className="flex w-4/5 items-center flex-col gap-1">
+        <div className="px-3 sm:px-4 border border-black rounded-2xl">
+          <div className="sm:flex w-full  py-8 mx-auto">
+            <div className="flex w-full items-center flex-col gap-1">
               <ISBNSearchBox
                 error={error}
                 setError={setError}
                 createNewRow={createNewRow}
                 title={"Schedule Listings"}
               />
-              <div className="w-1/3">
+              <div className="w-full max-w-sm my-5">
                 <Actions isSale={true} isAutoUpload={false} />
               </div>
-              <div className="ml-2 flex self-start items-center">
+              <div className="flex self-start items-center w-full sm:max-w-sm sm:mx-auto justify-between">
                 <h3 class="text-lg font-medium mr-3">Uploads this Cycle</h3>
                 <input
                   type="number"
                   value={user?.business?.current_cycle_uploads}
-                  className="px-3 py-3 w-16 rounded-xl border-2 border-gray-500"
+                  className="px-3 py-2.5 sm:py-3 w-16 rounded-xl border-2 border-gray-500 bg-white"
                   disabled
                 />
               </div>
@@ -52,8 +52,8 @@ const FutureListingComponent = ({
             {isEditing ? (
               <EditBookSale isEditinghandler={isEditinghandler} />
             ) : (
-              <div className="w1/5">
-                <div className="flex">
+              <div className="sm:w-80 sm:mt-0 mt-5 w-full flex-shrink-0">
+                <div className="flex justify-between w-full mb-1">
                   <h6 className="text-lg font-bold">BookSale Info</h6>
                   <button onClick={() => setIsEditing(!isEditing)}>
                     <Image

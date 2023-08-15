@@ -7,9 +7,9 @@ import ButtonComponent from "@/components/utility/Button";
 import { useUser } from "@/context/UserContext";
 import { signOut } from "next-auth/react";
 import BusinessPricing from "../business/profile/BusinessPricing";
-import { Tooltip } from "@nextui-org/react";
+import TooltipComponent from "@/components/utility/Tooltip";
 import ResetInventoryModal from "../modals/ResetInventory";
-const ProfileComponent = ({}) => {
+const ProfileComponent = ({ }) => {
   const { user, fetchUserData } = useUser();
 
   const [formData, setFormData] = useState();
@@ -28,7 +28,7 @@ const ProfileComponent = ({}) => {
         body: JSON.stringify({ email: user.email, data: formData }),
       });
       fetchUserData();
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const handleChange = (e) => {
@@ -69,7 +69,7 @@ const ProfileComponent = ({}) => {
         const errorData = await response.json();
         setCancelMessage(
           errorData.message ||
-            "An error occurred while canceling the subscription"
+          "An error occurred while canceling the subscription"
         );
       }
     } catch (error) {
@@ -174,25 +174,27 @@ const ProfileComponent = ({}) => {
               />
             </div>
 
-            <div className="my-5">
+            <div className="mt-5">
               <ButtonComponent rounded full color="blue" type="submit">
                 Update
               </ButtonComponent>
             </div>
 
-            <div className="flex justify-center">
-              <Tooltip
+            <div className="flex justify-center w-full mt-5">
+              <TooltipComponent
+                tailwind="!w-full"
+                width="max-w-lg"
                 content={
                   "Delete all listings in your inventory. Also deletes any scheduled book sales"
                 }
               >
                 <button
                   onClick={openResetInventoryModal}
-                  className="text-white text-sm px-8 py-2 mt-5 bg-blbBlue border border-black rounded-full"
+                  className="text-white text-sm w-full px-8 py-2.5 bg-red-600 border border-black rounded-full"
                 >
                   Reset Inventory
                 </button>
-              </Tooltip>
+              </TooltipComponent>
             </div>
 
             <ResetInventoryModal
@@ -200,26 +202,26 @@ const ProfileComponent = ({}) => {
               closeHandler={closeResetInventoryModal}
             />
 
-            <div className="mt-10">
+            <div className="mt-8">
               <h6 className="mb-5 text-2xl font-bold text-center">
                 Upload Credits
               </h6>
-              <div className="flex gap-5 justify-center">
-                <div className="flex justify-center items-center mt-5">
+              <div className="sm:flex gap-5 sm:justify-center">
+                <div className="flex sm:justify-center justify-between items-center mt-5">
                   <h3 class="text-xl font-medium mr-3">Membership</h3>
                   <input
                     type="number"
                     value={user?.business ? remainingCreditsHandler() : ""}
-                    className="px-3 py-3 w-32 rounded-xl border-2 border-gray-500"
+                    className="px-3 sm:py-3 py-2.5 w-32 rounded-xl border-2 border-gray-500 bg-white"
                     disabled
                   />
                 </div>
-                <div className="flex justify-center items-center mt-5">
+                <div className="flex sm:justify-center justify-between items-center mt-5">
                   <h3 class="text-xl font-medium mr-3">Purchased</h3>
                   <input
                     type="number"
                     value={user?.business?.upload_credits}
-                    className="px-3 py-3 w-32 rounded-xl border-2 border-gray-500"
+                    className="px-3 sm:py-3 py-2.5 w-32 rounded-xl border-2 border-gray-500 bg-white"
                     disabled
                   />
                 </div>
@@ -248,13 +250,14 @@ const ProfileComponent = ({}) => {
               </ButtonComponent>
             </div>
           </form>
+          <div className="mt-4 w-full max-w-lg">
+            <ButtonComponent full rounded color="blue" onClick={() => signOut()}>
+              Sign Out
+            </ButtonComponent>
+          </div>
         </div>
-        <button
-          className="bg-blbBlue border border-black rounded-lg px-8 py-2 mb-10 text-white"
-          onClick={() => signOut()}
-        >
-          Sign Out
-        </button>
+
+
       </div>
       <SubscriptionModal isSubscriptionModalOpen={isSubscriptionModalOpen} />
     </div>
