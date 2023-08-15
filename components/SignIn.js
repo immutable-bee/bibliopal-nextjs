@@ -25,7 +25,8 @@ const providers = [
 
 const SignIn = ({ props }) => {
   const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [isLoginEmailSent, setIsLoginEmailSent] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,7 +37,8 @@ const SignIn = ({ props }) => {
     signIn("email", { email, redirect: false }).then(
       setTimeout(() => {
         setLoading(false);
-      }, 3000)
+        setIsLoginEmailSent(true);
+      }, 2000)
     );
   };
 
@@ -90,7 +92,11 @@ const SignIn = ({ props }) => {
               <h2 className="pt-5 text-sm text-center">
                 Get started by signing up/in below.
               </h2>
-              <form id="login-form" className="mt-6" onSubmit={handleSubmit}>
+              <form
+                id="login-form"
+                className="mt-6 flex flex-col"
+                onSubmit={handleSubmit}
+              >
                 <Input
                   className="w-full"
                   placeholder="Your Email"
@@ -112,10 +118,15 @@ const SignIn = ({ props }) => {
                   }
                   onChange={(e) => setEmail(e.target.value)}
                 />
-
-                <Button id="login-btn" className="w-full" type="submit">
-                  Continue with email
-                </Button>
+                {isLoginEmailSent ? (
+                  <h6 className="self-center mt-4">Magic Sign In Link Sent!</h6>
+                ) : loading ? (
+                  <Loading className="self-center mt-4" />
+                ) : (
+                  <Button id="login-btn" className="w-full" type="submit">
+                    Continue with email
+                  </Button>
+                )}
               </form>
               <div class="relative py-4">
                 <div
