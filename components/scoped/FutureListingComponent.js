@@ -44,7 +44,7 @@ const FutureListingComponent = ({
                 <input
                   type="number"
                   value={user?.business?.current_cycle_uploads}
-                  className="px-3 py-2.5 sm:py-3 w-16 rounded-xl border-2 border-gray-500"
+                  className="px-3 py-2.5 sm:py-3 w-16 rounded-xl border-2 border-gray-500 bg-white"
                   disabled
                 />
               </div>

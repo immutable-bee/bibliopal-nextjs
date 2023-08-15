@@ -62,7 +62,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               <input
                 type="number"
                 value={user?.business?.current_cycle_uploads}
-                className="px-3 sm:py-3 py-2.5 w-16 rounded-xl border-2 border-gray-500"
+                className="px-3 sm:py-3 py-2.5 w-16 rounded-xl border-2 border-gray-500 bg-white"
                 disabled
               />
             </div>
@@ -72,7 +72,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
                 type="number"
                 value={daysToExpiry}
                 onChange={daysToExpiryHandler}
-                className="px-3 sm:py-3 py-2.5 w-16 rounded-xl border-2 border-gray-500"
+                className="px-3 sm:py-3 py-2.5 w-16 rounded-xl border-2 border-gray-500 bg-white"
               />
             </div>
           </div>
