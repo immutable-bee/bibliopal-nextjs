@@ -101,6 +101,7 @@ const Actions = ({ isSale, isAutoUpload, daysToExpiry }) => {
       <NotificationContainer
         notifications={UploadNotifications}
         setNotifications={setUploadNotifications}
+        type={"upload"}
       />
     </div>
   );

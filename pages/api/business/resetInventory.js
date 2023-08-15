@@ -12,9 +12,11 @@ const handler = async (req, res) => {
     const deleteListings = await prisma.listing.deleteMany({
       where: { ownerId: business.id },
     });
-    const deleteBookSale = await prisma.bookSale.delete({
-      where: { ownerId: business.id },
-    });
+    if (business.bookSale) {
+      const deleteBookSale = await prisma.bookSale.delete({
+        where: { ownerId: business.id },
+      });
+    }
     res.status(200).json({ message: "Inventory Reset!" });
   } catch (error) {
     res.status(500).json({ message: error.message });
