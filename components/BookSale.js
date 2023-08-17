@@ -93,7 +93,7 @@ const BookSale = () => {
               </div>
             </div>
             {!useDefaultAddress && (
-              <div className="flex flex-col w-1/5">
+              <div className="flex flex-col">
                 <div className="py-2">
                   <label className="text-sm text-gray-700">Street Address</label>
                   <input
@@ -103,7 +103,7 @@ const BookSale = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <div className="flex justify-evenly gap-4">
+                <div className="sm:flex justify-evenly gap-4">
                   <div className="py-2">
                     <label className="text-sm text-gray-700">City</label>
                     <input

@@ -11,7 +11,7 @@ const HeaderComponent = () => {
   const { user } = useUser();
   const router = useRouter();
   const linkColor = (path) => {
-    return router.pathname === path ? "#2EAAED" : "#828282";
+    return router.pathname === path ? "#9BCC2C" : "#828282";
   };
   console.log("router ::::::::::::::::::::", router);
   return (
@@ -31,7 +31,7 @@ const HeaderComponent = () => {
       <div className="flex items-center">
         <Link className="no-underline	" href="/consumer">
           <span
-            style={{ color: linkColor("/customer") }}
+            style={{ color: linkColor("/consumer") }}
             className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
           >
             {" "}
@@ -40,7 +40,7 @@ const HeaderComponent = () => {
         </Link>
         <Link className="no-underline	" href="/consumer/matches">
           <span
-            style={{ color: linkColor("/customer/matches") }}
+            style={{ color: linkColor("/consumer/matches") }}
             className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
           >
             {" "}

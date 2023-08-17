@@ -37,7 +37,7 @@ const EditBookSale = ({ isEditinghandler }) => {
   };
 
   return (
-    <div className="sm:mt-0 mt-5 sm:w-80 w-full flex-shrink-0">
+    <div className="sm:mt-0 mt-5 sm:w-96 w-full flex-shrink-0">
 
       <button className="" onClick={isEditinghandler}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer">

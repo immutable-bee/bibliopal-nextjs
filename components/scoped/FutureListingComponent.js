@@ -52,7 +52,7 @@ const FutureListingComponent = ({
             {isEditing ? (
               <EditBookSale isEditinghandler={isEditinghandler} />
             ) : (
-              <div className="sm:w-80 sm:mt-0 mt-5 w-full flex-shrink-0">
+              <div className="sm:w-96 sm:mt-0 mt-5 w-full flex-shrink-0">
                 <div className="flex justify-between w-full mb-1">
                   <h6 className="text-lg font-bold">BookSale Info</h6>
                   <button onClick={() => setIsEditing(!isEditing)}>

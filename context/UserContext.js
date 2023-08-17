@@ -50,7 +50,7 @@ export const UserProvider = ({ children }) => {
     const data = await res.json();
     setUser(data);
 
-    if (data.business) {
+    if (data?.business) {
       fetchBusinessData();
     }
   };
@@ -87,8 +87,8 @@ export const UserProvider = ({ children }) => {
         const role = user.consumer
           ? "consumer"
           : user.business
-          ? "business"
-          : null;
+            ? "business"
+            : null;
         const allowedRoutes = ACCESS_RULES[role] || [];
 
         if (role && !allowedRoutes.includes(router.pathname)) {
