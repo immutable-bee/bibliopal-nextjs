@@ -3,7 +3,7 @@ import uploadLimitChecker from "../middleware/uploadLimitChecker";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    const tableData = req.body;
+    const { data: tableData, daysToExpiry } = req.body;
     const businessData = req.businessData;
     const ownerId = businessData.id;
     const memberCreditsCost = businessData.memberCreditsCost;
@@ -12,6 +12,7 @@ const handler = async (req, res) => {
     const dataWithOwnerId = tableData.map((row) => ({
       ...row,
       ownerId: ownerId,
+      days_to_expiry: daysToExpiry,
     }));
 
     try {

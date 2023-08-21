@@ -52,7 +52,7 @@ model Listing {
   owner Business @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   ownerId String
   date_listed DateTime @default(now())
-  days_to_expiry Int @default(7)
+  days_to_expiry Int @default(3)
   title String
   isbn String?
   author String

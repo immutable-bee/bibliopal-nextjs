@@ -9,7 +9,7 @@ import { signOut } from "next-auth/react";
 import BusinessPricing from "../business/profile/BusinessPricing";
 import TooltipComponent from "@/components/utility/Tooltip";
 import ResetInventoryModal from "../modals/ResetInventory";
-const ProfileComponent = ({}) => {
+const ProfileComponent = ({ }) => {
   const { user, fetchUserData } = useUser();
 
   const [formData, setFormData] = useState();
@@ -28,7 +28,7 @@ const ProfileComponent = ({}) => {
         body: JSON.stringify({ email: user.email, data: formData }),
       });
       fetchUserData();
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const handleChange = (e) => {
@@ -69,7 +69,7 @@ const ProfileComponent = ({}) => {
         const errorData = await response.json();
         setCancelMessage(
           errorData.message ||
-            "An error occurred while canceling the subscription"
+          "An error occurred while canceling the subscription"
         );
       }
     } catch (error) {

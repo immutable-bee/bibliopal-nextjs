@@ -229,7 +229,7 @@ const Pricing = () => {
           className="sm:mx-2 duration-300 ease-in-out hover:bg-white font-bold border hover:border-green-600 bg-green-600 text-white px-12 hover:text-green-600 py-3 mx-auto rounded-full"
           type="btn"
         >
-          Buy
+          {isSubscription ? "Subscribe" : "Buy"}
         </button>
       </div>
     </div>
