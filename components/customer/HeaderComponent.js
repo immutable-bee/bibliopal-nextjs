@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 // import 'bootstrap/dist/css/bootstrap.css';
 import ProfileSVG from "../../public/images/profile-icon.svg";
-import BookWorm from "../../assets/worm.webp";
+import BookWorm from "../../assets/owl.png";
 import { useUser } from "../../context/UserContext";
 const HeaderComponent = () => {
   const { user } = useUser();

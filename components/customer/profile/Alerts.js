@@ -154,13 +154,13 @@ const Alerts = ({ props, fetchUserData }) => {
             </button>
           </form>
         </div>
-        <div className="flex items-center mt-3">
+        <div className="flex items-center mt-3 overflow-x-auto">
           {titles?.map((title, index) => (
-            <div key={index} className="flex mx-1">
+            <div key={index} className="flex mx-1 flex-shrink-0">
               <p className="rounded-full flex items-center border text-xs sm:text-sm font-medium border-[#2eaaed] px-2 py-1">
                 {title}
                 <span
-                  className="ms-2 cursor-pointer"
+                  className="ms-2 cursor-pointer flex-shrink-0"
                   onClick={() => deleteTitle(index)}
                 >
                   <Image
@@ -200,13 +200,13 @@ const Alerts = ({ props, fetchUserData }) => {
             </button>
           </form>
         </div>
-        <div className="flex items-center mt-3">
+        <div className="flex items-center mt-3 overflow-x-auto">
           {authors?.map((author, index) => (
-            <div key={index} className="flex mx-1">
+            <div key={index} className="flex mx-1 flex-shrink-0">
               <p className="rounded-full flex items-center border text-sm font-medium border-[#2eaaed] px-2 py-1">
                 {author}
                 <span
-                  className="ms-2 cursor-pointer"
+                  className="ms-2 cursor-pointer flex-shrink-0"
                   onClick={() => deleteAuthor(index)}
                 >
                   <Image
@@ -254,13 +254,13 @@ const Alerts = ({ props, fetchUserData }) => {
               </button>
             </form>
           </div>
-          <div className="flex items-center mt-3">
+          <div className="flex items-center mt-3 overflow-x-auto">
             {zipCodes?.map((row, index) => (
-              <div key={index} className="flex mx-1">
+              <div key={index} className="flex mx-1 flex-shrink-0">
                 <p className="rounded-full flex items-center border text-sm font-medium border-[#2eaaed] px-2 py-1">
                   {row}
                   <span
-                    className="ms-2 cursor-pointer"
+                    className="ms-2 cursor-pointer flex-shrink-0"
                     onClick={() => deleteZipCode(index)}
                   >
                     <Image
