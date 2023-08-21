@@ -69,7 +69,7 @@ const Profilecomponent = () => {
             <div className="flex justify-center pb-20 mt-5">
               <button
                 onClick={() => signOut()}
-                className="px-10 py-3 bg-blbBlue rounded text-white border border-black"
+                className="px-10 py-3 bg-blbBlue rounded-lg text-white border border-black"
               >
                 Sign Out
               </button>
