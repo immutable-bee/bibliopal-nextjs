@@ -9,7 +9,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const { user } = useUser();
 
   const [isAutoUpload, setIsAutoUpload] = useState(false);
-  const [daysToExpiry, setDaysToExpiry] = useState(7);
+  const [daysToExpiry, setDaysToExpiry] = useState(3);
 
   const handleAutoUploadChange = (e) => {
     const newValue = e.target.checked;
@@ -17,8 +17,15 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   };
 
   const daysToExpiryHandler = (e) => {
-    setDaysToExpiry(e.target.value);
+    let value = parseInt(e.target.value);
+    if (value < 3) value = 3;
+    if (value > maxExpiry) value = maxExpiry;
+    setDaysToExpiry(value);
   };
+
+  const membership = user?.business.membership.toLowerCase();
+  const expiryLimit = { free: 3, basic: 7, premium: 30 };
+  const maxExpiry = user ? expiryLimit[membership] : 3;
 
   return (
     <div className="min-h-screen bg-[#FEFBE8]">
@@ -58,7 +65,9 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
           </div>
           <div className="sm:flex px-2 sm:px-5 justify-between items-center mb-5">
             <div className="flex sm:justify-start sm:py-0 py-1 justify-between items-center">
-              <h3 class="text-base sm:text-lg font-medium mr-3">Uploads this Cycle</h3>
+              <h3 class="text-base sm:text-lg font-medium mr-3">
+                Uploads this Cycle
+              </h3>
               <input
                 type="number"
                 value={user?.business?.current_cycle_uploads}
@@ -67,11 +76,15 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               />
             </div>
             <div className="flex sm:justify-start sm:py-0 py-1 justify-between items-center">
-              <h3 class="text-base sm:text-lg font-medium mr-3">Days to Expiry</h3>
+              <h3 class="text-base sm:text-lg font-medium mr-3">
+                Days to Expiry
+              </h3>
               <input
                 type="number"
                 value={daysToExpiry}
                 onChange={daysToExpiryHandler}
+                min="3"
+                max={maxExpiry}
                 className="px-3 sm:py-3 py-2.5 w-16 rounded-xl border-2 border-gray-500 bg-white"
               />
             </div>
