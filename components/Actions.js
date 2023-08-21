@@ -22,8 +22,11 @@ const Actions = ({ isSale, isAutoUpload, daysToExpiry }) => {
 
   const bodyHandler = () => {
     return isSale
-      ? JSON.stringify(bookSaleTableData.rows)
-      : JSON.stringify(tableData.rows);
+      ? JSON.stringify({
+          data: bookSaleTableData.rows,
+          daysToExpiry: daysToExpiry,
+        })
+      : JSON.stringify({ data: tableData.rows, daysToExpiry: daysToExpiry });
   };
 
   const dataHandler = () => {
