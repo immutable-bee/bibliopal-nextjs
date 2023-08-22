@@ -36,6 +36,12 @@ const TableHead = () => {
           scope="col"
           className=" border-2 border-[rgb(222, 226, 230)] px-6 py-3"
         >
+          Format
+        </th>
+        <th
+          scope="col"
+          className=" border-2 border-[rgb(222, 226, 230)] px-6 py-3"
+        >
           ISBN
         </th>
         <th
@@ -65,6 +71,9 @@ const TableBody: React.FC<ContentTableProps> = ({ deleteBookRow, isSale }) => {
           </td>
           <td className="border-2 border-[rgb(222, 226, 230)] px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
             {row?.author}
+          </td>
+          <td className="border-2 border-[rgb(222, 226, 230)] px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+            {row?.format}
           </td>
           <td className="border-2 border-[rgb(222, 226, 230)] px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
             {row?.isbn}

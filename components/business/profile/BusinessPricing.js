@@ -6,17 +6,64 @@ import {
   CircularThumb,
 } from "react-circular-input";
 import TooltipComponent from "@/components/utility/Tooltip";
+import Link from "next/link";
 
-const BusinessPricing = () => {
-  const [membership, setMembership] = useState("free");
-
+const BusinessPricing = ({ membership, businessID }) => {
   const pricingData = [
-    { price: [4.99, 4.49, 3.99], amount: 500 },
-    { price: [9.99, 8.99, 7.99], amount: 1100 },
-    { price: [19.99, 17.99, 15.99], amount: 2500 },
-    { price: [34.99, 31.49, 27.99], amount: 5000 },
-    { price: [49.99, 44.99, 39.99], amount: 8000 },
-    { price: [99.99, 89.99, 79.99], amount: 20000 },
+    {
+      price: [4.99, 4.49, 3.99],
+      amount: 500,
+      link: [
+        "https://buy.stripe.com/test_bIY4ie5L95zaeSQ9AA",
+        "https://buy.stripe.com/test_9AQaGCehFaTu264145",
+        "https://buy.stripe.com/test_7sIeWSflJd1C5igaEG",
+      ],
+    },
+    {
+      price: [9.99, 8.99, 7.99],
+      amount: 1100,
+      link: [
+        "https://buy.stripe.com/test_6oE9CyddBgdOh0YcMP",
+        "https://buy.stripe.com/test_9AQ8yu7Thf9K9yw4gk",
+        "https://buy.stripe.com/test_5kA01Y8Xl3r2fWU3ch",
+      ],
+    },
+    {
+      price: [19.99, 17.99, 15.99],
+      amount: 2500,
+      link: [
+        "https://buy.stripe.com/test_3cs6qm3D15za7qo3ci",
+        "https://buy.stripe.com/test_cN2cOK1uT5zacKI7sz",
+        "https://buy.stripe.com/test_00gcOK2yX6De9yw7sA",
+      ],
+    },
+    {
+      price: [34.99, 31.49, 27.99],
+      amount: 5000,
+      link: [
+        "https://buy.stripe.com/test_aEU5mi8Xl7Hi7qo9AJ",
+        "https://buy.stripe.com/test_cN27uq7Th4v64ecbIS",
+        "https://buy.stripe.com/test_aEU8yub5te5G5ig28j",
+      ],
+    },
+    {
+      price: [49.99, 44.99, 39.99],
+      amount: 8000,
+      link: [
+        "https://buy.stripe.com/test_8wMdSO5L93r29ywdR2",
+        "https://buy.stripe.com/test_00geWS4H5e5G6mkeV7",
+        "https://buy.stripe.com/test_3cs3ea6PdbXy6mk8wK",
+      ],
+    },
+    {
+      price: [99.99, 89.99, 79.99],
+      amount: 20000,
+      link: [
+        "https://buy.stripe.com/test_aEUeWS2yXgdOeSQ9AP",
+        "https://buy.stripe.com/test_3cs5mia1p0eQ5ig6oE",
+        "https://buy.stripe.com/test_cN22a6gpNaTu264cN3",
+      ],
+    },
   ];
 
   const [value, setValue] = useState(0.0);
@@ -48,7 +95,7 @@ const BusinessPricing = () => {
     }
   };
 
-  useEffect(() => { }, [value]);
+  useEffect(() => {}, [value]);
 
   const getIndex = () => {
     if (value === 0) {
@@ -58,14 +105,14 @@ const BusinessPricing = () => {
     }
   };
 
-  const getPriceIndex = () => {
-    if (membership === "free") {
+  const getSubIndex = () => {
+    if (membership === "FREE") {
       return 0;
     }
-    if (membership === "basic") {
+    if (membership === "BASIC") {
       return 1;
     }
-    if (membership === "premium") {
+    if (membership === "PREMIUM") {
       return 2;
     }
   };
@@ -75,20 +122,28 @@ const BusinessPricing = () => {
   };
 
   const getTotal = () => {
-    return pricingData[getIndex()]?.price[getPriceIndex()];
+    return pricingData[getIndex()]?.price[getSubIndex()];
   };
 
   const getEach = () => {
     const rawPrice =
-      pricingData[getIndex()]?.price[getPriceIndex()] /
+      pricingData[getIndex()]?.price[getSubIndex()] /
       pricingData[getIndex()]?.amount;
     return rawPrice ? rawPrice.toFixed(3) : null;
+  };
+
+  const linkHandler = () => {
+    return membership
+      ? pricingData[getIndex()].link[getSubIndex()]
+      : "https://bibliopal.com/business/profile";
   };
 
   return (
     <div className="pb-4 sm:pb-8">
       <div className="flex items-center sm:mt-12 mb-4 mt-5">
-        <h3 className="text-lg sm:text-2xl font-semibold">Buy More Upload Credits</h3>
+        <h3 className="text-lg sm:text-2xl font-semibold">
+          Buy More Upload Credits
+        </h3>
         <TooltipComponent
           rounded
           placement="rightStart"
@@ -152,12 +207,14 @@ const BusinessPricing = () => {
         </div>
       </div>
       <div className="flex justify-center mt-7">
-        <button
+        <Link
           className="sm:mx-2 duration-300 ease-in-out hover:bg-white font-bold border hover:border-green-600 bg-green-600 text-white px-12 hover:text-green-600 py-3 mx-auto rounded-full"
-          type="btn"
+          href={`${linkHandler()}?client_reference_id=${
+            businessID ? businessID : ""
+          }`}
         >
           Buy
-        </button>
+        </Link>
       </div>
     </div>
   );
