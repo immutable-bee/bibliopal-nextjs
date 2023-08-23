@@ -46,6 +46,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
 
       console.log("Subscription will be canceled at end of period:", data);
       setLoading(false);
+      onClose();
     } catch (error) {
       console.error("Failed to cancel subscription:", error.message);
       setLoading(false);
