@@ -63,7 +63,7 @@ const handleStripeWebhook = async (req, res) => {
         expand: ["line_items.data.price.product"],
       });
 
-      console.log(fullSession);
+      console.log(fullSession.line_items);
 
       product = fullSession.line_items.data[0].price.product;
 
