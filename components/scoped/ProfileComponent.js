@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import ManageSubscriptionModal from "@/components/scoped/ManageSubscriptionModal";
-import SubscriptionModal from "@/components/scoped/SubscriptionModal";
-import UnsubscribeModal from "@/components/scoped/UnsubscribeModal";
+import ManageSubscriptionModal from "../business/profile/ManageSubscriptionModal";
 import ButtonComponent from "@/components/utility/Button";
 import { useUser } from "@/context/UserContext";
 import { signOut } from "next-auth/react";
@@ -15,6 +13,7 @@ const ProfileComponent = ({}) => {
   const [formData, setFormData] = useState();
   const [isResetInventoryModalOpen, setIsResetInventoryModalOpen] =
     useState(false);
+  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,58 +36,12 @@ const ProfileComponent = ({}) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const manageSubscriptionModalHandler = () => {
-    setIsManageSubscriptionModalOpen(!isManageSubscriptionModalOpen);
+  const subscriptionModalOpenHandler = () => {
+    setIsSubscriptionModalOpen(true);
   };
 
-  const handleSubscriptionModal = () => {
-    // subscriptionStatus === "Not Subscribed"
-    //     ?
-    setIsSubscriptionModalOpen(!isSubscriptionModalOpen);
-    // :
-    // setIsManageSubscriptionModalOpen(!isManageSubscriptionModalOpen);
-  };
-
-  const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
-
-  const handleUnsubscribe = async () => {
-    try {
-      setSubLoading(true);
-      const response = await fetch("/api/stripe/cancel-subscription", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: session.user.email }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setCancelMessage(data.message);
-      } else {
-        const errorData = await response.json();
-        setCancelMessage(
-          errorData.message ||
-            "An error occurred while canceling the subscription"
-        );
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      setCancelMessage("An error occurred while canceling the subscription");
-    } finally {
-      setTimeout(() => {
-        setSubLoading(false);
-        setCancelMessage(null);
-        closeUnsubModal();
-        router.reload();
-      }, 2500);
-    }
-  };
-  const stepValue = (v) => Math.round(v * 10) / 10;
-
-  const closeManageSubscriptionModalHandler = () => {
-    console.log("close");
-    setIsManageSubscriptionModalOpen(false);
+  const subscriptionModalCloseHandler = () => {
+    setIsSubscriptionModalOpen(false);
   };
 
   const remainingCreditsHandler = () => {
@@ -233,17 +186,14 @@ const ProfileComponent = ({}) => {
               businessID={user?.business.id}
             />
 
-            <ButtonComponent
-              rounded
-              full
-              color="blue"
-              className="!my-1"
-              id="manage-payment-btn"
-            >
-              Manage Payment Methods
-            </ButtonComponent>
             <div className="">
-              <ButtonComponent rounded full color="blue" type="button">
+              <ButtonComponent
+                onClick={subscriptionModalOpenHandler}
+                rounded
+                full
+                color="blue"
+                type="button"
+              >
                 Manage Subscription
               </ButtonComponent>
             </div>
@@ -260,7 +210,11 @@ const ProfileComponent = ({}) => {
           </div>
         </div>
       </div>
-      <SubscriptionModal isSubscriptionModalOpen={isSubscriptionModalOpen} />
+      <ManageSubscriptionModal
+        user={user}
+        visible={isSubscriptionModalOpen}
+        onClose={subscriptionModalCloseHandler}
+      />
     </div>
   );
 };

@@ -55,7 +55,7 @@ const handleStripeWebhook = async (req, res) => {
       const customer = await stripe.customers.retrieve(stripeCustomerId);
 
       if (customer.metadata.consumerId) {
-        return;
+        return res.status.json({ received: true });
       }
 
       const businessId = customer.metadata.businessId;

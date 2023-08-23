@@ -53,14 +53,14 @@ const handleStripeWebhook = async (req, res) => {
 
     try {
       if (!invoice.subscription) {
-        return;
+        return res.status(200).json({ received: true });
       }
       const stripeCustomerId = invoice.customer;
 
       const customer = await stripe.customers.retrieve(stripeCustomerId);
 
       if (customer.metadata.businessId) {
-        return;
+        return res.status(200).json({ received: true });
       }
 
       const lineItem = invoice.lines.data[0];
