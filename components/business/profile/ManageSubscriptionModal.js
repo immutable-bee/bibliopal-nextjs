@@ -199,26 +199,32 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
 
   const SubscribedView = () => {
     return (
-      <div>
-        <h6>Current Plan: {capitalizeFirstLetter(currentMembership)}</h6>
-        <h6>Plan features</h6>
+      <div className="flex flex-col items-center">
+        <h6 className="text-2xl font-semibold">
+          Current Plan: {capitalizeFirstLetter(currentMembership)}
+        </h6>
+        <h6 className="mt-5 mb-2 text-xl font-medium">Plan features</h6>
         {currentMembership === "BASIC" ? (
-          <ul>
+          <ul className="list-disc">
             <li>1,000 listings per month</li>
             <li>3-7 day inventory visibility</li>
             <li>10% off upload credit purchases</li>
           </ul>
         ) : (
-          <ul>
+          <ul className="list-disc">
             <li>5,000 listings per month</li>
             <li>3-30 day inventory visibility</li>
             <li>20% off upload credit purchases</li>
           </ul>
         )}
-        <h6>Next Due Date: {`under development`}</h6>
-        <h6>Amount Due: {`under development`}</h6>
+        <div className="mt-5 font-medium">
+          <h6 className="mb-2">Next Due Date: {`under development`}</h6>
+          <h6>Amount Due: {`under development`}</h6>
+        </div>
 
-        <ButtonComponent>Cancel Plan (Under Development)</ButtonComponent>
+        <button className="mt-5 bg-sky-500 w-1/2 py-3 self-center rounded-lg text-white border border-black">
+          Cancel Plan (Under Development)
+        </button>
       </div>
     );
   };
