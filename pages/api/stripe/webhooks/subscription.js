@@ -1,7 +1,7 @@
 import { prisma } from "../../../../db/prismaDB";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SK, {
+const stripe = new Stripe(process.env.STRIPE_TEST_SK, {
   apiVersion: "2022-11-15",
 });
 
