@@ -12,12 +12,14 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
   const [subView, setSubView] = useState(1);
 
   const [currentMembership, setCurrentMembership] = useState(null);
+  const [businessId, setBusinessId] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
       setCurrentMembership(user.business.membership);
+      setBusinessId(user.business.id);
       if (user.business.membership !== "FREE") {
         setIsSubscribed(true);
       }
@@ -120,7 +122,9 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href="https://buy.stripe.com/test_8wMaGC4H58LmcKI28q"
+                  href={`https://buy.stripe.com/test_8wMaGC4H58LmcKI28q?client_reference_id=${
+                    businessId ? businessId : ""
+                  }`}
                 >
                   Monthly Plan
                 </Link>
@@ -131,7 +135,9 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href="https://buy.stripe.com/test_9AQg0W4H5f9K4ec9AT"
+                  href={`https://buy.stripe.com/test_9AQg0W4H5f9K4ec9AT?client_reference_id=${
+                    businessId ? businessId : ""
+                  }`}
                 >
                   Yearly Plan
                 </Link>
@@ -164,7 +170,9 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href="https://buy.stripe.com/test_9AQ2a60qP4v69yweVe"
+                  href={`https://buy.stripe.com/test_9AQ2a60qP4v69yweVe?client_reference_id=${
+                    businessId ? businessId : ""
+                  }`}
                 >
                   Monthly Plan
                 </Link>
@@ -175,7 +183,9 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href="https://buy.stripe.com/test_7sI3ea4H50eQfWU6oJ"
+                  href={`https://buy.stripe.com/test_7sI3ea4H50eQfWU6oJ?client_reference_id=${
+                    businessId ? businessId : ""
+                  }`}
                 >
                   Yearly Plan
                 </Link>
@@ -189,24 +199,32 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
 
   const SubscribedView = () => {
     return (
-      <div>
-        <h6>Current Plan: {capitalizeFirstLetter(currentMembership)}</h6>
-        <h6>Plan features</h6>
+      <div className="flex flex-col items-center">
+        <h6 className="text-2xl font-semibold">
+          Current Plan: {capitalizeFirstLetter(currentMembership)}
+        </h6>
+        <h6 className="mt-5 mb-2 text-xl font-medium">Plan features</h6>
         {currentMembership === "BASIC" ? (
-          <ul>
+          <ul className="list-disc">
             <li>1,000 listings per month</li>
             <li>3-7 day inventory visibility</li>
             <li>10% off upload credit purchases</li>
           </ul>
         ) : (
-          <ul>
+          <ul className="list-disc">
             <li>5,000 listings per month</li>
             <li>3-30 day inventory visibility</li>
             <li>20% off upload credit purchases</li>
           </ul>
         )}
+        <div className="mt-5 font-medium">
+          <h6 className="mb-2">Next Due Date: {`under development`}</h6>
+          <h6>Amount Due: {`under development`}</h6>
+        </div>
 
-        <ButtonComponent>Cancel Plan</ButtonComponent>
+        <button className="mt-5 bg-sky-500 w-1/2 py-3 self-center rounded-lg text-white border border-black">
+          Cancel Plan (Under Development)
+        </button>
       </div>
     );
   };
