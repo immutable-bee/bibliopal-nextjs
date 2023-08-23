@@ -64,7 +64,7 @@ const handleStripeWebhook = async (req, res) => {
 
       product = fullSession.line_items[0].data.price.product;
     } catch (err) {
-      res.status(400).send(`Webhook Error: ${err.message}`);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
     try {
@@ -119,7 +119,7 @@ const handleStripeWebhook = async (req, res) => {
         }
       }
     } catch (err) {
-      res.status(400).send(`Webhook Error: ${err.message}`);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
     }
   }
 
@@ -130,7 +130,7 @@ const handler = async (req, res) => {
   if (req.method === "POST") {
     await handleStripeWebhook(req, res);
   } else {
-    console.log(`Received a ${req.method} request, but only POST is allowed`); // Log when a non-POST request is received
+    console.log(`Received a ${req.method} request, but only POST is allowed`);
     res.status(405).json({ error: "Method not allowed" });
   }
 };
