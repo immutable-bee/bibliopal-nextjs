@@ -12,12 +12,14 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
   const [subView, setSubView] = useState(1);
 
   const [currentMembership, setCurrentMembership] = useState(null);
+  const [businessId, setBusinessId] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (user) {
       setCurrentMembership(user.business.membership);
+      setBusinessId(user.business.id);
       if (user.business.membership !== "FREE") {
         setIsSubscribed(true);
       }
@@ -120,7 +122,9 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href="https://buy.stripe.com/test_8wMaGC4H58LmcKI28q"
+                  href={`https://buy.stripe.com/test_8wMaGC4H58LmcKI28q?client_reference_id=${
+                    businessId ? businessId : ""
+                  }`}
                 >
                   Monthly Plan
                 </Link>
@@ -131,7 +135,9 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href="https://buy.stripe.com/test_9AQg0W4H5f9K4ec9AT"
+                  href={`https://buy.stripe.com/test_9AQg0W4H5f9K4ec9AT?client_reference_id=${
+                    businessId ? businessId : ""
+                  }`}
                 >
                   Yearly Plan
                 </Link>
@@ -164,7 +170,9 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href="https://buy.stripe.com/test_9AQ2a60qP4v69yweVe"
+                  href={`https://buy.stripe.com/test_9AQ2a60qP4v69yweVe?client_reference_id=${
+                    businessId ? businessId : ""
+                  }`}
                 >
                   Monthly Plan
                 </Link>
@@ -175,7 +183,9 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href="https://buy.stripe.com/test_7sI3ea4H50eQfWU6oJ"
+                  href={`https://buy.stripe.com/test_7sI3ea4H50eQfWU6oJ?client_reference_id=${
+                    businessId ? businessId : ""
+                  }`}
                 >
                   Yearly Plan
                 </Link>
@@ -205,8 +215,10 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
             <li>20% off upload credit purchases</li>
           </ul>
         )}
+        <h6>Next Due Date: {`under development`}</h6>
+        <h6>Amount Due: {`under development`}</h6>
 
-        <ButtonComponent>Cancel Plan</ButtonComponent>
+        <ButtonComponent>Cancel Plan (Under Development)</ButtonComponent>
       </div>
     );
   };
