@@ -65,7 +65,7 @@ const handleStripeWebhook = async (req, res) => {
 
       console.log(fullSession);
 
-      product = fullSession.line_items[0].data.price.product;
+      product = fullSession.line_items.data[0].price.product;
 
       console.log("Retrieved product:", product);
     } catch (err) {
