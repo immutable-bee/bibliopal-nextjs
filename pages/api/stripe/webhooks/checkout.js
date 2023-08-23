@@ -49,9 +49,8 @@ const handleStripeWebhook = async (req, res) => {
   }
 
   if (event.type === "checkout.session.completed") {
-    console.log(event);
     const session = event.data.object;
-    console.log(session);
+
     const sessionId = session.id;
     const customerId = session.client_reference_id;
     const isSubscription = event.data.object.subscription ? true : false;
@@ -68,8 +67,10 @@ const handleStripeWebhook = async (req, res) => {
 
       product = fullSession.line_items[0].data.price.product;
 
-      console.log(product);
+      console.log("Retrieved product:", product);
     } catch (err) {
+      console.error("Error retrieving product:", err);
+
       return res.status(400).send(`Webhook Error: ${err.message}`);
     }
 
