@@ -36,7 +36,7 @@ const handleStripeWebhook = async (req, res) => {
 
   try {
     const rawBody = await getRawBody(req);
-    console.log("Retrieved raw body from request"); // Log when the raw body has been successfully retrieved
+    console.log("Retrieved raw body from request");
 
     event = stripe.webhooks.constructEvent(
       rawBody,
@@ -49,7 +49,9 @@ const handleStripeWebhook = async (req, res) => {
   }
 
   if (event.type === "checkout.session.completed") {
+    console.log(event);
     const session = event.data.object;
+    console.log(session);
     const sessionId = session.id;
     const customerId = session.client_reference_id;
     const isSubscription = event.data.object.subscription ? true : false;
@@ -62,7 +64,11 @@ const handleStripeWebhook = async (req, res) => {
         expand: ["line_items.data.price.product"],
       });
 
+      console.log(fullSession);
+
       product = fullSession.line_items[0].data.price.product;
+
+      console.log(product);
     } catch (err) {
       return res.status(400).send(`Webhook Error: ${err.message}`);
     }
