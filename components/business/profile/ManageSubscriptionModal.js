@@ -8,11 +8,11 @@ import Image from "next/image";
 
 const ManageSubscriptionModal = ({ user, visible, onClose }) => {
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const [cancelPlanView, setCancelPlanView] = useState(false);
   const [subView, setSubView] = useState(1);
 
   const [currentMembership, setCurrentMembership] = useState(null);
   const [businessId, setBusinessId] = useState(null);
+  const [subscriptionId, setSubscriptionId] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -22,12 +22,38 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
       setBusinessId(user.business.id);
       if (user.business.membership !== "FREE") {
         setIsSubscribed(true);
+        setSubscriptionId(user.business.subscriptionId);
       }
     }
   }, [user]);
 
-  const cancelPlanViewHandler = () => {
-    setCancelPlanView(true);
+  const cancelSubscription = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/stripe/business/cancelSubscription", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ subscriptionId }),
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      console.log("Subscription will be canceled at end of period:", data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Failed to cancel subscription:", error.message);
+      setLoading(false);
+    }
+  };
+
+  const handleSubViewChange = (view) => {
+    setSubView(view);
   };
 
   const MembershipUnknownView = () => {
@@ -36,10 +62,6 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
         <Loading size="lg" />
       </div>
     );
-  };
-
-  const handleSubViewChange = (view) => {
-    setSubView(view);
   };
 
   const NotSubscribedView = () => {
@@ -241,7 +263,11 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
               the current billing cycle ending on: (Under Development)
             </p>
             <div className="flex justify-evenly">
-              <button className="mt-5 bg-sky-500 w-1/3 py-3 self-center rounded-lg text-white border border-black">
+              <button
+                disabled={loading}
+                onClick={cancelSubscription}
+                className="mt-5 bg-sky-500 w-1/3 py-3 self-center rounded-lg text-white border border-black"
+              >
                 Confirm
               </button>
               <button
@@ -257,8 +283,6 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
     );
   };
 
-  const CancelPlanView = () => {};
-
   return (
     <ModalComponent
       open={visible}
@@ -267,8 +291,6 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
     >
       {!currentMembership ? (
         <MembershipUnknownView />
-      ) : cancelPlanView ? (
-        <CancelPlanView />
       ) : isSubscribed ? (
         <SubscribedView />
       ) : (

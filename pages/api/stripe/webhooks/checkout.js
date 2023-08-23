@@ -53,7 +53,7 @@ const handleStripeWebhook = async (req, res) => {
 
     const sessionId = session.id;
     const customerId = session.client_reference_id;
-    const isSubscription = event.data.object.subscription ? true : false;
+    const isSubscription = session.subscription ? true : false;
     const stripeCustomerId = session.customer;
 
     let product;
@@ -95,6 +95,7 @@ const handleStripeWebhook = async (req, res) => {
             },
             data: {
               membership: product.metadata.membership,
+              subscriptionId: session.subscription,
             },
           });
           const customer = await stripe.customers.update(stripeCustomerId, {
@@ -122,6 +123,13 @@ const handleStripeWebhook = async (req, res) => {
         if (isSubscription) {
           const customer = await stripe.customers.update(stripeCustomerId, {
             metadata: { consumerId: customerId },
+          });
+
+          const updateConsumer = await prisma.consumer.update({
+            where: { id: customerId },
+            data: {
+              subscriptionId: session.subscription,
+            },
           });
         }
       }

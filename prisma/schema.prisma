@@ -143,6 +143,7 @@ model Business {
   upload_credits Int @default(0)
   inventory Listing[]
   book_sale BookSale?
+  subscriptionId String?
 
 }
 model Consumer {
@@ -159,6 +160,7 @@ tracked_zips String[]
 paid_alerts Int @default(25)
 saved SavedListing[]
 matches Match[]
+subscriptionId String?
 }
 
 enum BUSINESSTYPE {
