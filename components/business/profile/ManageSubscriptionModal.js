@@ -38,7 +38,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
     );
   };
 
-  const handleNotSubscribedSubView = (view) => {
+  const handleSubViewChange = (view) => {
     setSubView(view);
   };
 
@@ -69,7 +69,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                   <li>10% off upload credit purchases</li>
                 </ul>
                 <button
-                  onClick={() => handleNotSubscribedSubView(2)}
+                  onClick={() => handleSubViewChange(2)}
                   className="mt-5 bg-sky-500 w-1/2 py-3 self-center rounded-lg text-white border border-black"
                 >
                   Choose Plan
@@ -88,7 +88,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                   <li>20% off upload credit purchases</li>
                 </ul>
                 <button
-                  onClick={() => handleNotSubscribedSubView(3)}
+                  onClick={() => handleSubViewChange(3)}
                   className="mt-5 bg-sky-500 w-1/2 py-3 self-center rounded-lg text-white border border-black"
                 >
                   Choose Plan
@@ -99,7 +99,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
         ) : subView === 2 ? (
           <>
             <button
-              onClick={() => handleNotSubscribedSubView(1)}
+              onClick={() => handleSubViewChange(1)}
               className="px-1 py-1 bg-blbBlue rounded-full self-start"
             >
               <Image
@@ -147,7 +147,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
         ) : subView === 3 ? (
           <>
             <button
-              onClick={() => handleNotSubscribedSubView(1)}
+              onClick={() => handleSubViewChange(1)}
               className="px-1 py-1 bg-blbBlue rounded-full self-start"
             >
               <Image
@@ -217,14 +217,42 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
             <li>20% off upload credit purchases</li>
           </ul>
         )}
-        <div className="mt-5 font-medium">
-          <h6 className="mb-2">Next Due Date: {`under development`}</h6>
-          <h6>Amount Due: {`under development`}</h6>
-        </div>
+        {subView === 1 ? (
+          <>
+            <div className="mt-5 font-medium">
+              <h6 className="mb-2">Next Due Date: {`under development`}</h6>
+              <h6>Amount Due: {`under development`}</h6>
+            </div>
 
-        <button className="mt-5 bg-sky-500 w-1/2 py-3 self-center rounded-lg text-white border border-black">
-          Cancel Plan (Under Development)
-        </button>
+            <button
+              onClick={() => handleSubViewChange(2)}
+              className="mt-5 bg-sky-500 w-1/2 py-3 self-center rounded-lg text-white border border-black"
+            >
+              Cancel Plan
+            </button>
+          </>
+        ) : (
+          <div>
+            <h6 className="text-center text-lg font-semibold mt-3 mb-3">
+              Are you sure you want to cancel your subscription?
+            </h6>
+            <p className="text-center">
+              After canceling, you will retain your membership for the rest of
+              the current billing cycle ending on: (Under Development)
+            </p>
+            <div className="flex justify-evenly">
+              <button className="mt-5 bg-sky-500 w-1/3 py-3 self-center rounded-lg text-white border border-black">
+                Confirm
+              </button>
+              <button
+                onClick={() => handleSubViewChange(1)}
+                className="mt-5 bg-lime-600 w-1/3 py-3 self-center rounded-lg text-white border border-black"
+              >
+                Go Back
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     );
   };
