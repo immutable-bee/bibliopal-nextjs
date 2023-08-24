@@ -1,31 +1,76 @@
 import ModalComponent from "../../utility/Modal";
 import { useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "../../../utils/stringManipulation";
-import ButtonComponent from "../../utility/Button";
-import { Loading, Button } from "@nextui-org/react";
+import { Loading } from "@nextui-org/react";
 import Link from "next/link";
 import Image from "next/image";
 
 const ManageSubscriptionModal = ({ user, visible, onClose }) => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [subView, setSubView] = useState(1);
+  const [isResumingSubscription, setIsResumingSubscription] = useState(false);
 
   const [currentMembership, setCurrentMembership] = useState(null);
   const [businessId, setBusinessId] = useState(null);
   const [subscriptionId, setSubscriptionId] = useState(null);
+  const [subscriptionData, setSubscriptionData] = useState({});
 
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    const getSubscriptionData = async () => {
+      await fetchSubscriptionData();
+    };
+
     if (user) {
       setCurrentMembership(user.business.membership);
       setBusinessId(user.business.id);
       if (user.business.membership !== "FREE") {
         setIsSubscribed(true);
         setSubscriptionId(user.business.subscriptionId);
+        getSubscriptionData();
       }
     }
   }, [user]);
+
+  const fetchSubscriptionData = async () => {
+    const response = await fetch(`/api/stripe/business/${subscriptionId}`);
+    const data = await response.json();
+
+    if (response.ok) {
+      setSubscriptionData(data);
+    } else {
+      console.error("Failed to fetch subscription data:", data.error);
+    }
+  };
+
+  const resumeSubscription = async () => {
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/stripe/business/resumeSubscription", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ subscriptionId }),
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      console.log("Subscription Resumed:", data);
+      setLoading(false);
+      await fetchSubscriptionData();
+      onClose();
+    } catch (error) {
+      console.error("Failed to resume subscription:", error.message);
+      setLoading(false);
+    }
+  };
 
   const cancelSubscription = async () => {
     setLoading(true);
@@ -46,6 +91,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
 
       console.log("Subscription will be canceled at end of period:", data);
       setLoading(false);
+      await fetchSubscriptionData();
       onClose();
     } catch (error) {
       console.error("Failed to cancel subscription:", error.message);
@@ -242,17 +288,57 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
         )}
         {subView === 1 ? (
           <>
-            <div className="mt-5 font-medium">
-              <h6 className="mb-2">Next Due Date: {`under development`}</h6>
-              <h6>Amount Due: {`under development`}</h6>
+            <div className="mt-5 ">
+              {subscriptionData?.cancelAt ? (
+                <div>
+                  <h6 className="text-center font-semibold">
+                    Membership expires on: {subscriptionData?.cancelAt}{" "}
+                  </h6>
+                  <p className="text-center mt-2">
+                    {isResumingSubscription
+                      ? "Confirm membership renewal?"
+                      : "If you would like to resume your membership before it expires, You can click the button below."}
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <h6 className="mb-2">
+                    Next Due Date: {subscriptionData?.nextDueDate}
+                  </h6>
+                  <h6>Amount Due: ${subscriptionData?.amountDue}</h6>
+                </>
+              )}
             </div>
-
-            <button
-              onClick={() => handleSubViewChange(2)}
-              className="mt-5 bg-sky-500 w-1/2 py-3 self-center rounded-lg text-white border border-black"
-            >
-              Cancel Plan
-            </button>
+            {isResumingSubscription ? (
+              <div className="flex gap-10">
+                <button
+                  disabled={loading}
+                  onClick={resumeSubscription}
+                  className="mt-5 bg-sky-500 px-8 py-3 self-center rounded-lg text-white border border-black"
+                >
+                  Confirm
+                </button>
+                <button
+                  onClick={() => setIsResumingSubscription(false)}
+                  className="mt-5 bg-lime-600 px-8 py-3 self-center rounded-lg text-white border border-black"
+                >
+                  Go Back
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={
+                  subscriptionData?.cancelAt
+                    ? () => setIsResumingSubscription(true)
+                    : () => handleSubViewChange(2)
+                }
+                className="mt-5 bg-sky-500 w-1/2 py-3 self-center rounded-lg text-white border border-black"
+              >
+                {subscriptionData?.cancelAt
+                  ? "Resume Membership"
+                  : "Cancel Plan"}
+              </button>
+            )}
           </>
         ) : (
           <div>
@@ -261,7 +347,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
             </h6>
             <p className="text-center">
               After canceling, you will retain your membership for the rest of
-              the current billing cycle ending on: (Under Development)
+              the current billing cycle ending on: {subscriptionData?.cancelAt}
             </p>
             <div className="flex justify-evenly">
               <button
