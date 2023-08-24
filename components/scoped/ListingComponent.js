@@ -6,7 +6,7 @@ import ISBNSearchBox from "@/components/ISBNSearchBox";
 import ContentTable from "@/components/ContentTable";
 import { Input } from "@nextui-org/react";
 const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
-  const { user } = useUser();
+  const { user, fetchUserData } = useUser();
 
   const [isAutoUpload, setIsAutoUpload] = useState(false);
   const [daysToExpiry, setDaysToExpiry] = useState(3);
@@ -61,6 +61,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               isSale={false}
               isAutoUpload={isAutoUpload}
               daysToExpiry={daysToExpiry}
+              refreshUserData={fetchUserData}
             />
           </div>
           <div className="sm:flex px-2 sm:px-5 justify-between items-center mb-5">
