@@ -56,24 +56,20 @@ const ManageSubscriptionModal = ({
   const paymentLinks = isStripeLive ? livePaymentLinks : testPaymentLinks;
 
   useEffect(() => {
-    const getSubscriptionData = async () => {
-      await fetchSubscriptionData();
-    };
-
     if (user) {
       setCurrentMembership(user.business.membership);
       setBusinessId(user.business.id);
       if (user.business.membership !== "FREE") {
         setIsSubscribed(true);
+        setSubscriptionId(user.business.subscriptionId);
         if (user.business.subscriptionId) {
-          getSubscriptionData();
-          if (subscriptionData) {
-            setSubscriptionId(user.business.subscriptionId);
-          }
+          (async () => {
+            await fetchSubscriptionData();
+          })();
         }
       }
     }
-  }, [user, subscriptionData]);
+  }, [user, subscriptionId]);
 
   const fetchSubscriptionData = async () => {
     const response = await fetch(`/api/stripe/business/${subscriptionId}`);
