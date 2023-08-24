@@ -58,7 +58,6 @@ const ManageSubscriptionModal = ({
   useEffect(() => {
     const getSubscriptionData = async () => {
       await fetchSubscriptionData();
-      setSubscriptionId(user.business.subscriptionId);
     };
 
     if (user) {
@@ -66,10 +65,15 @@ const ManageSubscriptionModal = ({
       setBusinessId(user.business.id);
       if (user.business.membership !== "FREE") {
         setIsSubscribed(true);
-        getSubscriptionData();
+        if (user.business.subscriptionId) {
+          getSubscriptionData();
+          if (subscriptionData) {
+            setSubscriptionId(user.business.subscriptionId);
+          }
+        }
       }
     }
-  }, [user]);
+  }, [user, subscriptionData]);
 
   const fetchSubscriptionData = async () => {
     const response = await fetch(`/api/stripe/business/${subscriptionId}`);

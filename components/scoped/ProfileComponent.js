@@ -125,7 +125,6 @@ const ProfileComponent = ({}) => {
               <label className="text-sm text-gray-700">URL</label>
               <input
                 name="url"
-                type="url"
                 className="bg-white focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-500 w-full rounded-lg  px-4 my-1 py-2"
                 onChange={handleChange}
                 placeholder={user?.business?.url ? user.business.url : ""}
