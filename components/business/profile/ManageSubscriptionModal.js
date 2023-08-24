@@ -5,7 +5,13 @@ import { Loading } from "@nextui-org/react";
 import Link from "next/link";
 import Image from "next/image";
 
-const ManageSubscriptionModal = ({ user, visible, onClose }) => {
+const ManageSubscriptionModal = ({
+  user,
+  visible,
+  onClose,
+  setNotifications,
+  setNotificationType,
+}) => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [subView, setSubView] = useState(1);
   const [isResumingSubscription, setIsResumingSubscription] = useState(false);
@@ -17,9 +23,42 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
 
   const [loading, setLoading] = useState(false);
 
+  const isStripeLive = true;
+
+  const testPaymentLinks = [
+    `https://buy.stripe.com/test_8wMaGC4H58LmcKI28q?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+    `https://buy.stripe.com/test_9AQg0W4H5f9K4ec9AT?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+    `https://buy.stripe.com/test_9AQ2a60qP4v69yweVe?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+    `https://buy.stripe.com/test_7sI3ea4H50eQfWU6oJ?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+  ];
+  const livePaymentLinks = [
+    `https://buy.stripe.com/8wMaHTbkw0p07aUbJ4?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+    `https://buy.stripe.com/bIYaHT1JWc7I52MeVh?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+    `https://buy.stripe.com/8wM2bn1JWb3E7aUdRe?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+    `https://buy.stripe.com/9AQeY99co3Bc8eY3cB?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+  ];
+  const paymentLinks = isStripeLive ? livePaymentLinks : testPaymentLinks;
+
   useEffect(() => {
     const getSubscriptionData = async () => {
       await fetchSubscriptionData();
+      setSubscriptionId(user.business.subscriptionId);
     };
 
     if (user) {
@@ -27,7 +66,6 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
       setBusinessId(user.business.id);
       if (user.business.membership !== "FREE") {
         setIsSubscribed(true);
-        setSubscriptionId(user.business.subscriptionId);
         getSubscriptionData();
       }
     }
@@ -64,6 +102,8 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
 
       console.log("Subscription Resumed:", data);
       setLoading(false);
+      setNotifications([1]);
+      setNotificationType("resumed subscription");
       await fetchSubscriptionData();
       onClose();
     } catch (error) {
@@ -91,6 +131,8 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
 
       console.log("Subscription will be canceled at end of period:", data);
       setLoading(false);
+      setNotifications([1]);
+      setNotificationType("canceled subscription");
       await fetchSubscriptionData();
       onClose();
     } catch (error) {
@@ -191,9 +233,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href={`https://buy.stripe.com/test_8wMaGC4H58LmcKI28q?client_reference_id=${
-                    businessId ? businessId : ""
-                  }`}
+                  href={paymentLinks[0]}
                 >
                   Monthly Plan
                 </Link>
@@ -204,9 +244,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href={`https://buy.stripe.com/test_9AQg0W4H5f9K4ec9AT?client_reference_id=${
-                    businessId ? businessId : ""
-                  }`}
+                  href={paymentLinks[1]}
                 >
                   Yearly Plan
                 </Link>
@@ -239,9 +277,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href={`https://buy.stripe.com/test_9AQ2a60qP4v69yweVe?client_reference_id=${
-                    businessId ? businessId : ""
-                  }`}
+                  href={paymentLinks[2]}
                 >
                   Monthly Plan
                 </Link>
@@ -252,9 +288,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href={`https://buy.stripe.com/test_7sI3ea4H50eQfWU6oJ?client_reference_id=${
-                    businessId ? businessId : ""
-                  }`}
+                  href={paymentLinks[3]}
                 >
                   Yearly Plan
                 </Link>

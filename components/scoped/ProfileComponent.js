@@ -7,6 +7,7 @@ import { signOut } from "next-auth/react";
 import BusinessPricing from "../business/profile/BusinessPricing";
 import TooltipComponent from "@/components/utility/Tooltip";
 import ResetInventoryModal from "../modals/ResetInventory";
+import NotificationContainer from "../containers/NotificationContainer";
 const ProfileComponent = ({}) => {
   const { user, fetchUserData } = useUser();
 
@@ -14,6 +15,10 @@ const ProfileComponent = ({}) => {
   const [isResetInventoryModalOpen, setIsResetInventoryModalOpen] =
     useState(false);
   const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
+
+  // for subscription notifications
+  const [notifications, setNotifications] = useState([]);
+  const [notificationType, setNotificationType] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -214,6 +219,14 @@ const ProfileComponent = ({}) => {
         user={user}
         visible={isSubscriptionModalOpen}
         onClose={subscriptionModalCloseHandler}
+        setNotificationType={setNotificationType}
+        setNotifications={setNotifications}
+      />
+      <NotificationContainer
+        notifications={notifications}
+        setNotifications={setNotifications}
+        type={notificationType}
+        setType={setNotificationType}
       />
     </div>
   );

@@ -1,6 +1,13 @@
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_TEST_SK, {
+const isStripeLive = true;
+
+const liveStripeKey = process.env.STRIPE_LIVE_SK;
+const testStripeKey = process.env.STRIPE_TEST_SK;
+
+const stripeKey = isStripeLive ? liveStripeKey : testStripeKey;
+
+const stripe = new Stripe(stripeKey, {
   apiVersion: "2022-11-15",
 });
 
