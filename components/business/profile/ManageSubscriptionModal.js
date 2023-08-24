@@ -4,8 +4,15 @@ import { capitalizeFirstLetter } from "../../../utils/stringManipulation";
 import { Loading } from "@nextui-org/react";
 import Link from "next/link";
 import Image from "next/image";
+import NotificationContainer from "@/components/containers/NotificationContainer";
 
-const ManageSubscriptionModal = ({ user, visible, onClose }) => {
+const ManageSubscriptionModal = ({
+  user,
+  visible,
+  onClose,
+  setNotifications,
+  setNotificationType,
+}) => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [subView, setSubView] = useState(1);
   const [isResumingSubscription, setIsResumingSubscription] = useState(false);
@@ -20,6 +27,7 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
   useEffect(() => {
     const getSubscriptionData = async () => {
       await fetchSubscriptionData();
+      setSubscriptionId(user.business.subscriptionId);
     };
 
     if (user) {
@@ -27,7 +35,6 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
       setBusinessId(user.business.id);
       if (user.business.membership !== "FREE") {
         setIsSubscribed(true);
-        setSubscriptionId(user.business.subscriptionId);
         getSubscriptionData();
       }
     }
@@ -64,6 +71,8 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
 
       console.log("Subscription Resumed:", data);
       setLoading(false);
+      setNotifications([1]);
+      setNotificationType("resumed subscription");
       await fetchSubscriptionData();
       onClose();
     } catch (error) {
@@ -91,6 +100,8 @@ const ManageSubscriptionModal = ({ user, visible, onClose }) => {
 
       console.log("Subscription will be canceled at end of period:", data);
       setLoading(false);
+      setNotifications([1]);
+      setNotificationType("canceled subscription");
       await fetchSubscriptionData();
       onClose();
     } catch (error) {
