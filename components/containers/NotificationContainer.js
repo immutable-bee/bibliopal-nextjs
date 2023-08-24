@@ -1,6 +1,7 @@
 import UploadNotification from "../business/UploadNotification";
 import ResetInventoryNotification from "../notifications/ResetInventoryNotification";
 import ErrorNotification from "../notifications/ErrorNotification";
+import ProfileUpdatedNotifcation from "../notifications/ProfileUpdatedNotification";
 import SubscribedNotification from "../notifications/SubscribedNotification";
 import SubscriptionResumedNotification from "../notifications/SubscriptionResumedNotification";
 import SubscriptionCanceledNotification from "../notifications/SubscriptionCanceledNotification";
@@ -76,6 +77,16 @@ const NotificationContainer = ({
             key={index}
             message={notification}
           />
+        ))}
+      </div>
+    );
+  }
+
+  if (type === "profile updated") {
+    return (
+      <div className="fixed bottom-4 right-4 space-y-2">
+        {notifications.map((notification, index) => (
+          <ProfileUpdatedNotifcation key={index} message={notification} />
         ))}
       </div>
     );

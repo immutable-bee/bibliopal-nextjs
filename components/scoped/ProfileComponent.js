@@ -24,14 +24,19 @@ const ProfileComponent = ({}) => {
     e.preventDefault();
 
     try {
-      await fetch("/api/business/updateData", {
+      const response = await fetch("/api/business/updateData", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email: user.email, data: formData }),
       });
-      fetchUserData();
+
+      if (response.ok) {
+        fetchUserData();
+        setNotifications([1]);
+        setNotificationType("profile updated");
+      }
     } catch (error) {}
   };
 
