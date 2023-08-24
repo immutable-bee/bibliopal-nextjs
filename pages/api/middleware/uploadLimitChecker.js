@@ -31,9 +31,15 @@ const uploadLimitChecker = (handler) => async (req, res, next) => {
     PREMIUM: 5000,
   };
 
+  console.log(req.body);
+
   const remainingMembershipCredits =
     membershipLimits[business.membership] - business.current_cycle_uploads;
-  const numberOfNewUploads = Array.isArray(req.body) ? req.body.length : 0;
+  const numberOfNewUploads = Array.isArray(req.body.data)
+    ? req.body.data.length
+    : 0;
+
+  console.log(numberOfNewUploads);
 
   const currentLimit = remainingMembershipCredits + business.upload_credits;
 
