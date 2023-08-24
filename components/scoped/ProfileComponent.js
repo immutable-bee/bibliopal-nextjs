@@ -34,8 +34,8 @@ const ProfileComponent = ({}) => {
 
       if (response.ok) {
         fetchUserData();
-        setNotifications([1]);
         setNotificationType("profile updated");
+        setNotifications([1]);
       }
     } catch (error) {}
   };
@@ -151,6 +151,7 @@ const ProfileComponent = ({}) => {
                 }
               >
                 <button
+                  type="button"
                   onClick={openResetInventoryModal}
                   className="text-white text-sm px-8 py-2.5 bg-red-600 border border-black rounded-full"
                 >
