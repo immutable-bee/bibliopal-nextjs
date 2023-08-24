@@ -4,7 +4,6 @@ import { capitalizeFirstLetter } from "../../../utils/stringManipulation";
 import { Loading } from "@nextui-org/react";
 import Link from "next/link";
 import Image from "next/image";
-import NotificationContainer from "@/components/containers/NotificationContainer";
 
 const ManageSubscriptionModal = ({
   user,
