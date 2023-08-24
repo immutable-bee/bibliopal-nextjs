@@ -24,14 +24,19 @@ const ProfileComponent = ({}) => {
     e.preventDefault();
 
     try {
-      await fetch("/api/business/updateData", {
+      const response = await fetch("/api/business/updateData", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email: user.email, data: formData }),
       });
-      fetchUserData();
+
+      if (response.ok) {
+        fetchUserData();
+        setNotificationType("profile updated");
+        setNotifications([1]);
+      }
     } catch (error) {}
   };
 
@@ -146,6 +151,7 @@ const ProfileComponent = ({}) => {
                 }
               >
                 <button
+                  type="button"
                   onClick={openResetInventoryModal}
                   className="text-white text-sm px-8 py-2.5 bg-red-600 border border-black rounded-full"
                 >
