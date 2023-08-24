@@ -9,7 +9,66 @@ import TooltipComponent from "@/components/utility/Tooltip";
 import Link from "next/link";
 
 const BusinessPricing = ({ membership, businessID }) => {
-  const pricingData = [
+  const isStripeLive = true;
+
+  const livePricingData = [
+    {
+      price: [4.99, 4.49, 3.99],
+      amount: 500,
+      link: [
+        "https://buy.stripe.com/5kA03fewI8Vw2UE3cg",
+        "https://buy.stripe.com/aEU3frewI3Bc2UEaEJ",
+        "https://buy.stripe.com/8wMbLXcoAc7I8eYbIO",
+      ],
+    },
+    {
+      price: [9.99, 8.99, 7.99],
+      amount: 1100,
+      link: [
+        "https://buy.stripe.com/cN27vH74gc7I9j27sz",
+        "https://buy.stripe.com/cN26rD1JWfjU3YIbIQ",
+        "https://buy.stripe.com/eVa2bnbkwb3Ean68wF",
+      ],
+    },
+    {
+      price: [19.99, 17.99, 15.99],
+      amount: 2500,
+      link: [
+        "https://buy.stripe.com/9AQ8zL0FSefQdzi7sC",
+        "https://buy.stripe.com/14k2bn60c2x8cve9AL",
+        "https://buy.stripe.com/bIY17j3S48Vwdzi5kw",
+      ],
+    },
+    {
+      price: [34.99, 31.49, 27.99],
+      amount: 5000,
+      link: [
+        "https://buy.stripe.com/28o3fr9cob3EfHq28l",
+        "https://buy.stripe.com/4gw03fgEQ1t42UE28m",
+        "https://buy.stripe.com/8wM7vHdsEb3Ean600f",
+      ],
+    },
+    {
+      price: [49.99, 44.99, 39.99],
+      amount: 8000,
+      link: [
+        "https://buy.stripe.com/00g17jfAMfjU66QfZe",
+        "https://buy.stripe.com/7sI03f4W8dbM8eY4gx",
+        "https://buy.stripe.com/fZeaHT74g4FggLu6oG",
+      ],
+    },
+    {
+      price: [99.99, 89.99, 79.99],
+      amount: 20000,
+      link: [
+        "https://buy.stripe.com/7sI5nzewIdbM52M4gz",
+        "https://buy.stripe.com/6oE3frfAMc7Idzi6oI",
+        "https://buy.stripe.com/eVa9DP0FSfjU8eY00l",
+      ],
+    },
+  ];
+
+  const testPricingData = [
     {
       price: [4.99, 4.49, 3.99],
       amount: 500,
@@ -65,6 +124,8 @@ const BusinessPricing = ({ membership, businessID }) => {
       ],
     },
   ];
+
+  const pricingData = isStripeLive ? livePricingData : testPricingData;
 
   const [value, setValue] = useState(0.0);
   //const stepValue = (v) => Math.round(v * 60) / 10;

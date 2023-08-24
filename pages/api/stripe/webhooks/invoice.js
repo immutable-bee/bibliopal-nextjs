@@ -1,7 +1,19 @@
 import { prisma } from "../../../../db/prismaDB";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_TEST_SK, {
+const isStripeLive = true;
+
+const liveStripeKey = process.env.STRIPE_LIVE_SK;
+const testStripeKey = process.env.STRIPE_TEST_SK;
+
+const stripeKey = isStripeLive ? liveStripeKey : testStripeKey;
+
+const liveWebhookSecret = process.env.STRIPE_LIVE_WH_INVOICE_SECRET;
+const testWebhookSecret = process.env.STRIPE_TEST_WH_INVOICE_SECRET;
+
+const webhookSecret = isStripeLive ? liveWebhookSecret : testWebhookSecret;
+
+const stripe = new Stripe(stripeKey, {
   apiVersion: "2022-11-15",
 });
 
@@ -38,11 +50,7 @@ const handleStripeWebhook = async (req, res) => {
     const rawBody = await getRawBody(req);
     console.log("Retrieved raw body from request");
 
-    event = stripe.webhooks.constructEvent(
-      rawBody,
-      signature,
-      process.env.STRIPE_TEST_WH_INVOICE_SECRET
-    );
+    event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
   } catch (err) {
     console.error(`Webhook signature verification failed: ${err.message}`);
     return res.status(400).send(`Webhook Error: ${err.message}`);

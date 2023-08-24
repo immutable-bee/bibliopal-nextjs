@@ -23,6 +23,38 @@ const ManageSubscriptionModal = ({
 
   const [loading, setLoading] = useState(false);
 
+  const isStripeLive = true;
+
+  const testPaymentLinks = [
+    `https://buy.stripe.com/test_8wMaGC4H58LmcKI28q?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+    `https://buy.stripe.com/test_9AQg0W4H5f9K4ec9AT?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+    `https://buy.stripe.com/test_9AQ2a60qP4v69yweVe?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+    `https://buy.stripe.com/test_7sI3ea4H50eQfWU6oJ?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+  ];
+  const livePaymentLinks = [
+    `https://buy.stripe.com/8wMaHTbkw0p07aUbJ4?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+    `https://buy.stripe.com/bIYaHT1JWc7I52MeVh?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+    `https://buy.stripe.com/8wM2bn1JWb3E7aUdRe?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+    `https://buy.stripe.com/9AQeY99co3Bc8eY3cB?client_reference_id=${
+      businessId ? businessId : ""
+    }`,
+  ];
+  const paymentLinks = isStripeLive ? livePaymentLinks : testPaymentLinks;
+
   useEffect(() => {
     const getSubscriptionData = async () => {
       await fetchSubscriptionData();
@@ -201,9 +233,7 @@ const ManageSubscriptionModal = ({
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href={`https://buy.stripe.com/test_8wMaGC4H58LmcKI28q?client_reference_id=${
-                    businessId ? businessId : ""
-                  }`}
+                  href={paymentLinks[0]}
                 >
                   Monthly Plan
                 </Link>
@@ -214,9 +244,7 @@ const ManageSubscriptionModal = ({
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href={`https://buy.stripe.com/test_9AQg0W4H5f9K4ec9AT?client_reference_id=${
-                    businessId ? businessId : ""
-                  }`}
+                  href={paymentLinks[1]}
                 >
                   Yearly Plan
                 </Link>
@@ -249,9 +277,7 @@ const ManageSubscriptionModal = ({
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href={`https://buy.stripe.com/test_9AQ2a60qP4v69yweVe?client_reference_id=${
-                    businessId ? businessId : ""
-                  }`}
+                  href={paymentLinks[2]}
                 >
                   Monthly Plan
                 </Link>
@@ -262,9 +288,7 @@ const ManageSubscriptionModal = ({
                 </h6>
                 <Link
                   className="px-8 py-3 text-white bg-blbBlue border border-black rounded-lg"
-                  href={`https://buy.stripe.com/test_7sI3ea4H50eQfWU6oJ?client_reference_id=${
-                    businessId ? businessId : ""
-                  }`}
+                  href={paymentLinks[3]}
                 >
                   Yearly Plan
                 </Link>
