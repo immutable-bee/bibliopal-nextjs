@@ -60,6 +60,9 @@ model Listing {
   image_url String? @db.Text
   savedListings SavedListing[]
   matches Match[]
+  booksale BookSale? @relation(fields: [booksaleId], references: [id], onDelete: Cascade)
+  booksaleId String?
+
 
 }
 
@@ -123,6 +126,7 @@ model BookSale {
   business_city String?
   business_street String?
   business_zip String?
+  live_listings Listing[]
 }
 
 model Business {

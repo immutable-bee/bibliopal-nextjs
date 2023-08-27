@@ -1,9 +1,12 @@
 import Header from "@/components/Header";
 import { useState } from "react";
 import ButtonComponent from "@/components/utility/Button";
-const BookSale = () => {
+import { Loading } from "@nextui-org/react";
+const BookSale = ({ refreshUserData }) => {
   const [useDefaultAddress, setUseDefaultAddress] = useState(true);
   const [formData, setFormData] = useState();
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +23,7 @@ const BookSale = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       await fetch("/api/business/createBookSale", {
@@ -29,15 +33,17 @@ const BookSale = () => {
         },
         body: JSON.stringify(formData),
       });
-      fetchUserData();
-    } catch (error) { }
+      refreshUserData();
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#FEFBE8]">
       <Header />
       <div className="border-t border-black">
-
         <div className="flex justify-center mt-8 mb-5">
           <p className="text-center text-base max-w-lg px-5">
             You can use this page to schedule future book sales. Simply fill out
@@ -68,7 +74,9 @@ const BookSale = () => {
                 />
               </div>
               <div className="py-2">
-                <label className="text-sm text-gray-700">Hours of the sale</label>
+                <label className="text-sm text-gray-700">
+                  Hours of the sale
+                </label>
                 <input
                   name="hours"
                   type="text"
@@ -95,7 +103,9 @@ const BookSale = () => {
             {!useDefaultAddress && (
               <div className="flex flex-col">
                 <div className="py-2">
-                  <label className="text-sm text-gray-700">Street Address</label>
+                  <label className="text-sm text-gray-700">
+                    Street Address
+                  </label>
                   <input
                     name="business_street"
                     type="text"
@@ -125,12 +135,15 @@ const BookSale = () => {
                 </div>
               </div>
             )}
-            <div className="my-3">
-              <ButtonComponent rounded full color="blue" type="submit">
-                Submit
-              </ButtonComponent>
+            <div className="my-3 flex justify-center">
+              {!loading ? (
+                <ButtonComponent rounded full color="blue" type="submit">
+                  Submit
+                </ButtonComponent>
+              ) : (
+                <Loading />
+              )}
             </div>
-
           </form>
         </div>
       </div>

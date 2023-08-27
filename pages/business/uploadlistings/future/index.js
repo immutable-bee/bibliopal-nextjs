@@ -6,7 +6,7 @@ import FutureListingComponent from "../../../../components/scoped/FutureListingC
 import { useUser } from "../../../../context/UserContext";
 
 const Index = () => {
-  const { user } = useUser();
+  const { user, fetchUserData } = useUser();
   const { bookSaleTableData, setBookSaleTableData } = useTableDataContext();
   const [error, setError] = useState("");
 
@@ -50,7 +50,7 @@ const Index = () => {
   }, [bookSaleTableData]);
 
   if (!user?.booksale) {
-    return <BookSale />;
+    return <BookSale refreshUserData={fetchUserData} />;
   } else {
     return (
       <FutureListingComponent

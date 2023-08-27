@@ -14,6 +14,7 @@ const handler = async (req, res) => {
         listing: {
           include: {
             owner: true,
+            booksale: true,
           },
         },
       },

@@ -4,7 +4,10 @@ const handler = async (req, res) => {
   if (req.method === "GET") {
     try {
       const listings = await prisma.listing.findMany({
-        include: { owner: true },
+        include: {
+          owner: true,
+          booksale: true,
+        },
       });
       res.status(200).json(listings);
     } catch (error) {
