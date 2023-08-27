@@ -1,6 +1,76 @@
 import saveListing from "../../utils/saveListing";
+import unsaveListing from "../../utils/unsaveListing";
 
-const RenderMatches = ({ matches, headers, calculateDaysAgo, consumerId }) => {
+const RenderMatches = ({
+  matches,
+  headers,
+  calculateDaysAgo,
+  consumerId,
+  refreshSaved,
+  savedIds,
+}) => {
+  const saveAndRefresh = async (listingId) => {
+    try {
+      await saveListing(consumerId, listingId);
+      await refreshSaved(consumerId);
+    } catch (error) {}
+  };
+
+  const unsaveAndRefresh = async (listingId) => {
+    try {
+      await unsaveListing(consumerId, listingId);
+      await refreshSaved(consumerId);
+    } catch (error) {}
+  };
+
+  const savedIconHandler = (listingId) => {
+    if (savedIds.includes(listingId)) {
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-bookmark stroke-white w-6 h-6"
+          width="44"
+          height="44"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#2c3e50"
+          fill="white"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2" />
+        </svg>
+      );
+    } else {
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-bookmark stroke-white w-6 h-6"
+          width="44"
+          height="44"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#2c3e50"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2" />
+        </svg>
+      );
+    }
+  };
+
+  const saveButtonHandler = async (listingId) => {
+    if (savedIds.includes(listingId)) {
+      await unsaveAndRefresh(listingId);
+    } else {
+      await saveAndRefresh(listingId);
+    }
+  };
+
   return matches.map((data, i) => {
     const propertyName = Object.keys(data)[0];
     const listings = data[propertyName];
@@ -73,24 +143,10 @@ const RenderMatches = ({ matches, headers, calculateDaysAgo, consumerId }) => {
                     </td>
                     <td className="px-4 py-2">
                       <button
-                        onClick={async () => saveListing(consumerId, item.id)}
+                        onClick={async () => saveButtonHandler(item.id)}
                         className="w-8 h-8 mx-1 bg-yellow-500 hover:bg-opacity-90 flex justify-center items-center border border-black rounded-md"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="icon icon-tabler icon-tabler-bookmark stroke-white w-6 h-6"
-                          width="44"
-                          height="44"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="#2c3e50"
-                          fill="none"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                          <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2" />
-                        </svg>
+                        {savedIconHandler(item.id)}
                       </button>
                     </td>
                   </tr>
