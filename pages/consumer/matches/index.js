@@ -15,6 +15,7 @@ const Matches = () => {
   const [loadingMatches, setLoadingMatches] = useState(true);
 
   const [savedListings, setSavedListings] = useState([]);
+  const [savedListingIds, setSavedListingIds] = useState([]);
 
   useEffect(() => {
     if (user) {
@@ -25,6 +26,13 @@ const Matches = () => {
       })();
     }
   }, [user]);
+
+  useEffect(() => {
+    if (savedListings.length > 0) {
+      const savedIds = savedListings.map((item) => item.listingId);
+      setSavedListingIds(savedIds);
+    }
+  }, [savedListings]);
 
   const fetchMatches = async (consumerId) => {
     const response = await fetch(`/api/consumer/getMatches/${consumerId}`);
@@ -190,6 +198,8 @@ const Matches = () => {
                       headers={headers}
                       calculateDaysAgo={calculateDaysAgo}
                       consumerId={user ? user.consumer.id : ""}
+                      refreshSaved={fetchSaved}
+                      savedIds={savedListingIds}
                     />
                   </div>
                 )}
@@ -199,6 +209,7 @@ const Matches = () => {
                     calculateDaysAgo={calculateDaysAgo}
                     consumerId={user ? user.consumer.id : ""}
                     arrayToMap={savedListings}
+                    refreshSaved={fetchSaved}
                   />
                 )}
               </div>

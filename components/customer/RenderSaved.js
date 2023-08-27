@@ -1,6 +1,19 @@
 import TooltipComponent from "../utility/Tooltip";
+import unsaveListing from "../../utils/unsaveListing";
 
-const RenderSaved = ({ arrayToMap, calculateDaysAgo, consumerId }) => {
+const RenderSaved = ({
+  arrayToMap,
+  calculateDaysAgo,
+  consumerId,
+  refreshSaved,
+}) => {
+  const removeSavedListing = async (listingId) => {
+    try {
+      await unsaveListing(consumerId, listingId);
+      await refreshSaved(consumerId);
+    } catch (error) {}
+  };
+
   return (
     <div className="sm:flex flex-wrap justify-center">
       {arrayToMap.map((data, i) => {
@@ -68,14 +81,12 @@ const RenderSaved = ({ arrayToMap, calculateDaysAgo, consumerId }) => {
                 rounded
                 placement="rightStart"
                 width="!w-28"
-                id="shipping-status-tooltip"
+                id="saved-status-tooltip"
                 css={{ zIndex: 10000 }}
-                content={"Add to Saved"}
+                content={"Remove from saved"}
               >
                 <button
-                  onClick={async () =>
-                    saveListing(user ? user.consumer.id : "", data.id)
-                  }
+                  onClick={async () => removeSavedListing(data.listing.id)}
                   className="w-8 h-8 mx-1 bg-yellow-500 hover:bg-opacity-90 flex justify-center items-center border border-black rounded-md"
                 >
                   <svg
@@ -86,7 +97,7 @@ const RenderSaved = ({ arrayToMap, calculateDaysAgo, consumerId }) => {
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="#2c3e50"
-                    fill="none"
+                    fill="white"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
