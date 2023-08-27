@@ -8,8 +8,12 @@ import HeaderComponent from "@/components/customer/HeaderComponent";
 import TooltipComponent from "@/components/utility/Tooltip";
 import Loading from "../../components/utility/loading";
 import PaginationComponent from "../../components/utility/Pagination";
-// import ProfileComponent from '@/components/customer/ProfileComponent';
+import saveListing from "../../utils/saveListing";
+import { useUser } from "../../context/UserContext";
+
 const Home = () => {
+  const { user } = useUser();
+
   const [loadingListings, setLoadingListings] = useState(false);
   const [listings, setListings] = useState([]);
 
@@ -103,44 +107,6 @@ const Home = () => {
 
   const resultCount =
     searchResults.length > 0 ? searchResults.length : listings.length;
-
-  const testData = [
-    {
-      id: 1,
-      image_url: "",
-      title: "test title",
-      author: "test author",
-      ownerId: "test store",
-    },
-    {
-      id: 2,
-      image_url: "",
-      title: "test title",
-      author: "test author",
-      ownerId: "test store",
-    },
-    {
-      id: 3,
-      image_url: "",
-      title: "test title",
-      author: "test author",
-      ownerId: "test store",
-    },
-    {
-      id: 4,
-      image_url: "",
-      title: "test title",
-      author: "test author",
-      ownerId: "test store",
-    },
-    {
-      id: 5,
-      image_url: "",
-      title: "test title",
-      author: "test author",
-      ownerId: "test store",
-    },
-  ];
 
   return (
     <div className="bg-[#FEFBE8] min-h-screen">
@@ -252,7 +218,15 @@ const Home = () => {
                             css={{ zIndex: 10000 }}
                             content={"Add to Saved"}
                           >
-                            <button className="w-8 h-8 mx-1 bg-yellow-500 hover:bg-opacity-90 flex justify-center items-center border border-black rounded-md">
+                            <button
+                              onClick={async () =>
+                                saveListing(
+                                  user ? user.consumer.id : "",
+                                  data.id
+                                )
+                              }
+                              className="w-8 h-8 mx-1 bg-yellow-500 hover:bg-opacity-90 flex justify-center items-center border border-black rounded-md"
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 class="icon icon-tabler icon-tabler-bookmark stroke-white w-6 h-6"

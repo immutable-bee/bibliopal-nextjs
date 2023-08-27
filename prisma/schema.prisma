@@ -79,6 +79,7 @@ model Match {
   consumerId String
   listing    Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
   listingId  String
+  reason ALERTREASON
 
   @@unique([consumerId, listingId])
 }
@@ -175,3 +176,7 @@ enum MEMBERSHIP {
   PREMIUM
 }
 
+enum ALERTREASON {
+  TITLE
+  AUTHOR
+}
