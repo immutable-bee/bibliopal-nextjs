@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react";
-import styles from "./home.module.scss";
-import Image from "next/image";
-// import Link from 'next/link';
-// import 'bootstrap/dist/css/bootstrap.css';
 import Inputcomponent from "@/components/customer/Inputcomponent";
 import HeaderComponent from "@/components/customer/HeaderComponent";
 import TooltipComponent from "@/components/utility/Tooltip";
 import Loading from "../../components/utility/loading";
 import PaginationComponent from "../../components/utility/Pagination";
 import saveListing from "../../utils/saveListing";
+import unsaveListing from "../../utils/unsaveListing";
 import { useUser } from "../../context/UserContext";
 
 const Home = () => {
   const { user } = useUser();
+
+  const [consumerId, setConsumerId] = useState("");
 
   const [loadingListings, setLoadingListings] = useState(false);
   const [listings, setListings] = useState([]);
@@ -27,6 +26,85 @@ const Home = () => {
   // pagination
 
   const [inventoryMatchesPage, setInventoryMatchesPage] = useState(1);
+
+  const [savedListings, setSavedListings] = useState([]);
+  const [savedListingIds, setSavedListingIds] = useState([]);
+
+  const fetchSaved = async (consumerId) => {
+    const response = await fetch(
+      `/api/consumer/getSavedListings/${consumerId}`
+    );
+
+    if (!response.ok) {
+      return;
+    }
+
+    const data = await response.json();
+    console.log(data);
+    setSavedListings(data);
+  };
+
+  const saveAndRefresh = async (listingId) => {
+    try {
+      await saveListing(consumerId, listingId);
+      await fetchSaved(consumerId);
+    } catch (error) {}
+  };
+
+  const unsaveAndRefresh = async (listingId) => {
+    try {
+      await unsaveListing(consumerId, listingId);
+      await fetchSaved(consumerId);
+    } catch (error) {}
+  };
+
+  const savedIconHandler = (listingId) => {
+    if (savedListingIds.includes(listingId)) {
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-bookmark stroke-white w-6 h-6"
+          width="44"
+          height="44"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#2c3e50"
+          fill="white"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2" />
+        </svg>
+      );
+    } else {
+      return (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="icon icon-tabler icon-tabler-bookmark stroke-white w-6 h-6"
+          width="44"
+          height="44"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="#2c3e50"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2" />
+        </svg>
+      );
+    }
+  };
+
+  const saveButtonHandler = async (listingId) => {
+    if (savedListingIds.includes(listingId)) {
+      await unsaveAndRefresh(listingId);
+    } else {
+      await saveAndRefresh(listingId);
+    }
+  };
 
   const openRequestsItemsPerPage = 7;
 
@@ -73,10 +151,21 @@ const Home = () => {
     const initialFetch = async () => {
       setLoadingListings(true);
       await fetchListings();
+      await fetchSaved(user.consumer.id);
+      setConsumerId(user.consumer.id);
       setLoadingListings(false);
     };
-    initialFetch();
-  }, []);
+    if (user) {
+      initialFetch();
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (savedListings.length > 0) {
+      const savedIds = savedListings.map((item) => item.listingId);
+      setSavedListingIds(savedIds);
+    }
+  }, [savedListings]);
 
   const fetchSearchResults = async () => {
     setLoadingSearchResults(true);
@@ -219,33 +308,10 @@ const Home = () => {
                             content={"Add to Saved"}
                           >
                             <button
-                              onClick={async () =>
-                                saveListing(
-                                  user ? user.consumer.id : "",
-                                  data.id
-                                )
-                              }
+                              onClick={async () => saveButtonHandler(data.id)}
                               className="w-8 h-8 mx-1 bg-yellow-500 hover:bg-opacity-90 flex justify-center items-center border border-black rounded-md"
                             >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="icon icon-tabler icon-tabler-bookmark stroke-white w-6 h-6"
-                                width="44"
-                                height="44"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="#2c3e50"
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              >
-                                <path
-                                  stroke="none"
-                                  d="M0 0h24v24H0z"
-                                  fill="none"
-                                />
-                                <path d="M9 4h6a2 2 0 0 1 2 2v14l-5 -3l-5 3v-14a2 2 0 0 1 2 -2" />
-                              </svg>
+                              {savedIconHandler(data.id)}
                             </button>
                           </TooltipComponent>
                         </div>
