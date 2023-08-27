@@ -23,7 +23,7 @@ const handler = async (req, res) => {
     try {
       const searchResults = await prisma.listing.findMany({
         where: { ...searchCondition },
-        include: { owner: true },
+        include: { owner: true, booksale: true },
       });
       res.status(200).json(searchResults);
     } catch (error) {

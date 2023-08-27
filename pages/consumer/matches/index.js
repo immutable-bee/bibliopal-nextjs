@@ -154,7 +154,7 @@ const Matches = () => {
   );
 
   return (
-    <div className="bg-[#FEFBE8] min-h-screen">
+    <div className="bg-[#FEFBE8] min-h-screen pb-32">
       <Head>
         <link rel="shortcut icon" href="/images/fav.png" />
       </Head>

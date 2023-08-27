@@ -12,7 +12,10 @@ const handler = async (req, res) => {
       where: { consumerId: consumerId },
       include: {
         listing: {
-          include: { owner: true },
+          include: {
+            owner: true,
+            booksale: true,
+          },
         },
       },
     });
