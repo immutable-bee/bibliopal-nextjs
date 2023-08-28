@@ -65,6 +65,7 @@ const handleStripeWebhook = async (req, res) => {
     const stripeCustomerId = session.customer;
 
     let product;
+    let price;
 
     try {
       const fullSession = await stripe.checkout.sessions.retrieve(sessionId, {
@@ -74,6 +75,7 @@ const handleStripeWebhook = async (req, res) => {
       console.log(fullSession.line_items);
 
       product = fullSession.line_items.data[0].price.product;
+      price = fullSession.line_items.data[0].price;
 
       console.log("Retrieved product:", product);
     } catch (err) {
@@ -113,9 +115,7 @@ const handleStripeWebhook = async (req, res) => {
       }
 
       if (product.metadata.userType === "consumer") {
-        let amount = isSubscription
-          ? parseInt(product.metadata.subAmount, 10)
-          : parseInt(product.metadata.singleAmount, 10);
+        let amount = parseInt(price.metadata.creditAmount);
 
         const addCredits = await prisma.consumer.update({
           where: {

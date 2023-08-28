@@ -78,13 +78,12 @@ const handleStripeWebhook = async (req, res) => {
 
       try {
         const price = await stripe.prices.retrieve(priceId);
-        const product = await stripe.products.retrieve(price.product);
-        metadata = product.metadata;
+        metadata = price.metadata;
       } catch (err) {
         console.error("Error retrieving product metadata: ", err);
       }
 
-      const amount = parseInt(metadata.subAmount, 10);
+      const amount = parseInt(metadata.creditAmount, 10);
 
       await prisma.consumer.update({
         where: {
