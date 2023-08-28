@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AuthContainer from "./containers/AuthContainer";
 import Image from "next/image";
-import { Checkbox, Input, Button } from "@nextui-org/react";
+import { Checkbox, Input, Button, Modal } from "@nextui-org/react";
 
 const stateOptions = [
   { key: "al", value: "AL", text: "Alabama" },
@@ -56,6 +56,109 @@ const stateOptions = [
   { key: "wy", value: "WY", text: "Wyoming" },
 ];
 
+const TCModalContent = () => {
+  return (
+    <>
+      <Modal.Header>
+        <h1 className="text-2xl">Terms and Conditions</h1>
+      </Modal.Header>
+      <Modal.Body>
+        <div>
+          <h1 className="text-lg">1. Introduction</h1>
+          <p>
+            1.1. Welcome to BiblioPal. These Terms and Conditions
+            &quot;Terms&quot; govern your use of our website, available at
+            bibliopal.com, and the services provided therein.
+          </p>
+          <p>
+            1.2. By using our website, you accept these Terms in full. If you
+            disagree with these Terms or any part of them, you must not use our
+            website.
+          </p>
+
+          <h1 className="text-lg">2. Definitions</h1>
+          <p>
+            &quot;Consumer User&quot; refers to individuals using our platform
+            to search for books.
+          </p>
+          <p>
+            &quot;Business User&quot; refers to businesses or individuals adding
+            books to our database.
+          </p>
+
+          <h1 className="text-lg">3. Use of the Website</h1>
+          <p>
+            3.1. Users must provide accurate, complete, and current information
+            when setting up an account or setting alerts.
+          </p>
+          <p>
+            3.2. Our platform provides information about books available based
+            on the data input by Business Users. BiblioPal is not responsible
+            for any discrepancies between the data provided by the Business User
+            and the actual book availability or condition.
+          </p>
+
+          <h1 className="text-lg">4. Alerts</h1>
+          <p>
+            4.1. Consumer Users can set up alerts based on title, author, and
+            zip code.
+          </p>
+          <p>
+            4.2. By setting up alerts, the Consumer User expressly agrees to be
+            contacted via email by BiblioPal when a new match to their alert
+            conditions is found.
+          </p>
+
+          <h1 className="text-lg">5. Payments</h1>
+          <p>
+            5.1. All payments made on BiblioPal are processed securely through
+            our payment partner, Stripe. Please refer to Stripe&#39;s terms of
+            service and privacy policy for more details on payment processing.
+          </p>
+
+          <h1 className="text-lg">6. Limitation of Liability</h1>
+          <p>
+            6.1. BiblioPal will not be held responsible for any errors,
+            inaccuracies, or discrepancies in the data provided by Business
+            Users.
+          </p>
+          <p>
+            6.2. Consumer Users acknowledge that book availability, prices, and
+            conditions are subject to change without notice, and BiblioPal will
+            not be held liable for any inconveniences or losses stemming from
+            these changes.
+          </p>
+
+          <h1 className="text-lg">7. Intellectual Property</h1>
+          <p>
+            7.1. All content, graphics, user and visual interfaces, and the
+            selection and coordination thereof, and all software, products,
+            works, and services offered on or through our website, including,
+            but not limited to, the design, structure, &quot;look and
+            feel&quot;, are owned by BiblioPal, its licensors, vendors, agents,
+            or its content providers.
+          </p>
+
+          <h1 className="text-lg">8. Termination</h1>
+          <p>
+            8.1. BiblioPal reserves the right to terminate or suspend any
+            account at its sole discretion, without notice, for conduct that it
+            believes violates these Terms or is harmful to other users,
+            BiblioPal, third parties, or for any other reason.
+          </p>
+
+          <h1 className="text-lg">9. Changes to the Terms</h1>
+          <p>
+            9.1. BiblioPal reserves the right to change these Terms from time to
+            time at its sole discretion. The updated version will be effective
+            as soon as it is accessible.
+          </p>
+        </div>
+      </Modal.Body>
+    </>
+  );
+};
+
 const OnboardingForm = ({ isCompleteHandler, loadingHandler }) => {
   const [isStepOne, setIsStepOne] = useState(true);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
@@ -76,7 +179,13 @@ const OnboardingForm = ({ isCompleteHandler, loadingHandler }) => {
     }
   };
 
-  const tcModalHandler = () => {};
+  const tcModalOpenHandler = () => {
+    setIsTCModalOpen(true);
+  };
+
+  const tcModalCloseHandler = () => {
+    setIsTCModalOpen(false);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,6 +196,12 @@ const OnboardingForm = ({ isCompleteHandler, loadingHandler }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     loadingHandler(true);
+
+    if (!agreedToTerms) {
+      return alert(
+        "Please agree to the terms and conditions before proceeding"
+      );
+    }
 
     try {
       const res = await fetch("/api/auth/onboarding/business", {
@@ -220,7 +335,7 @@ const OnboardingForm = ({ isCompleteHandler, loadingHandler }) => {
                 className="flex items-center mt-3"
               >
                 <Checkbox
-                  onChange={setAgreedToTerms}
+                  onChange={() => setAgreedToTerms(!agreedToTerms)}
                   id="onboarding-form-tc-checkbox"
                   className="mr-2"
                   size={"sm"}
@@ -229,7 +344,7 @@ const OnboardingForm = ({ isCompleteHandler, loadingHandler }) => {
                 <h6
                   id="onboarding-form-tc-link"
                   className="text-atlantis ml-1 cursor-pointer"
-                  onClick={tcModalHandler}
+                  onClick={tcModalOpenHandler}
                 >
                   Terms and Conditions
                 </h6>
@@ -238,6 +353,9 @@ const OnboardingForm = ({ isCompleteHandler, loadingHandler }) => {
             </div>
           )}
         </form>
+        <Modal open={isTCModalOpen} closeButton onClose={tcModalCloseHandler}>
+          <TCModalContent />
+        </Modal>
       </div>
     </>
   );
