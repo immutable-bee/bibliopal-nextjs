@@ -8,7 +8,7 @@ const handler = async (req, res) => {
   const session = await getServerSession(req, res, authOptions);
 
   try {
-    const business = await prisma.consumer.create({
+    const consumer = await prisma.consumer.create({
       data: {
         username: username,
         email: session.user.email,
@@ -20,13 +20,14 @@ const handler = async (req, res) => {
       },
     });
     const user = await prisma.user.update({
-      where: { email: email },
+      where: { email: session.user.email },
       data: {
         onboarding_complete: true,
       },
     });
-    res.status(200).json({ business });
+    res.status(200).json({ consumer });
   } catch (err) {
+    console.log(err.message);
     res.status(500).json({ message: err.message });
   }
 };
