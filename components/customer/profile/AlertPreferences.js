@@ -84,9 +84,7 @@ const AlertPreferences = ({ props }) => {
           width="!w-64"
           id="shipping-status-tooltip"
           css={{ zIndex: 10000 }}
-          content={
-            "Lorem ipsum dolar sit amit Lorem ipsum dolar sit amit Lorem ipsum dolar sit amit"
-          }
+          content={"Turn email alerts on or off when a new match is found."}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +124,7 @@ const AlertPreferences = ({ props }) => {
           id="shipping-status-tooltip"
           css={{ zIndex: 10000 }}
           content={
-            "Lorem ipsum dolar sit amit Lorem ipsum dolar sit amit Lorem ipsum dolar sit amit"
+            "Temporarily stop finding matches. This will prevent alert credits from being spent."
           }
         >
           <svg
