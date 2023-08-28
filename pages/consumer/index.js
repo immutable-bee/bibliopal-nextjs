@@ -233,7 +233,7 @@ const Home = () => {
                   {arrayToMap.map((data, i) => {
                     return (
                       <div
-                        className="px-4 py-4 relative rounded-3xl shadow-xl border sm:mx-3 my-2 sm:my-3 w-full sm:w-96"
+                        className="px-4 py-4 relative rounded-3xl shadow-lg border sm:mx-3 sm:my-3 my-5 w-full sm:w-96"
                         key={data.id}
                       >
                         <div className="flex">
