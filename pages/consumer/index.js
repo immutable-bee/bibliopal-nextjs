@@ -14,7 +14,7 @@ const Home = () => {
   const [consumerId, setConsumerId] = useState("");
 
   const [loadingListings, setLoadingListings] = useState(false);
-  const [listings, setListings] = useState([{}, {}]);
+  const [listings, setListings] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchZipCode, setSearchZipCode] = useState("");
