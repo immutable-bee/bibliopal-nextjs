@@ -138,9 +138,8 @@ const Matches = () => {
   const TabButton = ({ activeTab, setActiveTab, id, name }) => (
     <button
       onClick={() => setActiveTab(id)}
-      className={`!mx-2 text-[#828282] font-bold sm:!mx-5 text-base sm:text-2xl ${
-        activeTab == id && "!text-black"
-      }`}
+      className={`!mx-2 text-[#828282] font-bold sm:!mx-5 text-base sm:text-2xl ${activeTab == id && "!text-black"
+        }`}
       id={`pills-${id}-tab`}
       data-bs-toggle="pill"
       data-bs-target={`#pills-${id}`}

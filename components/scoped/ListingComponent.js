@@ -64,7 +64,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               refreshUserData={fetchUserData}
             />
           </div>
-          <div className="sm:flex px-2 sm:px-5 justify-between items-center mb-5">
+          <div className="sm:flex px-3 sm:px-5 justify-between items-center mb-5">
             <div className="flex sm:justify-start sm:py-0 py-1 justify-between items-center">
               <h3 class="text-base sm:text-lg font-medium mr-3">
                 Uploads this Cycle
