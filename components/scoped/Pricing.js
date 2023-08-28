@@ -12,42 +12,52 @@ const Pricing = () => {
     {
       price: 2.99,
       amount: 5,
+      link: "https://buy.stripe.com/cN2g2d74g5Jk1QAeVk",
     },
     {
       price: 4.99,
       amount: 10,
+      link: "https://buy.stripe.com/7sI6rD9codbMan614v",
     },
     {
       price: 9.99,
       amount: 25,
+      link: "https://buy.stripe.com/28oeY9coA0p0an63cE",
     },
     {
       price: 14.99,
       amount: 50,
+      link: "https://buy.stripe.com/4gw17j3S45Jk3YI28B",
     },
     {
       price: 19.99,
       amount: 100,
+      link: "https://buy.stripe.com/3cs5nzgEQefQcve6oS",
     },
     {
       price: 29.99,
       amount: 200,
+      link: "https://buy.stripe.com/8wMdU588k7Rs1QA9B5",
     },
     {
       price: 39.99,
       amount: 300,
+      link: "https://buy.stripe.com/bIYaHT4W81t43YIdRm",
     },
     {
       price: 49.99,
       amount: 500,
+      link: "https://buy.stripe.com/14k8zL60c1t4fHq28F",
     },
     {
       price: 74.99,
       amount: 800,
+      link: "https://buy.stripe.com/dR617jgEQfjUcvecNk",
     },
     {
       price: 99.99,
       amount: 1200,
+      link: "https://buy.stripe.com/eVa3frfAMefQeDm3cL",
     },
   ];
 
@@ -55,42 +65,52 @@ const Pricing = () => {
     {
       price: 2.99,
       amount: 6,
+      link: "https://buy.stripe.com/5kA4jvbkwgnYbra9Ba",
     },
     {
       price: 4.99,
       amount: 13,
+      link: "https://buy.stripe.com/3cscQ1coA0p09j24gR",
     },
     {
       price: 9.99,
       amount: 31,
+      link: "https://buy.stripe.com/14keY960cfjU2UEfZA",
     },
     {
       price: 14.99,
       amount: 63,
+      link: "https://buy.stripe.com/fZe4jv0FSdbM3YI3cP",
     },
     {
       price: 19.99,
       amount: 125,
+      link: "https://buy.stripe.com/6oE7vH1JWefQfHq3cQ",
     },
     {
       price: 29.99,
       amount: 250,
+      link: "https://buy.stripe.com/7sI5nzdsEc7Icve00F",
     },
     {
       price: 39.99,
       amount: 375,
+      link: "https://buy.stripe.com/14k4jvdsEb3Ebra4gW",
     },
     {
       price: 49.99,
       amount: 625,
+      link: "https://buy.stripe.com/3cseY9coAb3E7aU4gX",
     },
     {
       price: 74.99,
       amount: 1000,
+      link: "https://buy.stripe.com/eVaeY988kdbMdziaFm",
     },
     {
       price: 99.99,
       amount: 1500,
+      link: "https://buy.stripe.com/5kAcQ1agsdbM0Mw9Bj",
     },
   ];
 
