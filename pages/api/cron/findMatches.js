@@ -23,77 +23,53 @@ const handler = async (req, res) => {
       },
     });
 
+    const listings = await prisma.listing.findMany();
+
+    const allMatches = await prisma.match.findMany();
+    const matchLookup = allMatches.reduce((acc, match) => {
+      if (!acc[match.consumerId]) acc[match.consumerId] = new Set();
+      acc[match.consumerId].add(match.listingId);
+      return acc;
+    }, {});
+
+    const newMatches = [];
+
     for (const consumer of consumers) {
-      try {
-        // 2. Filter out the listings based on their tracked zips.
-        let listings = await prisma.listing.findMany({
-          where: {
-            owner: {
-              business_zip: {
-                in: consumer.tracked_zips,
-              },
-            },
-          },
-        });
+      const relevantListings =
+        consumer.tracked_zips.length > 0
+          ? listings.filter((listing) =>
+              consumer.tracked_zips.includes(listing.owner.business_zip)
+            )
+          : listings;
 
-        const existingMatches = await prisma.match.findMany({
-          where: {
-            consumerId: consumer.id,
-          },
-        });
-        const existingListingIds = existingMatches.map(
-          (match) => match.listingId
-        );
+      for (const listing of relevantListings) {
+        if (
+          matchLookup[consumer.id] &&
+          matchLookup[consumer.id].has(listing.id)
+        )
+          continue;
 
-        const newMatches = [];
-
-        for (const listing of listings) {
-          if (existingListingIds.includes(listing.id)) continue;
-
-          const standardizedAuthor = standardizeString(listing.author);
-          const standardizedTitle = standardizeString(listing.title);
-
-          const bestAuthorMatch = similarity.findBestMatch(
-            standardizedAuthor,
-            consumer.tracked_authors.map(standardizeString)
-          );
-          const bestTitleMatch = similarity.findBestMatch(
-            standardizedTitle,
-            consumer.tracked_titles.map(standardizeString)
-          );
-
-          if (
-            bestAuthorMatch.bestMatch.rating > 0.8 ||
-            bestTitleMatch.bestMatch.rating > 0.8
-          ) {
-            let reason;
-            if (
-              bestTitleMatch.bestMatch.rating > bestAuthorMatch.bestMatch.rating
-            ) {
-              reason = "TITLE";
-            } else {
-              reason = "AUTHOR";
-            }
-
-            newMatches.push({
-              consumerId: consumer.id,
-              listingId: listing.id,
-              reason: reason,
-            });
-          }
+        let reason = null;
+        if (consumer.tracked_titles.includes(listing.title)) {
+          reason = "TITLE";
+        } else if (consumer.tracked_authors.includes(listing.author)) {
+          reason = "AUTHOR";
         }
 
-        // Batch insert new matches
-        await prisma.match.createMany({
-          data: newMatches,
-          skipDuplicates: true,
-        });
-      } catch (error) {
-        console.error(
-          `Error processing consumer ${consumer.id}: ${error.message}`
-        );
+        if (reason) {
+          newMatches.push({
+            consumerId: consumer.id,
+            listingId: listing.id,
+            reason: reason,
+          });
+        }
       }
     }
+
+    await prisma.match.createMany({
+      data: newMatches,
+      skipDuplicates: true,
+    });
 
     res.status(200).json({ message: "Matches updated successfully." });
   } catch (error) {
