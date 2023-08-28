@@ -14,7 +14,7 @@ const Home = () => {
   const [consumerId, setConsumerId] = useState("");
 
   const [loadingListings, setLoadingListings] = useState(false);
-  const [listings, setListings] = useState([]);
+  const [listings, setListings] = useState([{}, {}]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchZipCode, setSearchZipCode] = useState("");
@@ -209,7 +209,7 @@ const Home = () => {
         setSearchZipCode={setSearchZipCode}
       />
 
-      <section className="px-2 sm:px-5 mt-6 border-t-2 border-black py-3">
+      <section className="px-3 sm:px-5 mt-6 border-t-2 border-black py-3">
         <div className="">
           <div>
             <p className="text-gray-900 text-base">
@@ -233,7 +233,8 @@ const Home = () => {
                   {arrayToMap.map((data, i) => {
                     return (
                       <div
-                        className="px-4 py-4 relative rounded-3xl shadow-lg sm:mx-3 sm:my-3 my-5 w-full sm:w-96"
+                        style={{ boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)' }}
+                        className="px-4 py-4 relative rounded-3xl sm:mx-3 sm:my-3 my-5 w-full sm:w-96"
                         key={data.id}
                       >
                         <div className="flex">

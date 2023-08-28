@@ -77,7 +77,8 @@ const RenderMatches = ({
     const listings = data[propertyName];
     return (
       <div
-        className="py-4 px-4 rounded-3xl shadow-lg sm:mx-3 sm:my-3 my-5 w-full sm:w-[34rem]"
+        style={{ boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)' }}
+        className="py-4 px-4 rounded-3xl sm:mx-3 sm:my-3 my-5 w-full sm:w-[34rem]"
         key={i}
       >
         <div className="flex justify-between w-full px-4">

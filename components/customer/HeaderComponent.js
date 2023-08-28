@@ -15,7 +15,7 @@ const HeaderComponent = () => {
   };
   console.log("router ::::::::::::::::::::", router);
   return (
-    <header className="flex  mx-auto w-full justify-between items-center px-2 sm:px-4 py-3">
+    <header className="flex  mx-auto w-full justify-between items-center px-3 sm:px-4 py-3">
       <div>
         <Link href="">
           <Image
