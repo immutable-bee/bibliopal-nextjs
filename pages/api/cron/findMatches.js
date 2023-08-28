@@ -70,9 +70,9 @@ const handler = async (req, res) => {
       data: newMatches,
       skipDuplicates: true,
     });
-    console.error("Error occurred:", error);
     res.status(200).json({ message: "Matches updated successfully." });
   } catch (error) {
+    console.error("Error occurred:", error);
     res.status(500).json({ message: `Server Error: ${error.message}` });
   }
 };
