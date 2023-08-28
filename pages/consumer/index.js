@@ -48,14 +48,14 @@ const Home = () => {
     try {
       await saveListing(consumerId, listingId);
       await fetchSaved(consumerId);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const unsaveAndRefresh = async (listingId) => {
     try {
       await unsaveListing(consumerId, listingId);
       await fetchSaved(consumerId);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const savedIconHandler = (listingId) => {
@@ -233,7 +233,7 @@ const Home = () => {
                   {arrayToMap.map((data, i) => {
                     return (
                       <div
-                        className="px-4 py-4 relative rounded-lg border sm:mx-3 my-2 sm:my-3 w-full sm:w-96 border-[#2eaaed]"
+                        className="px-4 py-4 relative rounded-xl shadow-lg border sm:mx-3 my-2 sm:my-3 w-full sm:w-96"
                         key={data.id}
                       >
                         <div className="flex">
@@ -252,10 +252,10 @@ const Home = () => {
                               {data.author}
                             </p>
                             <p className="text-gray-800 text-base leading-5">
-                              {data.owner.business_name}
+                              {data?.owner?.business_name}
                             </p>
                             <label className="text-gray-500 text-base">
-                              Zip Code: {data.owner.business_zip}
+                              Zip Code: {data?.owner?.business_zip}
                             </label>
                             <h6 className="text-sm absolute bottom-3 right-3 text-gray-500 text-right">
                               {data.date_listed
