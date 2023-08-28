@@ -23,7 +23,47 @@ const handler = async (req, res) => {
       },
     });
 
-    const listings = await prisma.listing.findMany();
+    const consumersWithZips = consumers.filter(
+      (consumer) => consumer.tracked_zips && consumer.tracked_zips.length
+    );
+    const consumersWithoutZips = consumers.filter(
+      (consumer) => !consumer.tracked_zips || !consumer.tracked_zips.length
+    );
+
+    const allTrackedZips = [
+      ...new Set(
+        consumersWithZips.flatMap((consumer) => consumer.tracked_zips)
+      ),
+    ];
+
+    const listingsWithZips = await prisma.listing.findMany({
+      include: {
+        owner: {
+          select: {
+            business_zip: true,
+          },
+        },
+      },
+      where: {
+        owner: {
+          business_zip: {
+            in: allTrackedZips,
+          },
+        },
+      },
+    });
+
+    const listingsWithoutZips = consumersWithoutZips.length
+      ? await prisma.listing.findMany({
+          include: {
+            owner: {
+              select: {
+                business_zip: true,
+              },
+            },
+          },
+        })
+      : [];
 
     const allMatches = await prisma.match.findMany();
     const matchLookup = allMatches.reduce((acc, match) => {
@@ -34,15 +74,8 @@ const handler = async (req, res) => {
 
     const newMatches = [];
 
-    for (const consumer of consumers) {
-      const relevantListings =
-        consumer.tracked_zips.length > 0
-          ? listings.filter((listing) =>
-              consumer.tracked_zips.includes(listing.owner.business_zip)
-            )
-          : listings;
-
-      for (const listing of relevantListings) {
+    const processMatchingLogic = (consumer, listings) => {
+      for (const listing of listings) {
         if (
           matchLookup[consumer.id] &&
           matchLookup[consumer.id].has(listing.id)
@@ -64,12 +97,25 @@ const handler = async (req, res) => {
           });
         }
       }
+    };
+
+    for (const consumer of consumersWithZips) {
+      const relevantListings = listingsWithZips.filter((listing) =>
+        consumer.tracked_zips.includes(listing.owner.business_zip)
+      );
+      processMatchingLogic(consumer, relevantListings);
+    }
+
+    for (const consumer of consumersWithoutZips) {
+      const relevantListings = listingsWithoutZips;
+      processMatchingLogic(consumer, relevantListings);
     }
 
     await prisma.match.createMany({
       data: newMatches,
       skipDuplicates: true,
     });
+
     res.status(200).json({ message: "Matches updated successfully." });
   } catch (error) {
     console.error("Error occurred:", error);
