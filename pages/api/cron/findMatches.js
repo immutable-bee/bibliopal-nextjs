@@ -1,6 +1,6 @@
 import { prisma } from "../../../db/prismaDB";
 import similarity from "string-similarity";
-import { verifySignature } from "@upstash/qstash";
+import { verifySignature } from "@upstash/qstash/nextjs";
 
 const standardizeString = (str) => {
   return str
