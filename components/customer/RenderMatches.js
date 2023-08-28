@@ -14,14 +14,14 @@ const RenderMatches = ({
     try {
       await saveListing(consumerId, listingId);
       await refreshSaved(consumerId);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const unsaveAndRefresh = async (listingId) => {
     try {
       await unsaveListing(consumerId, listingId);
       await refreshSaved(consumerId);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const savedIconHandler = (listingId) => {
@@ -77,7 +77,7 @@ const RenderMatches = ({
     const listings = data[propertyName];
     return (
       <div
-        className=" py-4 rounded-lg border sm:mx-3 my-2 sm:my-3 w-full sm:w-[34rem] border-[#2eaaed]"
+        className="py-4 px-4 rounded-3xl shadow-lg sm:mx-3 sm:my-3 my-5 w-full sm:w-[34rem]"
         key={i}
       >
         <div className="flex justify-between w-full px-4">
