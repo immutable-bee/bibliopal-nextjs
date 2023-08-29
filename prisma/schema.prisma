@@ -83,6 +83,7 @@ model Match {
   listing    Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
   listingId  String
   reason ALERTREASON
+  userNotified Boolean @default(false)
 
   @@unique([consumerId, listingId])
 }
