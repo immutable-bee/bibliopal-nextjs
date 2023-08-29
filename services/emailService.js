@@ -53,7 +53,7 @@ const replacePlaceholders = (values, emailTemplate) => {
 export const sendNewMatchEmail = async (data) => {
   const emailContent = replacePlaceholders(
     data.values,
-    offerAcceptedEmail.compiledHtml
+    newMatchEmail.compiledHtml
   );
 
   await sendMail(data.recipient, data.title, emailContent);
