@@ -172,7 +172,7 @@ const Pricing = () => {
           id="shipping-status-tooltip"
           css={{ zIndex: 10000 }}
           content={
-            "Lorem ipsum dolar sit amit Lorem ipsum dolar sit amit Lorem ipsum dolar sit amit"
+            "An alert is used each time we find a match to your tracked titles and authors. You may purchase more alerts here. You can also make any purchase recurring for 25% more alerts each month. If you begin a recurring purchase, you will be able to cancel at any time."
           }
         >
           <svg

@@ -161,12 +161,8 @@ const SignIn = ({ props }) => {
                 You will be able to choose your account type (Reader, Seller)
                 after signup.
               </p>
-              <h6 className="text-xs text-center text-gray-500 mt-3">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </h6>
+              {/* Add terms of service */}
+              <h6 className="text-xs text-center text-gray-500 mt-3"></h6>
             </div>
           </div>
         </div>
