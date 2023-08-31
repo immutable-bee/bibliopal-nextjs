@@ -48,7 +48,7 @@ const handleStripeWebhook = async (req, res) => {
 
   try {
     const rawBody = await getRawBody(req);
-    console.log("Retrieved raw body from request"); // Log when the raw body has been successfully retrieved
+    console.log("Retrieved raw body from request");
 
     event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
   } catch (err) {
@@ -58,21 +58,33 @@ const handleStripeWebhook = async (req, res) => {
 
   if (event.type === "customer.subscription.deleted") {
     const stripeCustomerId = event.data.object.customer;
+    const subscriptionId = event.data.object.id;
+
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId, {
+      expand: ["plan.product"],
+    });
+
+    const userType = subscription.plan.product.metadata.userType;
 
     try {
       const customer = await stripe.customers.retrieve(stripeCustomerId);
 
-      if (customer.metadata.consumerId) {
-        return res.status.json({ received: true });
+      if (userType === "consumer" && customer.metadata.consumerId) {
+        await prisma.consumer.update({
+          where: { id: customer.metadata.consumerId },
+          data: {
+            subscriptionId: null,
+          },
+        });
+      } else if (userType === "business" && customer.metadata.businessId) {
+        await prisma.business.update({
+          where: { id: customer.metadata.businessId },
+          data: {
+            membership: "FREE",
+            subscriptionId: null,
+          },
+        });
       }
-
-      const businessId = customer.metadata.businessId;
-      await prisma.business.update({
-        where: { id: businessId },
-        data: {
-          membership: "FREE",
-        },
-      });
     } catch (error) {
       console.log(error);
       return res
