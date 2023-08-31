@@ -67,7 +67,7 @@ const handleStripeWebhook = async (req, res) => {
 
       const customer = await stripe.customers.retrieve(stripeCustomerId);
 
-      if (customer.metadata.businessId) {
+      if (!customer.metadata.consumerId) {
         return res.status(200).json({ received: true });
       }
 
@@ -87,7 +87,7 @@ const handleStripeWebhook = async (req, res) => {
 
       await prisma.consumer.update({
         where: {
-          id: customer.metadata.businessId,
+          id: customer.metadata.consumerId,
         },
         data: {
           paid_alerts: {

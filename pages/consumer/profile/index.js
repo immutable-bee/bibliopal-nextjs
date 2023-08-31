@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TooltipComponent from "@/components/utility/Tooltip";
 import Head from "next/head";
 import PricingComponent from "@/components/scoped/Pricing";
@@ -8,9 +8,47 @@ import { useUser } from "../../../context/UserContext";
 import UsernameInput from "../../../components/customer/profile/UsernameInput";
 import Alerts from "../../../components/customer/profile/Alerts";
 import AlertPreferences from "../../../components/customer/profile/AlertPreferences";
+import ManageRecurringPurchaseModal from "../../../components/customer/profile/ManageRecurringPurchaseModal";
+import NotificationContainer from "../../../components/containers/NotificationContainer";
 
 const Profilecomponent = () => {
   const { user, updateUserUsername, fetchUserData } = useUser();
+
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [subscriptionData, setSubscriptionData] = useState({});
+  const [isManageRecurringModalOpen, setIsManageRecurringModalOpen] =
+    useState(false);
+
+  const [notifications, setNotifications] = useState([]);
+  const [notificationType, setNotificationType] = useState(null);
+
+  const recurringModalOpenHandler = () => {
+    setIsManageRecurringModalOpen(true);
+  };
+
+  const recurringModalCloseHandler = () => {
+    setIsManageRecurringModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (user?.consumer?.subscriptionId) {
+      async () => await fetchSubscriptionData();
+      setIsSubscribed(true);
+    }
+  }, [user]);
+
+  const fetchSubscriptionData = async () => {
+    const response = await fetch(
+      `/api/stripe/consumer/${subscriptionData.subscriptionId}`
+    );
+    const data = await response.json();
+
+    if (response.ok) {
+      setSubscriptionData(data);
+    } else {
+      console.error("Failed to fetch subscription data:", data.error);
+    }
+  };
 
   return (
     <div className="bg-[#FEFBE8] min-h-screen">
@@ -64,7 +102,27 @@ const Profilecomponent = () => {
             </div>
 
             {/* <h3 className='text-xl mt-5 sm:mt-12 font-medium'>Subscription Plan</h3> */}
-            <PricingComponent />
+            {user?.consumer && (
+              <PricingComponent consumerId={user.consumer.id} />
+            )}
+            {isSubscribed && (
+              <div className="flex justify-center pb-10">
+                <button
+                  onClick={recurringModalOpenHandler}
+                  className="px-10 py-3 bg-green-700 rounded-full text-white border border-black"
+                >
+                  Manage recurring purchase
+                </button>
+                <ManageRecurringPurchaseModal
+                  visible={isManageRecurringModalOpen}
+                  onClose={recurringModalCloseHandler}
+                  subscriptionData={subscriptionData}
+                  setNotifications={setNotifications}
+                  setNotificationType={setNotificationType}
+                  refreshUserData={fetchUserData}
+                />
+              </div>
+            )}
 
             <div className="flex justify-center pb-20 mt-5">
               <button
@@ -77,6 +135,12 @@ const Profilecomponent = () => {
           </div>
         </section>
       </div>
+      <NotificationContainer
+        notifications={notifications}
+        setNotifications={setNotifications}
+        type={notificationType}
+        setType={setNotificationType}
+      />
     </div>
   );
 };
