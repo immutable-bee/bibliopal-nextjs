@@ -8,6 +8,7 @@ const handler = async (req, res) => {
           owner: true,
           booksale: true,
         },
+        take: 250,
       });
       res.status(200).json(listings);
     } catch (error) {

@@ -4,21 +4,20 @@ const handler = async (req, res) => {
   if (req.method === "POST") {
     const { searchTerm, filter, searchZipCode } = req.body;
 
+    // Start with just the searchTerm condition
     const searchCondition = {
-      AND: [
-        {
-          [filter]: {
-            contains: searchTerm,
-            mode: "insensitive",
-          },
-        },
-        {
-          owner: {
-            business_zip: searchZipCode,
-          },
-        },
-      ],
+      [filter]: {
+        contains: searchTerm,
+        mode: "insensitive",
+      },
     };
+
+    // If searchZipCode is provided, add it to the search condition
+    if (searchZipCode && searchZipCode.trim() !== "") {
+      searchCondition.owner = {
+        business_zip: searchZipCode,
+      };
+    }
 
     try {
       const searchResults = await prisma.listing.findMany({
