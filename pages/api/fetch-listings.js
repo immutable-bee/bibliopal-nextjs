@@ -9,6 +9,9 @@ const handler = async (req, res) => {
           booksale: true,
         },
         take: 250,
+        orderBy: {
+          date_listed: "desc",
+        },
       });
       res.status(200).json(listings);
     } catch (error) {

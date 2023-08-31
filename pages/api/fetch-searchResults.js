@@ -23,6 +23,9 @@ const handler = async (req, res) => {
       const searchResults = await prisma.listing.findMany({
         where: { ...searchCondition },
         include: { owner: true, booksale: true },
+        orderBy: {
+          date_listed: "desc",
+        },
       });
       res.status(200).json(searchResults);
     } catch (error) {
