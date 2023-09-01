@@ -8,6 +8,7 @@ import saveListing from "../../utils/saveListing";
 import unsaveListing from "../../utils/unsaveListing";
 import { useUser } from "../../context/UserContext";
 import BookSaleTooltip from "../../components/customer/BookSaleTooltip";
+import { Pagination } from "@nextui-org/react";
 const Home = () => {
   const { user } = useUser();
 
@@ -26,7 +27,7 @@ const Home = () => {
 
   // pagination
 
-  const [inventoryMatchesPage, setInventoryMatchesPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [savedListings, setSavedListings] = useState([]);
   const [savedListingIds, setSavedListingIds] = useState([]);
@@ -49,14 +50,14 @@ const Home = () => {
     try {
       await saveListing(consumerId, listingId);
       await fetchSaved(consumerId);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const unsaveAndRefresh = async (listingId) => {
     try {
       await unsaveListing(consumerId, listingId);
       await fetchSaved(consumerId);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const savedIconHandler = (listingId) => {
@@ -107,7 +108,7 @@ const Home = () => {
     }
   };
 
-  const openRequestsItemsPerPage = 7;
+  const itemsPerPage = 50;
 
   const paginateData = (data, currentPage, itemsPerPage) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -233,62 +234,66 @@ const Home = () => {
             ) : (
               <div className="">
                 <div className="sm:flex flex-wrap justify-center">
-                  {arrayToMap.map((data, i) => {
-                    return (
-                      <div
-                        style={{ boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)' }}
-                        className="px-4 py-4 relative rounded-3xl sm:mx-3 sm:my-3 my-5 w-full sm:w-96"
-                        key={data.id}
-                      >
-                        <div className="flex">
-                          <div className="w-24 flex-shrink-0 mr-3 rounded-lg">
-                            <img
-                              src={data.image_url}
-                              className="rounded"
-                              alt=""
-                            />
+                  {paginateData(arrayToMap, currentPage, itemsPerPage).map(
+                    (data, i) => {
+                      return (
+                        <div
+                          style={{ boxShadow: "0 0 15px rgba(0, 0, 0, 0.1)" }}
+                          className="px-4 py-4 relative rounded-3xl sm:mx-3 sm:my-3 my-5 w-full sm:w-96"
+                          key={data.id}
+                        >
+                          <div className="flex">
+                            <div className="w-24 flex-shrink-0 mr-3 rounded-lg">
+                              <img
+                                src={data.image_url}
+                                className="rounded"
+                                alt=""
+                              />
+                            </div>
+                            <div className="w-full mb-3 ">
+                              <h3 className="text-black h-14 overflow-y-auto text-lg font-semibold">
+                                {data.title}
+                              </h3>
+                              <p className=" mb-3 text-gray-800 text-base leading-5">
+                                {data.author}
+                              </p>
+                              <p className="text-gray-800 text-base leading-5">
+                                {data?.owner?.business_name}
+                              </p>
+                              <label className="text-gray-500 text-base">
+                                Zip Code: {data?.owner?.business_zip}
+                              </label>
+                              <h6 className="text-sm absolute bottom-3 right-3 text-gray-500 text-right">
+                                {data.date_listed
+                                  ? calculateDaysAgo(data.date_listed)
+                                  : "1 day ago"}
+                              </h6>
+                            </div>
                           </div>
-                          <div className="w-full mb-3 ">
-                            <h3 className="text-black h-14 overflow-y-auto text-lg font-semibold">
-                              {data.title}
-                            </h3>
-                            <p className=" mb-3 text-gray-800 text-base leading-5">
-                              {data.author}
-                            </p>
-                            <p className="text-gray-800 text-base leading-5">
-                              {data?.owner?.business_name}
-                            </p>
-                            <label className="text-gray-500 text-base">
-                              Zip Code: {data?.owner?.business_zip}
-                            </label>
-                            <h6 className="text-sm absolute bottom-3 right-3 text-gray-500 text-right">
-                              {data.date_listed
-                                ? calculateDaysAgo(data.date_listed)
-                                : "1 day ago"}
-                            </h6>
-                          </div>
-                        </div>
-                        <div className="flex justify-center">
-                          {data.booksale && <BookSaleTooltip listing={data} />}
-                          <TooltipComponent
-                            rounded
-                            placement="rightStart"
-                            width="!w-28"
-                            id="shipping-status-tooltip"
-                            css={{ zIndex: 10000 }}
-                            content={"Add to Saved"}
-                          >
-                            <button
-                              onClick={async () => saveButtonHandler(data.id)}
-                              className="w-8 h-8 mx-1 bg-yellow-500 hover:bg-opacity-90 flex justify-center items-center border border-black rounded-md"
+                          <div className="flex justify-center">
+                            {data.booksale && (
+                              <BookSaleTooltip listing={data} />
+                            )}
+                            <TooltipComponent
+                              rounded
+                              placement="rightStart"
+                              width="!w-28"
+                              id="shipping-status-tooltip"
+                              css={{ zIndex: 10000 }}
+                              content={"Add to Saved"}
                             >
-                              {savedIconHandler(data.id)}
-                            </button>
-                          </TooltipComponent>
+                              <button
+                                onClick={async () => saveButtonHandler(data.id)}
+                                className="w-8 h-8 mx-1 bg-yellow-500 hover:bg-opacity-90 flex justify-center items-center border border-black rounded-md"
+                              >
+                                {savedIconHandler(data.id)}
+                              </button>
+                            </TooltipComponent>
+                          </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    }
+                  )}
                 </div>
 
                 <div
@@ -296,12 +301,10 @@ const Home = () => {
                   className="flex justify-center"
                 >
                   {arrayToMap?.length > 0 && !loadingListings && (
-                    <PaginationComponent
-                      total={Math.ceil(
-                        arrayToMap.length / openRequestsItemsPerPage
-                      )}
-                      current={inventoryMatchesPage}
-                      onChange={(page) => setInventoryMatchesPage(page)}
+                    <Pagination
+                      total={Math.ceil(arrayToMap.length / itemsPerPage)}
+                      page={currentPage}
+                      onChange={(page) => setCurrentPage(page)}
                     />
                   )}
                 </div>

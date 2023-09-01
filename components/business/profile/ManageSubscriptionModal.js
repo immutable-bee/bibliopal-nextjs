@@ -86,7 +86,7 @@ const ManageSubscriptionModal = ({
     setLoading(true);
 
     try {
-      const response = await fetch("/api/stripe/business/resumeSubscription", {
+      const response = await fetch("/api/stripe/resumeSubscription", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,7 +115,7 @@ const ManageSubscriptionModal = ({
   const cancelSubscription = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/stripe/business/cancelSubscription", {
+      const response = await fetch("/api/stripe/cancelSubscription", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

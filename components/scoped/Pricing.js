@@ -6,8 +6,9 @@ import {
   CircularThumb,
 } from "react-circular-input";
 import TooltipComponent from "@/components/utility/Tooltip";
+import Link from "next/link";
 
-const Pricing = () => {
+const Pricing = ({ consumerId }) => {
   const pricingData = [
     {
       price: 2.99,
@@ -155,6 +156,10 @@ const Pricing = () => {
     return rawPrice ? rawPrice.toFixed(2) : null;
   };
 
+  const getLink = () => {
+    return priceDataHandler()[getIndex()]?.link;
+  };
+
   const handleTextHighlight = () => {
     return isSubscription
       ? "ml-3 text-sm font-medium text-black dark:text-black"
@@ -172,7 +177,7 @@ const Pricing = () => {
           id="shipping-status-tooltip"
           css={{ zIndex: 10000 }}
           content={
-            "Lorem ipsum dolar sit amit Lorem ipsum dolar sit amit Lorem ipsum dolar sit amit"
+            "An alert is used each time we find a match to your tracked titles and authors. You may purchase more alerts here. You can also make any purchase recurring for 25% more alerts each month. If you begin a recurring purchase, you will be able to cancel at any time."
           }
         >
           <svg
@@ -245,12 +250,14 @@ const Pricing = () => {
         </div>
       </div>
       <div className="flex justify-center mt-7">
-        <button
+        <Link
           className="sm:mx-2 duration-300 ease-in-out hover:bg-white font-bold border hover:border-green-600 bg-green-600 text-white px-12 hover:text-green-600 py-3 mx-auto rounded-full"
-          type="btn"
+          href={`${getLink()}?client_reference_id=${
+            consumerId ? consumerId : ""
+          }`}
         >
           {isSubscription ? "Subscribe" : "Buy"}
-        </button>
+        </Link>
       </div>
     </div>
   );
