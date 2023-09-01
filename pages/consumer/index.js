@@ -18,6 +18,7 @@ const Home = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchZipCode, setSearchZipCode] = useState("");
+  const [searchStore, setSearchStore] = useState("");
   const [filter, setFilter] = useState("title");
 
   const [loadingSearchResults, setLoadingSearchResults] = useState(false);
@@ -207,6 +208,8 @@ const Home = () => {
         setSearchTerm={setSearchTerm}
         searchZipCode={searchZipCode}
         setSearchZipCode={setSearchZipCode}
+        searchStore={searchStore}
+        setSearchStore={setSearchStore}
       />
 
       <section className="px-3 sm:px-5 mt-6 border-t-2 border-black py-3">
