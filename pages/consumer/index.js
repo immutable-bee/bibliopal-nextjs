@@ -176,7 +176,7 @@ const Home = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ searchTerm, filter, searchZipCode }),
+      body: JSON.stringify({ searchTerm, filter, searchZipCode, searchStore }),
     });
 
     if (res.status === 200) {
