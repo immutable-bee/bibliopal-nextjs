@@ -2,7 +2,7 @@ import { prisma } from "../../db/prismaDB";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    const { searchTerm, filter, searchZipCode } = req.body;
+    const { searchTerm, filter, searchZipCode, searchStore } = req.body;
 
     // Start with just the searchTerm condition
     const searchCondition = {
@@ -12,16 +12,28 @@ const handler = async (req, res) => {
       },
     };
 
-    // If searchZipCode is provided, add it to the search condition
+    // Using an array to hold owner conditions
+    const ownerConditions = [];
+
     if (searchZipCode && searchZipCode.trim() !== "") {
+      ownerConditions.push({ business_zip: searchZipCode });
+    }
+
+    if (searchStore && searchStore.trim() !== "") {
+      ownerConditions.push({
+        business_name: { contains: searchStore, mode: "insensitive" },
+      });
+    }
+
+    if (ownerConditions.length) {
       searchCondition.owner = {
-        business_zip: searchZipCode,
+        AND: ownerConditions,
       };
     }
 
     try {
       const searchResults = await prisma.listing.findMany({
-        where: { ...searchCondition },
+        where: searchCondition,
         include: { owner: true, booksale: true },
         orderBy: {
           date_listed: "desc",

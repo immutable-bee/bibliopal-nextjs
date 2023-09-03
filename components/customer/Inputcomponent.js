@@ -6,7 +6,9 @@ const Inputcomponent = ({
   setFilter,
   setSearchTerm,
   searchZipCode,
+  searchStore,
   setSearchZipCode,
+  setSearchStore,
 }) => {
   const [active, setActive] = useState("Title");
 
@@ -16,6 +18,9 @@ const Inputcomponent = ({
 
   const handleZipCodeChange = (e) => {
     setSearchZipCode(e.target.value);
+  };
+  const handleStoreChange = (e) => {
+    setSearchStore(e.target.value);
   };
 
   const handleSearchKeyDown = (e) => {
@@ -117,15 +122,38 @@ const Inputcomponent = ({
             </div>
             <div className="sm:flex justify-center">
               <div className="px-3 sm:block sm:py-0 py-1 flex justify-center items-center">
-                <label className="text-sm min-w-fit font-normal">
+                <label className="text-sm flex-shrink-0 w-24 min-w-fit font-normal">
                   ZIP CODE
                 </label>
                 <input
-                  className="w-full sm:w-auto focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border px-3 rounded-lg mx-2 py-2"
+                  className="w-full sm:w-56 focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border px-3 rounded-lg mx-2 py-2"
                   type="text"
                   onChange={handleZipCodeChange}
                   onKeyDown={handleSearchKeyDown}
                   value={searchZipCode}
+                ></input>
+              </div>
+              <div className="px-3 sm:block sm:py-0 py-1 flex justify-center items-center">
+                <label className="text-sm flex-shrink-0 w-24 min-w-fit font-normal">
+                  Filter by store
+                </label>
+                {/*
+                <select className="w-full sm:w-56 focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border px-3 rounded-lg mx-2 py-2"
+                  type="text"
+                  onChange={handleStoreChange}
+                  onKeyDown={handleSearchKeyDown}
+                  value={searchStore}>
+                  <option>store 1</option>
+                  <option>store 2</option>
+                  <option>store 3</option>
+                </select>
+                */}
+                <input
+                  className="w-full sm:w-56 focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border px-3 rounded-lg mx-2 py-2"
+                  tyoe="text"
+                  onChange={handleStoreChange}
+                  onKeyDown={handleSearchKeyDown}
+                  value={searchStore}
                 ></input>
               </div>
             </div>
