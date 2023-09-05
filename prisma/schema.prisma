@@ -163,10 +163,26 @@ email_alerts_on Boolean @default(true)
 tracked_titles String[]
 tracked_authors String[]
 tracked_zips String[]
+isbnAlerts String[]
 paid_alerts Int @default(25)
 saved SavedListing[]
 matches Match[]
 subscriptionId String?
+alerts Alert[]
+}
+
+model Alert {
+  id String @id @default(uuid())
+  consumer Consumer @relation(fields: [consumerId], references: [id])
+  consumerId String
+  title String?
+  author String?
+  isbn String?
+
+  @@unique([title, author])
+  @@unique([consumerId, isbn])
+  @@unique([consumerId, author])
+
 }
 
 enum BUSINESSTYPE {

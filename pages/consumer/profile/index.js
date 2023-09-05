@@ -15,6 +15,7 @@ const Profilecomponent = () => {
   const { user, updateUserUsername, fetchUserData } = useUser();
 
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [alerts, setAlerts] = useState([]);
   const [subscriptionData, setSubscriptionData] = useState({});
   const [isManageRecurringModalOpen, setIsManageRecurringModalOpen] =
     useState(false);
@@ -32,10 +33,35 @@ const Profilecomponent = () => {
 
   useEffect(() => {
     if (user?.consumer?.subscriptionId) {
-      async () => await fetchSubscriptionData();
+      (async () => await fetchSubscriptionData())();
       setIsSubscribed(true);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (user?.consumer?.id) {
+      console.log(user.consumer.id);
+      (async () => await fetchConsumerAlerts())();
+    }
+  }, [user]);
+
+  const fetchConsumerAlerts = async () => {
+    const response = await fetch("/api/consumer/fetchAlerts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user.consumer.id),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Failed to fetch alerts:", data.error);
+    }
+
+    setAlerts(data);
+  };
 
   const fetchSubscriptionData = async () => {
     const response = await fetch(
@@ -82,8 +108,7 @@ const Profilecomponent = () => {
             <Alerts
               props={{
                 email: user?.email,
-                titles: user?.consumer.tracked_titles,
-                authors: user?.consumer.tracked_authors,
+                alerts: alerts,
                 zipCodes: user?.consumer.tracked_zips,
               }}
               fetchUserData={fetchUserData}

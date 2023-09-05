@@ -3,33 +3,45 @@ import Image from "next/image";
 import TooltipComponent from "../../utility/Tooltip";
 
 const Alerts = ({ props, fetchUserData }) => {
-  const [newTitle, setNewTitle] = useState("");
-  const [newAuthor, setNewAuthor] = useState("");
+  const [newAlert, setNewAlert] = useState({
+    title: "",
+    author: "",
+  });
+
+  const [newISBN, setNewISBN] = useState("");
   const [newZip, setNewZip] = useState("");
 
-  const [titles, setTitles] = useState([]);
-  const [authors, setAuthors] = useState([]);
+  const [alerts, setAlerts] = useState([]);
+  const [ISBNAlerts, setISBNAlerts] = useState([]);
   const [zipCodes, setZipCodes] = useState([]);
 
   useEffect(() => {
     if (props) {
-      setTitles(props.titles);
-      setAuthors(props.authors);
       setZipCodes(props.zipCodes);
+      setISBNAlerts(props.alerts.filter((alert) => Boolean(alert.isbn)));
+      setAlerts(props.alerts.filter((alert) => !Boolean(alert.isbn)));
     }
   }, [props]);
 
-  const handleTitleSubmit = async (e) => {
+  const handleChange = (e) => {
+    setNewAlert((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleAlertSubmit = async (e) => {
     e.preventDefault();
-    if (newTitle !== "") {
-      const res = await fetch("/api/consumer/update/titleAlerts", {
+    if (newAlert.author !== "") {
+      const res = await fetch("/api/consumer/update/alerts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: props.email,
-          title: newTitle,
+          title: newAlert.title,
+          author: newAlert.author,
           type: "add",
         }),
       });
@@ -38,21 +50,24 @@ const Alerts = ({ props, fetchUserData }) => {
       }
 
       fetchUserData();
-      setNewTitle("");
+      setNewAlert({
+        title: "",
+        author: "",
+      });
     }
   };
 
-  const handleAuthorSubmit = async (e) => {
+  const handleISBNSubmit = async (e) => {
     e.preventDefault();
-    if (newAuthor !== "") {
-      const res = await fetch("/api/consumer/update/authorAlerts", {
+    if (newISBN !== "") {
+      const res = await fetch("/api/consumer/update/isbnAlerts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: props.email,
-          author: newAuthor,
+          isbn: newISBN,
           type: "add",
         }),
       });
@@ -61,7 +76,7 @@ const Alerts = ({ props, fetchUserData }) => {
       }
 
       fetchUserData();
-      setNewAuthor("");
+      setNewISBN("");
     }
   };
 
@@ -84,30 +99,31 @@ const Alerts = ({ props, fetchUserData }) => {
     }
   };
 
-  const deleteTitle = async (index) => {
-    const res = await fetch("/api/consumer/update/titleAlerts", {
+  const deleteAlert = async (index) => {
+    const res = await fetch("/api/consumer/update/alerts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: props.email,
-        title: titles[index],
+        title: alerts[index].title,
+        author: alerts[index].author,
         type: "delete",
       }),
     });
     fetchUserData();
   };
 
-  const deleteAuthor = async (index) => {
-    const res = await fetch("/api/consumer/update/authorAlerts", {
+  const deleteISBN = async (index) => {
+    const res = await fetch("/api/consumer/update/isbnAlerts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         email: props.email,
-        author: authors[index],
+        isbn: ISBNAlerts[index].isbn,
         type: "delete",
       }),
     });
@@ -132,37 +148,14 @@ const Alerts = ({ props, fetchUserData }) => {
   return (
     <>
       <div className="mt-1 sm:mt-4">
-        <label className="text-sm text-black font-medium">Titles</label>
-        <div>
-          <form className="flex my-1" onSubmit={handleTitleSubmit}>
-            <input
-              value={newTitle}
-              onChange={(e) => setNewTitle(e.target.value)}
-              className="bg-white  form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 py-2.5"
-              type="text"
-            />
-            <button
-              type="submit"
-              className="bg-[#2eaaed] px-3 flex items-center  rounded-lg  text-decoration-none ms-2"
-            >
-              <Image
-                src={"/images/copy.svg"}
-                width={20}
-                height={20}
-                alt="profile-icon"
-                className="img-fluid"
-              />
-            </button>
-          </form>
-        </div>
         <div className="flex items-center mt-3 overflow-x-auto">
-          {titles?.map((title, index) => (
+          {alerts?.map((alert, index) => (
             <div key={index} className="flex mx-1 flex-shrink-0">
               <p className="rounded-full flex items-center border text-xs sm:text-sm font-medium border-[#2eaaed] px-2 py-1">
-                {title}
+                {alert.title ? `${alert.title}, ${alert.author}` : alert.author}
                 <span
                   className="ms-2 cursor-pointer flex-shrink-0"
-                  onClick={() => deleteTitle(index)}
+                  onClick={() => deleteAlert(index)}
                 >
                   <Image
                     src={"/images/close-circle.svg"}
@@ -176,14 +169,55 @@ const Alerts = ({ props, fetchUserData }) => {
             </div>
           ))}
         </div>
+        <label className="text-sm text-black font-medium">Title</label>
+        <div>
+          <input
+            name="title"
+            value={newAlert.title}
+            onChange={handleChange}
+            className="bg-white  form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 py-2.5"
+            type="text"
+          />
+        </div>
       </div>
       <div className="mt-4">
-        <label className="text-sm text-black font-medium">Authors</label>
+        <label className="text-sm text-black font-medium">Author *</label>
         <div>
-          <form className="flex my-1" onSubmit={handleAuthorSubmit}>
+          <form
+            className="flex flex-col items-center my-1"
+            onSubmit={handleAlertSubmit}
+          >
             <input
-              value={newAuthor}
-              onChange={(e) => setNewAuthor(e.target.value)}
+              name="author"
+              value={newAlert.author}
+              onChange={handleChange}
+              className="bg-white  form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 py-2.5"
+              type="text"
+              required
+            />
+            <button
+              type="submit"
+              className="mt-3 bg-[#2eaaed] py-3 px-8 flex items-center  rounded-lg  text-decoration-none ms-2"
+            >
+              <Image
+                src={"/images/copy.svg"}
+                width={20}
+                height={20}
+                alt="profile-icon"
+                className="img-fluid"
+              />
+            </button>
+          </form>
+        </div>
+      </div>
+      <div className="border-t border-black border-dashed mt-5">
+        <h6 className="text-center text-2xl pt-3">OR</h6>
+        <label className="text-sm text-black font-medium">ISBN</label>
+        <div>
+          <form className="flex my-1" onSubmit={handleISBNSubmit}>
+            <input
+              value={newISBN}
+              onChange={(e) => setNewISBN(e.target.value)}
               className="bg-white  form-input focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border border-gray-500 w-full rounded-lg  px-4 py-2.5"
               type="text"
             />
@@ -200,27 +234,27 @@ const Alerts = ({ props, fetchUserData }) => {
               />
             </button>
           </form>
-        </div>
-        <div className="flex items-center mt-3 overflow-x-auto">
-          {authors?.map((author, index) => (
-            <div key={index} className="flex mx-1 flex-shrink-0">
-              <p className="rounded-full flex items-center border text-sm font-medium border-[#2eaaed] px-2 py-1">
-                {author}
-                <span
-                  className="ms-2 cursor-pointer flex-shrink-0"
-                  onClick={() => deleteAuthor(index)}
-                >
-                  <Image
-                    src={"/images/close-circle.svg"}
-                    alt=""
-                    className="w-4"
-                    width={4}
-                    height={4}
-                  />
-                </span>
-              </p>
-            </div>
-          ))}
+          <div className="flex items-center mt-3 overflow-x-auto">
+            {ISBNAlerts?.map((alert, index) => (
+              <div key={index} className="flex mx-1 flex-shrink-0">
+                <p className="rounded-full flex items-center border text-xs sm:text-sm font-medium border-[#2eaaed] px-2 py-1">
+                  {alert.isbn}
+                  <span
+                    className="ms-2 cursor-pointer flex-shrink-0"
+                    onClick={() => deleteISBN(index)}
+                  >
+                    <Image
+                      src={"/images/close-circle.svg"}
+                      alt=""
+                      className="w-3 sm:w-4"
+                      width={4}
+                      height={4}
+                    />
+                  </span>
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

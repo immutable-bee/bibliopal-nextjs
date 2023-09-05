@@ -21,6 +21,9 @@ const handler = async (req, res) => {
       where: {
         alerts_paused: false,
       },
+      include: {
+        alerts: true,
+      },
     });
 
     const consumersWithZips = consumers.filter(
