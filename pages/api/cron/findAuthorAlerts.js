@@ -7,13 +7,26 @@ export const config = {
   },
 };
 
+const standardizeAuthor = (author) => {
+  return author.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase();
+};
+
 const handler = async (req, res) => {
   try {
     const alerts = await prisma.alert.findMany({
       where: {
-        isbn: {
-          not: null,
-        },
+        AND: [
+          {
+            title: {
+              equals: null,
+            },
+          },
+          {
+            author: {
+              not: null,
+            },
+          },
+        ],
       },
       include: {
         consumer: {
@@ -29,13 +42,17 @@ const handler = async (req, res) => {
       (alert) => !alert.consumer.alerts_paused
     );
 
-    const isbnList = activeAlerts.map((alert) => alert.isbn);
+    const standardizedAuthors = activeAlerts.map((alert) =>
+      standardizeAuthor(alert.author)
+    );
 
     const matchingListings = await prisma.listing.findMany({
       where: {
-        isbn: {
-          in: isbnList,
-        },
+        OR: standardizedAuthors.map((author) => ({
+          author: {
+            contains: author,
+          },
+        })),
       },
       include: {
         owner: {
@@ -46,29 +63,35 @@ const handler = async (req, res) => {
       },
     });
 
-    const matches = [];
+    const matchesByAuthor = [];
 
     matchingListings.forEach((listing) => {
-      const matchedAlert = activeAlerts.find(
-        (alert) => alert.isbn === listing.isbn
+      const matchedAlert = activeAlerts.find((alert) =>
+        listing.author
+          .toLowerCase()
+          .includes(
+            alert.author.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "").toLowerCase()
+          )
       );
 
       if (matchedAlert) {
-        const consumerHasNoTrackedZips =
+        const dataToPush = {
+          consumerId: matchedAlert.consumer.id,
+          listingId: listing.id,
+          reason: "AUTHOR",
+        };
+
+        if (
           !matchedAlert.consumer.tracked_zips ||
-          matchedAlert.consumer.tracked_zips.length === 0;
-
-        const zipCodeMatch = matchedAlert.consumer.tracked_zips.includes(
-          listing.owner.business_zip
-        );
-
-        if (consumerHasNoTrackedZips || zipCodeMatch) {
-          const dataToPush = {
-            consumerId: matchedAlert.consumer.id,
-            listingId: listing.id,
-            reason: "ISBN",
-          };
-          matches.push(dataToPush);
+          matchedAlert.consumer.tracked_zips.length === 0
+        ) {
+          matchesByAuthor.push(dataToPush);
+        } else if (
+          matchedAlert.consumer.tracked_zips.includes(
+            listing.owner.business_zip
+          )
+        ) {
+          matchesByAuthor.push(dataToPush);
         }
       }
     });
@@ -80,7 +103,7 @@ const handler = async (req, res) => {
       },
     });
 
-    const uniqueMatches = matches.filter((match) => {
+    const uniqueMatches = matchesByAuthor.filter((match) => {
       return !existingMatches.some(
         (existingMatch) =>
           existingMatch.consumerId === match.consumerId &&
@@ -92,7 +115,7 @@ const handler = async (req, res) => {
       data: uniqueMatches,
     });
 
-    res.status(200).json({ message: "ISBN matches updated successfully" });
+    res.status(200).json({ message: "Author matches updated successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

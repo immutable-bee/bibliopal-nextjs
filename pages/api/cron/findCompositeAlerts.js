@@ -7,11 +7,15 @@ export const config = {
   },
 };
 
+const standardizeString = (input) => {
+  return input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase();
+};
+
 const handler = async (req, res) => {
   try {
     const alerts = await prisma.alert.findMany({
       where: {
-        isbn: {
+        title: {
           not: null,
         },
       },
@@ -29,13 +33,24 @@ const handler = async (req, res) => {
       (alert) => !alert.consumer.alerts_paused
     );
 
-    const isbnList = activeAlerts.map((alert) => alert.isbn);
+    const conditions = activeAlerts.map((alert) => ({
+      AND: [
+        {
+          title: {
+            contains: standardizeString(alert.title),
+          },
+        },
+        {
+          author: {
+            contains: standardizeString(alert.author),
+          },
+        },
+      ],
+    }));
 
     const matchingListings = await prisma.listing.findMany({
       where: {
-        isbn: {
-          in: isbnList,
-        },
+        OR: conditions,
       },
       include: {
         owner: {
@@ -46,14 +61,26 @@ const handler = async (req, res) => {
       },
     });
 
-    const matches = [];
+    const compositeMatches = [];
 
     matchingListings.forEach((listing) => {
       const matchedAlert = activeAlerts.find(
-        (alert) => alert.isbn === listing.isbn
+        (alert) =>
+          standardizeString(listing.title).includes(
+            standardizeString(alert.title)
+          ) &&
+          standardizeString(listing.author).includes(
+            standardizeString(alert.author)
+          )
       );
 
       if (matchedAlert) {
+        const dataToPush = {
+          consumerId: matchedAlert.consumer.id,
+          listingId: listing.id,
+          reason: "COMPOSITE",
+        };
+
         const consumerHasNoTrackedZips =
           !matchedAlert.consumer.tracked_zips ||
           matchedAlert.consumer.tracked_zips.length === 0;
@@ -63,12 +90,7 @@ const handler = async (req, res) => {
         );
 
         if (consumerHasNoTrackedZips || zipCodeMatch) {
-          const dataToPush = {
-            consumerId: matchedAlert.consumer.id,
-            listingId: listing.id,
-            reason: "ISBN",
-          };
-          matches.push(dataToPush);
+          compositeMatches.push(dataToPush);
         }
       }
     });
@@ -80,7 +102,7 @@ const handler = async (req, res) => {
       },
     });
 
-    const uniqueMatches = matches.filter((match) => {
+    const uniqueMatches = compositeMatches.filter((match) => {
       return !existingMatches.some(
         (existingMatch) =>
           existingMatch.consumerId === match.consumerId &&
@@ -92,7 +114,7 @@ const handler = async (req, res) => {
       data: uniqueMatches,
     });
 
-    res.status(200).json({ message: "ISBN matches updated successfully" });
+    res.status(200).json({ message: "Composite matches updated successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -200,4 +200,5 @@ enum MEMBERSHIP {
 enum ALERTREASON {
   TITLE
   AUTHOR
+  ISBN
 }
