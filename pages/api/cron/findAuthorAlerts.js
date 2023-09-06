@@ -66,6 +66,9 @@ const handler = async (req, res) => {
       },
     });
 
+    console.log(activeAlerts);
+    console.log(matchingListings);
+
     const matchesByAuthor = [];
 
     matchingListings.forEach((listing) => {
