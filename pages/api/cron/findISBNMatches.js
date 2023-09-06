@@ -22,6 +22,7 @@ const handler = async (req, res) => {
           select: {
             alerts_paused: true,
             tracked_zips: true,
+            id: true,
           },
         },
       },
@@ -38,12 +39,14 @@ const handler = async (req, res) => {
         isbn: {
           in: isbnList,
         },
+        select: {
+          id: true,
+          isbn: true,
+        },
       },
-      include: {
-        owner: {
-          select: {
-            business_zip: true,
-          },
+      owner: {
+        select: {
+          business_zip: true,
         },
       },
     });
