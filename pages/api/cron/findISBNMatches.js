@@ -48,6 +48,8 @@ const handler = async (req, res) => {
       },
     });
 
+    console.log(matchingListings);
+
     const matches = [];
 
     matchingListings.forEach((listing) => {
