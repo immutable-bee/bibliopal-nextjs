@@ -24,6 +24,7 @@ const handler = async (req, res) => {
           select: {
             alerts_paused: true,
             tracked_zips: true,
+            id: true,
           },
         },
       },
@@ -52,7 +53,10 @@ const handler = async (req, res) => {
       where: {
         OR: conditions,
       },
-      include: {
+      select: {
+        id: true,
+        title: true,
+        author: true,
         owner: {
           select: {
             business_zip: true,

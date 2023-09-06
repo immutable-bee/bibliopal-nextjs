@@ -30,6 +30,8 @@ const handler = async (req, res) => {
         groupKey = match.listing.title;
       } else if (match.reason === "AUTHOR") {
         groupKey = match.listing.author;
+      } else if (match.reason === "ISBN") {
+        groupKey = match.listing.isbn;
       }
 
       // Check if this group already exists in the results
