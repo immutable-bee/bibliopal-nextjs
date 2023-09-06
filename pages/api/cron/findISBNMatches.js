@@ -8,6 +8,8 @@ export const config = {
 };
 
 const handler = async (req, res) => {
+  console.log("Handler start");
+
   try {
     const alerts = await prisma.alert.findMany({
       where: {
@@ -58,17 +60,21 @@ const handler = async (req, res) => {
           !matchedAlert.consumer.tracked_zips ||
           matchedAlert.consumer.tracked_zips.length === 0;
 
-        const zipCodeMatch = matchedAlert.consumer.tracked_zips.includes(
-          listing.owner.business_zip
-        );
+        if (listing.owner) {
+          const zipCodeMatch = matchedAlert.consumer.tracked_zips.includes(
+            listing.owner.business_zip
+          );
 
-        if (consumerHasNoTrackedZips || zipCodeMatch) {
-          const dataToPush = {
-            consumerId: matchedAlert.consumer.id,
-            listingId: listing.id,
-            reason: "ISBN",
-          };
-          matches.push(dataToPush);
+          if (consumerHasNoTrackedZips || zipCodeMatch) {
+            const dataToPush = {
+              consumerId: matchedAlert.consumer.id,
+              listingId: listing.id,
+              reason: "ISBN",
+            };
+            matches.push(dataToPush);
+          }
+        } else {
+          console.log("Missing owner for listing with ID:", listing.id);
         }
       }
     });
