@@ -39,12 +39,10 @@ const handler = async (req, res) => {
         isbn: {
           in: isbnList,
         },
-        select: {
-          id: true,
-          isbn: true,
-        },
       },
-      include: {
+      select: {
+        id: true,
+        isbn: true,
         owner: {
           select: {
             business_zip: true,
