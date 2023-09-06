@@ -44,9 +44,11 @@ const handler = async (req, res) => {
           isbn: true,
         },
       },
-      owner: {
-        select: {
-          business_zip: true,
+      include: {
+        owner: {
+          select: {
+            business_zip: true,
+          },
         },
       },
     });
