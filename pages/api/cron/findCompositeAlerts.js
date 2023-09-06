@@ -55,7 +55,7 @@ const handler = async (req, res) => {
       include: {
         owner: {
           select: {
-            business_zip,
+            business_zip: true,
           },
         },
       },
