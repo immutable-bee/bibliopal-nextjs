@@ -8,7 +8,7 @@ export const config = {
 };
 
 const standardizeAuthor = (author) => {
-  return author.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase();
+  return author.replace(/[.,/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase();
 };
 
 const handler = async (req, res) => {
@@ -73,11 +73,9 @@ const handler = async (req, res) => {
 
     matchingListings.forEach((listing) => {
       const matchedAlert = activeAlerts.find((alert) =>
-        listing.author
-          .toLowerCase()
-          .includes(
-            alert.author.replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, "").toLowerCase()
-          )
+        standardizeAuthor(listing.author).includes(
+          standardizeAuthor(alert.author)
+        )
       );
 
       if (matchedAlert) {
