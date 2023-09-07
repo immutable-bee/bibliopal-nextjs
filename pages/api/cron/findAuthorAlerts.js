@@ -61,7 +61,7 @@ const handler = async (req, res) => {
     );
 
     const standardizedAuthors = activeAlerts.map((alert) =>
-      standardizeAuthor(alert.author)
+      standardizeAuthorVariations(alert.author)
     );
 
     const matchingListings = await prisma.listing.findMany({
