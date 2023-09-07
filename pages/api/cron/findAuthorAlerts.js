@@ -15,6 +15,19 @@ const formatForQuery = (author) => {
   return author.split(" ").join(" & ");
 };
 
+const standardizeAuthorVariations = (author) => {
+  const sanitized = author
+    .replace(/[.,/#!$%\^&\*;:{}=\-_`~()]/g, "")
+    .toLowerCase();
+  const parts = sanitized.split(" ");
+  return [
+    parts.join(" "),
+    parts.reverse().join(" "),
+    parts.join(", "),
+    parts.reverse().join(", "),
+  ];
+};
+
 const handler = async (req, res) => {
   try {
     const alerts = await prisma.alert.findMany({
@@ -53,11 +66,13 @@ const handler = async (req, res) => {
 
     const matchingListings = await prisma.listing.findMany({
       where: {
-        OR: standardizedAuthors.map((author) => ({
-          author: {
-            search: formatForQuery(author),
-          },
-        })),
+        OR: standardizedAuthors.flatMap((authorVariations) =>
+          authorVariations.map((variant) => ({
+            author: {
+              contains: variant,
+            },
+          }))
+        ),
       },
       select: {
         id: true,
