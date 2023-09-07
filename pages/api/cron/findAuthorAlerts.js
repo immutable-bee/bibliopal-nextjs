@@ -11,21 +11,10 @@ const standardizeAuthor = (author) => {
   return author.replace(/[.,/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase();
 };
 
-const formatForQuery = (author) => {
-  return author.split(" ").join(" & ");
-};
-
 const standardizeAuthorVariations = (author) => {
-  const sanitized = author
-    .replace(/[.,/#!$%\^&\*;:{}=\-_`~()]/g, "")
-    .toLowerCase();
+  const sanitized = standardizeAuthor(author);
   const parts = sanitized.split(" ");
-  return [
-    parts.join(" "),
-    parts.reverse().join(" "),
-    parts.join(", "),
-    parts.reverse().join(", "),
-  ];
+  return [parts.join(" "), parts.reverse().join(" ")];
 };
 
 const handler = async (req, res) => {
@@ -60,20 +49,7 @@ const handler = async (req, res) => {
       (alert) => !alert.consumer.alerts_paused
     );
 
-    const standardizedAuthors = activeAlerts.map((alert) =>
-      standardizeAuthorVariations(alert.author)
-    );
-
-    const matchingListings = await prisma.listing.findMany({
-      where: {
-        OR: standardizedAuthors.flatMap((authorVariations) =>
-          authorVariations.map((variant) => ({
-            author: {
-              contains: variant,
-            },
-          }))
-        ),
-      },
+    const allListings = await prisma.listing.findMany({
       select: {
         id: true,
         author: true,
@@ -85,17 +61,15 @@ const handler = async (req, res) => {
       },
     });
 
-    console.log(activeAlerts);
-    console.log(matchingListings);
+    const matchesByAuthor = allListings.reduce((acc, listing) => {
+      const standardizedListingAuthor = standardizeAuthor(listing.author);
 
-    const matchesByAuthor = [];
-
-    matchingListings.forEach((listing) => {
-      const matchedAlert = activeAlerts.find((alert) =>
-        standardizeAuthor(listing.author).includes(
-          standardizeAuthor(alert.author)
-        )
-      );
+      const matchedAlert = activeAlerts.find((alert) => {
+        const authorVariations = standardizeAuthorVariations(alert.author);
+        return authorVariations.some((variant) =>
+          standardizedListingAuthor.includes(variant)
+        );
+      });
 
       if (matchedAlert) {
         const dataToPush = {
@@ -106,32 +80,31 @@ const handler = async (req, res) => {
 
         if (
           !matchedAlert.consumer.tracked_zips ||
-          matchedAlert.consumer.tracked_zips.length === 0
-        ) {
-          matchesByAuthor.push(dataToPush);
-        } else if (
+          matchedAlert.consumer.tracked_zips.length === 0 ||
           matchedAlert.consumer.tracked_zips.includes(
             listing.owner.business_zip
           )
         ) {
-          matchesByAuthor.push(dataToPush);
+          acc.push(dataToPush);
         }
       }
-    });
 
-    const existingMatches = await prisma.match.findMany({
-      select: {
-        consumerId: true,
-        listingId: true,
-      },
-    });
+      return acc;
+    }, []);
+
+    const existingMatchesSet = new Set(
+      (
+        await prisma.match.findMany({
+          select: {
+            consumerId: true,
+            listingId: true,
+          },
+        })
+      ).map((em) => `${em.consumerId}-${em.listingId}`)
+    );
 
     const uniqueMatches = matchesByAuthor.filter((match) => {
-      return !existingMatches.some(
-        (existingMatch) =>
-          existingMatch.consumerId === match.consumerId &&
-          existingMatch.listingId === match.listingId
-      );
+      return !existingMatchesSet.has(`${match.consumerId}-${match.listingId}`);
     });
 
     await prisma.match.createMany({
