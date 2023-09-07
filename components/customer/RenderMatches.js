@@ -14,14 +14,14 @@ const RenderMatches = ({
     try {
       await saveListing(consumerId, listingId);
       await refreshSaved(consumerId);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const unsaveAndRefresh = async (listingId) => {
     try {
       await unsaveListing(consumerId, listingId);
       await refreshSaved(consumerId);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const savedIconHandler = (listingId) => {
@@ -77,12 +77,16 @@ const RenderMatches = ({
     const listings = data[propertyName];
     return (
       <div
-        style={{ boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)' }}
+        style={{ boxShadow: "0 0 15px rgba(0, 0, 0, 0.1)" }}
         className="py-4 px-4 rounded-3xl sm:mx-3 sm:my-3 my-5 w-full sm:w-[34rem]"
         key={i}
       >
         <div className="flex justify-between w-full px-4">
-          <h4 className="text-black text-base font-medium">{propertyName}</h4>
+          <h4 className="text-black text-base font-medium">
+            {propertyName.length > 35
+              ? propertyName.slice(0, 34) + " ..."
+              : propertyName}
+          </h4>
           <p className="bg-[#2eaaed] px-3 py-1 text-xs text-white font-medium rounded-3xl">
             {data.reason}
           </p>
