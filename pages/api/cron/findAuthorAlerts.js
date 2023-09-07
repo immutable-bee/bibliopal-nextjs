@@ -51,7 +51,7 @@ const handler = async (req, res) => {
       where: {
         OR: standardizedAuthors.map((author) => ({
           author: {
-            contains: author,
+            search: author,
           },
         })),
       },
