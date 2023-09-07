@@ -11,6 +11,12 @@ const standardizeString = (input) => {
   return input.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase();
 };
 
+const standardizeStringVariations = (str) => {
+  const sanitized = standardizeString(str);
+  const parts = sanitized.split(" ");
+  return [parts.join(" "), parts.reverse().join(" ")];
+};
+
 const handler = async (req, res) => {
   try {
     const alerts = await prisma.alert.findMany({
@@ -34,25 +40,7 @@ const handler = async (req, res) => {
       (alert) => !alert.consumer.alerts_paused
     );
 
-    const conditions = activeAlerts.map((alert) => ({
-      AND: [
-        {
-          title: {
-            contains: standardizeString(alert.title),
-          },
-        },
-        {
-          author: {
-            contains: standardizeString(alert.author),
-          },
-        },
-      ],
-    }));
-
-    const matchingListings = await prisma.listing.findMany({
-      where: {
-        OR: conditions,
-      },
+    const allListings = await prisma.listing.findMany({
       select: {
         id: true,
         title: true,
@@ -67,16 +55,28 @@ const handler = async (req, res) => {
 
     const compositeMatches = [];
 
-    matchingListings.forEach((listing) => {
-      const matchedAlert = activeAlerts.find(
-        (alert) =>
-          standardizeString(listing.title).includes(
-            standardizeString(alert.title)
-          ) &&
-          standardizeString(listing.author).includes(
-            standardizeString(alert.author)
-          )
-      );
+    allListings.forEach((listing) => {
+      const standardizedListingTitle = standardizeString(listing.title);
+      const standardizedListingAuthor = standardizeString(listing.author);
+
+      const matchedAlert = activeAlerts.find((alert) => {
+        const standardizedAlertTitleVariations = standardizeStringVariations(
+          alert.title
+        );
+        const standardizedAlertAuthorVariations = standardizeStringVariations(
+          alert.author
+        );
+
+        const titleMatch = standardizedAlertTitleVariations.some((variation) =>
+          standardizedListingTitle.includes(variation)
+        );
+
+        const authorMatch = standardizedAlertAuthorVariations.some(
+          (variation) => standardizedListingAuthor.includes(variation)
+        );
+
+        return titleMatch && authorMatch;
+      });
 
       if (matchedAlert) {
         const dataToPush = {
