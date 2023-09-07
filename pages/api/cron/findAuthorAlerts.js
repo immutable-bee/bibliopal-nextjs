@@ -11,6 +11,10 @@ const standardizeAuthor = (author) => {
   return author.replace(/[.,/#!$%\^&\*;:{}=\-_`~()]/g, "").toLowerCase();
 };
 
+const formatForQuery = (author) => {
+  return author.split(" ").join(" & ");
+};
+
 const handler = async (req, res) => {
   try {
     const alerts = await prisma.alert.findMany({
@@ -51,7 +55,7 @@ const handler = async (req, res) => {
       where: {
         OR: standardizedAuthors.map((author) => ({
           author: {
-            search: author,
+            search: formatForQuery(author),
           },
         })),
       },
