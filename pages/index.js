@@ -32,7 +32,7 @@ const LandingPage = () => {
       </div>
 
       <div className="flex flex-col gap-3 items-center w-full">
-        <div className="sm:flex justify-center gap-5 items-center w-full">
+        <div className="sm:mb-8 sm:mt-8 mt-14 sm:flex justify-center gap-5 items-center w-full">
           <div className="border-2 border-gray-100">
             <Image
               src={"/images/landingpage/row-one.png"}
@@ -50,7 +50,7 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <div className="sm:mt-0 mt-14 sm:flex justify-between flex-row-reverse gap-5 items-center w-full">
+        <div className="sm:mb-8 sm:mt-8 mt-14 sm:flex justify-center flex-row-reverse gap-5 items-center w-full">
           <div >
             <Image
               src={"/images/landingpage/row-two.png"}
@@ -69,7 +69,7 @@ const LandingPage = () => {
 
         </div>
 
-        <div className="sm:mt-0 mt-14 sm:flex justify-center gap-5 items-center w-full">
+        <div className="sm:mb-8 sm:mt-8 mt-14 sm:flex justify-center gap-5 items-center w-full">
           <div>
             <Image
               src={"/images/landingpage/row-three.png"}
@@ -86,7 +86,7 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <div className="sm:mt-0 mt-14 sm:flex justify-center flex-row-reverse gap-5 items-center w-full">
+        <div className="sm:mb-8 sm:mt-8 mt-14 sm:flex justify-center flex-row-reverse gap-5 items-center w-full">
           <div className="border-2 border-gray-100">
             <Image
               src={"/images/landingpage/row-four.png"}

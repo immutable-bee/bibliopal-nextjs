@@ -62,8 +62,9 @@ const Inputcomponent = ({
                     <ul className=" flex items-center ml-2">
                       <button
                         onClick={() => handleActiveChange("Title")}
-                        className={`  rounded-full px-6 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${active == "Title" && "!bg-[#978367] !text-white"
-                          } `}
+                        className={`  rounded-full px-6 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${
+                          active == "Title" && "!bg-[#978367] !text-white"
+                        } `}
                         id="pills-all-tab"
                         data-bs-toggle="pill"
                         data-bs-target="#pills-all"
@@ -76,8 +77,9 @@ const Inputcomponent = ({
                       </button>
                       <button
                         onClick={() => handleActiveChange("Author")}
-                        className={`  rounded-full px-6 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${active == "Author" && "!bg-[#978367] !text-white"
-                          } `}
+                        className={`  rounded-full px-6 sm:px-10 font-medium sm:font-semibold py-1 sm:py-2   ${
+                          active == "Author" && "!bg-[#978367] !text-white"
+                        } `}
                         id="pills-profile-tab"
                         data-bs-toggle="pill"
                         data-bs-target="#pills-profile"
@@ -135,6 +137,7 @@ const Inputcomponent = ({
                 <label className="text-sm flex-shrink-0 w-24 min-w-fit font-normal">
                   Filter by store
                 </label>
+                {/*
                 <select className="w-full sm:w-56 focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border px-3 rounded-lg mx-2 py-2"
                   type="text"
                   onChange={handleStoreChange}
@@ -144,7 +147,14 @@ const Inputcomponent = ({
                   <option>store 2</option>
                   <option>store 3</option>
                 </select>
-
+                */}
+                <input
+                  className="w-full sm:w-56 focus:ring-1 focus:ring-[#ffc71f] focus:outline-none border px-3 rounded-lg mx-2 py-2"
+                  tyoe="text"
+                  onChange={handleStoreChange}
+                  onKeyDown={handleSearchKeyDown}
+                  value={searchStore}
+                ></input>
               </div>
             </div>
           </div>

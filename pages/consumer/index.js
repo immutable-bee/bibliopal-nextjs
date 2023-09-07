@@ -3,7 +3,6 @@ import Inputcomponent from "@/components/customer/Inputcomponent";
 import HeaderComponent from "@/components/customer/HeaderComponent";
 import TooltipComponent from "@/components/utility/Tooltip";
 import Loading from "../../components/utility/loading";
-import PaginationComponent from "../../components/utility/Pagination";
 import saveListing from "../../utils/saveListing";
 import unsaveListing from "../../utils/unsaveListing";
 import { useUser } from "../../context/UserContext";
@@ -176,7 +175,7 @@ const Home = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ searchTerm, filter, searchZipCode }),
+      body: JSON.stringify({ searchTerm, filter, searchZipCode, searchStore }),
     });
 
     if (res.status === 200) {

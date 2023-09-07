@@ -56,5 +56,5 @@ export const sendNewMatchEmail = async (data) => {
     newMatchEmail.compiledHtml
   );
 
-  await sendMail(data.recipient, data.title, emailContent);
+  await sendMail(data.recipient, data.values.title, emailContent);
 };
