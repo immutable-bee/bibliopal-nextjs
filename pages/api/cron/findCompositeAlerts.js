@@ -82,7 +82,7 @@ const handler = async (req, res) => {
         const dataToPush = {
           consumerId: matchedAlert.consumer.id,
           listingId: listing.id,
-          reason: "COMPOSITE",
+          reason: "TITLE",
         };
 
         const consumerHasNoTrackedZips =
@@ -120,6 +120,7 @@ const handler = async (req, res) => {
 
     res.status(200).json({ message: "Composite matches updated successfully" });
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({ message: error.message });
   }
 };
