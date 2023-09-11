@@ -1,26 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { useUser } from "@/context/UserContext";
 import Actions from "@/components/Actions";
 import ISBNSearchBox from "@/components/ISBNSearchBox";
 import ContentTable from "@/components/ContentTable";
-import { Input } from "@nextui-org/react";
+
 const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const { user, fetchUserData } = useUser();
 
   const [isAutoUpload, setIsAutoUpload] = useState(false);
-  const [daysToExpiry, setDaysToExpiry] = useState(3);
+  const [daysToExpiry, setDaysToExpiry] = useState(null);
 
   const handleAutoUploadChange = (e) => {
     const newValue = e.target.checked;
     setIsAutoUpload(newValue);
   };
 
+  useEffect(() => {
+    const savedValue = sessionStorage.getItem("daysToExpiry");
+    setDaysToExpiry(savedValue ? parseInt(savedValue, 10) : 3);
+  }, []);
+
   const daysToExpiryHandler = (e) => {
     let value = parseInt(e.target.value);
     if (value < 3) value = 3;
     if (value > maxExpiry) value = maxExpiry;
+
     setDaysToExpiry(value);
+
+    sessionStorage.setItem("daysToExpiry", value.toString());
   };
 
   const membership = user?.business.membership.toLowerCase();

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import useFetchBooks from "../hooks/useFetchBooks";
 import { ErrorT, SetError } from "../pages/business/index";
+import Image from "next/image";
 
 interface ISBNSearchBoxProps {
   setError: SetError;
@@ -48,6 +49,12 @@ const ISBNSearchBox = ({
     if (event.code === "Enter") handleSearch();
   };
 
+  const fetchButtonHandler = () => {
+    handleSearch();
+  };
+
+  const fetchButtonColor = searchValue ? "[#9BCC2C]" : "biblioSeafoam";
+
   return (
     <div>
       <h1 className="text-gray-900 text-2xl sm:text-3xl sm:text-center font-bold">
@@ -67,6 +74,18 @@ const ISBNSearchBox = ({
               type="url"
               className="bg-white sm:ml-3 w-80 focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-300  rounded-lg  px-4 my-1 py-3.5"
             />
+            <button
+              onClick={fetchButtonHandler}
+              disabled={searchValue ? false : true}
+              className={`ml-2 px-2 py-2 bg-${fetchButtonColor} rounded-full`}
+            >
+              <Image
+                src={"/images/icons/icon-arrowRight.svg"}
+                width={24}
+                height={24}
+                alt="Add listing button"
+              />
+            </button>
           </div>
           <p className="text-base mt-1 text-red-500 text-center">{error}</p>
         </div>
