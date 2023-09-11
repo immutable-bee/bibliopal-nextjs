@@ -20,6 +20,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
 
   const handleOnDetected = (code) => {
     console.log("Detected barcode:", code);
+    setIsScannerOpen(false);
     if (!isAutoUpload) {
     }
   };
