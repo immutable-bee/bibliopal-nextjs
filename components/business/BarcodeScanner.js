@@ -1,13 +1,15 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Quagga from "quagga";
 
 const BarcodeScanner = ({ onDetected }) => {
-  const scannerRef = useRef(null);
+  const [hasCamera, setHasCamera] = useState(false);
+  const [quaggaInitialized, setQuaggaInitialized] = useState(false);
 
   const initializeQuagga = () => {
     Quagga.init(
       {
         inputStream: {
+          target: "#barcode-scanner",
           type: "LiveStream",
           constraints: {
             width: 480,
@@ -20,7 +22,6 @@ const BarcodeScanner = ({ onDetected }) => {
             left: "0%",
             bottom: "0%",
           },
-          target: scannerRef.current, // Ensuring Quagga uses our ref for rendering
         },
         decoder: {
           readers: ["ean_reader", "ean_8_reader"],
@@ -32,6 +33,7 @@ const BarcodeScanner = ({ onDetected }) => {
           return;
         }
         Quagga.start();
+        setQuaggaInitialized(true);
       }
     );
 
@@ -41,53 +43,53 @@ const BarcodeScanner = ({ onDetected }) => {
     });
   };
 
-  const checkCameraDevices = () => {
-    navigator.mediaDevices.enumerateDevices().then((devices) => {
-      const cameras = devices.filter((device) => device.kind === "videoinput");
-      if (cameras.length === 0) {
-        alert("No camera found on this device.");
-      } else {
-        checkCameraPermission();
-      }
-    });
+  const checkCameraDevices = async () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+      console.log("Enumeration devices is not supported!");
+      return;
+    }
+
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const cameras = devices.filter((device) => device.kind === "videoinput");
+
+    if (cameras.length > 0) {
+      setHasCamera(true);
+      setTimeout(() => {
+        initializeQuagga();
+      }, 100);
+    } else {
+      alert("No cameras found on this device.");
+    }
   };
 
-  const checkCameraPermission = () => {
-    navigator.permissions.query({ name: "camera" }).then((permissionStatus) => {
-      if (permissionStatus.state === "granted") {
-        initializeQuagga();
-      } else if (permissionStatus.state === "denied") {
-        alert(
-          "You have denied camera access. Please allow it for barcode scanning."
-        );
-      } else {
-        requestCameraAccess();
+  const requestCameraPermission = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
+        checkCameraDevices();
       }
-    });
-  };
-
-  const requestCameraAccess = () => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((stream) => {
-        stream.getTracks().forEach((track) => track.stop()); // Stopping the stream right away
-        initializeQuagga();
-      })
-      .catch((error) => {
-        alert("Error accessing the camera.");
-      });
+    } catch (error) {
+      alert("Camera permissions denied!");
+    }
   };
 
   useEffect(() => {
-    checkCameraDevices();
+    requestCameraPermission();
 
     return () => {
-      Quagga.offDetected();
-      Quagga.stop();
+      if (quaggaInitialized) {
+        Quagga.offDetected();
+        Quagga.stop();
+      }
     };
   }, [onDetected]);
 
-  return <div ref={scannerRef} id="barcode-scanner" />;
+  if (!hasCamera) {
+    return <p>No camera available.</p>;
+  }
+
+  return <div id="barcode-scanner" />;
 };
 
 export default BarcodeScanner;
