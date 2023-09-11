@@ -11,6 +11,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "types": ["quagga"],
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
