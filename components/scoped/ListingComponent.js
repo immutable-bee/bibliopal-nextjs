@@ -50,7 +50,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const maxExpiry = user ? expiryLimit[membership] : 3;
 
   return (
-    <div className="min-h-screen bg-[#FEFBE8]">
+    <div className="min-h-screen  bg-[#FEFBE8]">
       {!isScannerOpen ? (
         <>
           <Header />
