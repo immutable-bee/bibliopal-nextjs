@@ -89,7 +89,12 @@ const BarcodeScanner = ({ onDetected }) => {
     return <p>No camera available.</p>;
   }
 
-  return <div id="barcode-scanner" />;
+  return (
+    <div className="relative w-full h-full">
+      <div id="barcode-scanner" className="w-full h-full"></div>
+      <div className="absolute top-1/2 left-0 w-full h-1 bg-red-500 opacity-50"></div>
+    </div>
+  );
 };
 
 export default BarcodeScanner;
