@@ -4,12 +4,25 @@ import { useUser } from "@/context/UserContext";
 import Actions from "@/components/Actions";
 import ISBNSearchBox from "@/components/ISBNSearchBox";
 import ContentTable from "@/components/ContentTable";
+import BarcodeScanner from "../business/BarcodeScanner";
+import Image from "next/image";
 
 const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const { user, fetchUserData } = useUser();
 
   const [isAutoUpload, setIsAutoUpload] = useState(false);
   const [daysToExpiry, setDaysToExpiry] = useState(null);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
+
+  const isMobile = () => {
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  };
+
+  const handleOnDetected = (code) => {
+    console.log("Detected barcode:", code);
+    if (!isAutoUpload) {
+    }
+  };
 
   const handleAutoUploadChange = (e) => {
     const newValue = e.target.checked;
@@ -48,6 +61,20 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               title={"Upload Listings"}
             />
 
+            <div className="flex justify-center mt-3">
+              <button
+                onClick={() => setIsScannerOpen(true)}
+                className="px-2 py-2 mb-4 bg-slate-50 rounded shadow-md"
+              >
+                <Image
+                  src="images/icons//icon-camera.svg"
+                  width={32}
+                  height={32}
+                  alt="camera upload button"
+                />
+              </button>
+            </div>
+
             <div className=" flex justify-center">
               <div className=" flex justify-center">
                 <label className="relative mx-3 inline-flex items-center mt-4 mb-7 cursor-pointer">
@@ -64,7 +91,6 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
                 </label>{" "}
               </div>
             </div>
-
             <Actions
               isSale={false}
               isAutoUpload={isAutoUpload}
@@ -99,6 +125,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
             </div>
           </div>
         </div>
+        {isScannerOpen && <BarcodeScanner onDetected={handleOnDetected} />}
 
         <ContentTable isSale={false} deleteBookRow={deleteBookRow} />
       </div>
