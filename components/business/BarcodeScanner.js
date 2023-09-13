@@ -35,11 +35,15 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
             facingMode: "environment",
             //aspectRatio: { min: 1, max: 100 },
           },
-          area: {
-            top: "25%",
-            right: "25%",
-            left: "25%",
-            bottom: "25%",
+          locator: {
+            patchSize: "medium",
+            halfSample: true,
+            area: {
+              top: "25%",
+              right: "25%",
+              left: "25%",
+              bottom: "25%",
+            },
           },
         },
         decoder: {
