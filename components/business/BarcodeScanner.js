@@ -5,6 +5,9 @@ const BarcodeScanner = ({ onDetected }) => {
   const [hasCamera, setHasCamera] = useState(false);
   const [quaggaInitialized, setQuaggaInitialized] = useState(false);
 
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
   const initializeQuagga = () => {
     Quagga.init(
       {
@@ -12,8 +15,8 @@ const BarcodeScanner = ({ onDetected }) => {
           target: "#barcode-scanner",
           type: "LiveStream",
           constraints: {
-            width: { ideal: 1280 },
-            height: { ideal: 720 },
+            width: width,
+            height: height,
             facingMode: "environment",
           },
           area: {
@@ -89,9 +92,9 @@ const BarcodeScanner = ({ onDetected }) => {
   }
 
   return (
-    <div className="flex justify-center relative w-full h-full">
-      <div id="barcode-scanner" className="w-full h-full"></div>
-      <div className="absolute top-1/2 left-0 w-full h-1 bg-red-500 opacity-50 transform -translate-y-1/2"></div>
+    <div className="flex justify-center w-full h-screen overflow-hidden">
+      <div id="barcode-scanner" className="w-full h-full sm:h-screen"></div>
+      {/* <div className="absolute top-1/2 left-0 w-full h-1 bg-red-500 opacity-50 transform -translate-y-1/2"></div> */}
     </div>
   );
 };
