@@ -16,10 +16,8 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
   setTimeout(() => {
     setUploadNotifications([
       ...UploadNotifications,
-      {
-        title: "testTitle",
-        numberOfOtherBooks: "0",
-      },
+
+      "Book Scanned Successfully",
     ]);
   }, [5000]);
 
@@ -36,7 +34,7 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
             //aspectRatio: { min: 1, max: 100 },
           },
           locator: {
-            patchSize: "medium",
+            patchSize: "large",
             halfSample: true,
             area: {
               top: "25%",
@@ -130,7 +128,7 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
           alt="Close camera button"
         />
       </button>
-      <div className="absolute top-1/3 left-0 w-full h-1 bg-red-500 opacity-50 transform -translate-y-1/2"></div>
+      <div className="absolute top-1/2 left-0 w-full h-1 bg-red-500 opacity-50 transform -translate-y-1/2"></div>
       <div className="absolute top-3/4 bg-slate-500 rounded-full pt-3 flex justify-center">
         <label className="relative mx-3 inline-flex items-center mt-4 mb-7 cursor-pointer">
           <input
@@ -148,7 +146,7 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
       <NotificationContainer
         notifications={UploadNotifications}
         setNotifications={setUploadNotifications}
-        type={"upload"}
+        type={"barcode scanned"}
       />
     </div>
   );
