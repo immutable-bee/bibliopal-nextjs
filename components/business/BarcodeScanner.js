@@ -36,10 +36,10 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
             //aspectRatio: { min: 1, max: 100 },
           },
           area: {
-            top: "0%",
-            right: "0%",
-            left: "0%",
-            bottom: "0%",
+            top: "25%",
+            right: "25%",
+            left: "25%",
+            bottom: "25%",
           },
         },
         decoder: {
