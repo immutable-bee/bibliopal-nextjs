@@ -114,7 +114,7 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
 
   return (
     <div className="m-0 p-0 flex justify-center w-full h-screen overflow-hidden">
-      <div id="barcode-scanner" className="w-full h-screen sm:h-screen"></div>
+      <div id="barcode-scanner" className="absolute inset-0"></div>
       <button
         onClick={onClose}
         className="px-3 py-3 bg-biblioSeafoam absolute top-5 left-5 rounded-full"
@@ -127,7 +127,7 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
         />
       </button>
       <div className="absolute top-1/2 left-0 w-full h-1 bg-red-500 opacity-50 transform -translate-y-1/2"></div>
-      <div className="absolute top-3/4 left-1/2  flex justify-center">
+      <div className="absolute top-3/4 bg-slate-500 rounded-full pt-3 flex justify-center">
         <label className="relative mx-3 inline-flex items-center mt-4 mb-7 cursor-pointer">
           <input
             type="checkbox"
