@@ -13,14 +13,6 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
   const width = window.innerWidth;
   const height = window.innerHeight;
 
-  setTimeout(() => {
-    setUploadNotifications([
-      ...UploadNotifications,
-
-      "Book Scanned Successfully",
-    ]);
-  }, [5000]);
-
   const initializeQuagga = () => {
     Quagga.init(
       {
@@ -59,7 +51,12 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
     );
 
     Quagga.onDetected((data) => {
-      onDetected(data);
+      setUploadNotifications([
+        ...UploadNotifications,
+
+        "Book Scanned Successfully",
+      ]);
+      //onDetected(data);
     });
   };
 
