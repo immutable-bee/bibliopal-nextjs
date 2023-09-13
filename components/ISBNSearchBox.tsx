@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useFetchBooks from "../hooks/useFetchBooks";
 import { ErrorT, SetError } from "../pages/business/index";
 import Image from "next/image";

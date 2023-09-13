@@ -13,16 +13,22 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const [isAutoUpload, setIsAutoUpload] = useState(false);
   const [daysToExpiry, setDaysToExpiry] = useState(null);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [scanValue, setScanValue] = useState("");
 
   const isMobile = () => {
     return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   };
 
-  const handleOnDetected = (code) => {
+  const handleOnDetected = async (code) => {
     console.log("Detected barcode:", code);
-    setIsScannerOpen(false);
-    if (!isAutoUpload) {
-    }
+    const bookData = await fetchByISBN(code, true, setError);
+
+    console.log(bookData);
+
+    if (!bookData) return;
+    setSearchValue("");
+
+    return createNewRow(bookData);
   };
 
   const closeCameraHandler = () => {

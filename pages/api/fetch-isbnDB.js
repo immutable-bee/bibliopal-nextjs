@@ -12,14 +12,14 @@ const handler = async (req, res) => {
 
     if (response.ok) {
       const bookData = await response.json();
-      console.log(bookData); // add logging
+      console.log(bookData);
       res.status(200).json(bookData);
     } else {
-      console.log("response status:", response.status); // add logging
+      console.log("response status:", response.status);
       throw new Error("Book not found");
     }
   } catch (error) {
-    console.log("error in fetching:", error); // add logging
+    console.log("error in fetching:", error);
     res.status(500).json({ message: error.message });
   }
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Quagga from "quagga";
 import NotificationContainer from "../containers/NotificationContainer";
 import Image from "next/image";
+import checkScan from "../../utils/checkScan";
 
 const BarcodeScanner = ({ onDetected, onClose }) => {
   const [hasCamera, setHasCamera] = useState(false);
@@ -51,12 +52,15 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
     );
 
     Quagga.onDetected((data) => {
+      const scannedEAN13 = data.codeResult.code;
+
+      onDetected(scannedEAN13);
+
       setUploadNotifications([
         ...UploadNotifications,
 
         "Book Scanned Successfully",
       ]);
-      //onDetected(data);
     });
   };
 
