@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import BarcodeScanner from "./BarcodeScanner"; // Path to your Quagga component
 
-const BarcodeScannerWrapper = ({ onDetected }) => {
+const BarcodeScannerWrapper = ({ onDetected, onClose }) => {
   useEffect(() => {
     const styleSheet = document.createElement("style");
     styleSheet.type = "text/css";
@@ -21,7 +21,7 @@ const BarcodeScannerWrapper = ({ onDetected }) => {
     };
   }, []);
 
-  return <BarcodeScanner onDetected={onDetected} />;
+  return <BarcodeScanner onDetected={onDetected} onClose={onClose} />;
 };
 
 export default BarcodeScannerWrapper;

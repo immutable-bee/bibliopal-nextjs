@@ -25,6 +25,10 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
     }
   };
 
+  const closeCameraHandler = () => {
+    setIsScannerOpen(false);
+  };
+
   const handleAutoUploadChange = (e) => {
     const newValue = e.target.checked;
     setIsAutoUpload(newValue);
@@ -130,7 +134,10 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
       </div>
     </div>
   ) : (
-    <BarcodeScannerWrapper onDetected={handleOnDetected} />
+    <BarcodeScannerWrapper
+      onClose={closeCameraHandler}
+      onDetected={handleOnDetected}
+    />
   );
 };
 

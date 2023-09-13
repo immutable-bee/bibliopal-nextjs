@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Quagga from "quagga";
 import NotificationContainer from "../containers/NotificationContainer";
+import Image from "next/image";
 
-const BarcodeScanner = ({ onDetected }) => {
+const BarcodeScanner = ({ onDetected, onClose }) => {
   const [hasCamera, setHasCamera] = useState(false);
   const [quaggaInitialized, setQuaggaInitialized] = useState(false);
 
@@ -108,6 +109,17 @@ const BarcodeScanner = ({ onDetected }) => {
   return (
     <div className="m-0 p-0 flex justify-center w-full h-screen overflow-hidden">
       <div id="barcode-scanner" className="w-full h-screen sm:h-screen"></div>
+      <button
+        onClick={onClose}
+        className="px-3 py-3 bg-biblioSeafoam absolute top-5 left-5 rounded-full"
+      >
+        <Image
+          src="/images/icons/icon-chevron.svg"
+          width={24}
+          height={24}
+          alt="Close camera button"
+        />
+      </button>
       <div className="absolute top-1/2 left-0 w-full h-1 bg-red-500 opacity-50 transform -translate-y-1/2"></div>
       <NotificationContainer
         notifications={UploadNotifications}
