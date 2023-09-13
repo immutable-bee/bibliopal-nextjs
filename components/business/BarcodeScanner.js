@@ -8,6 +8,7 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
   const [quaggaInitialized, setQuaggaInitialized] = useState(false);
 
   const [UploadNotifications, setUploadNotifications] = useState([]);
+  const [isAutoUpload, setIsAutoUpload] = useState(false);
 
   const width = window.innerWidth;
   const height = window.innerHeight;
@@ -91,6 +92,11 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
     }
   };
 
+  const handleAutoUploadChange = (e) => {
+    const newValue = e.target.checked;
+    setIsAutoUpload(newValue);
+  };
+
   useEffect(() => {
     requestCameraPermission();
 
@@ -121,6 +127,20 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
         />
       </button>
       <div className="absolute top-1/2 left-0 w-full h-1 bg-red-500 opacity-50 transform -translate-y-1/2"></div>
+      <div className="absolute top-3/4 left-1/2  flex justify-center">
+        <label className="relative mx-3 inline-flex items-center mt-4 mb-7 cursor-pointer">
+          <input
+            type="checkbox"
+            value={isAutoUpload}
+            onChange={handleAutoUploadChange}
+            className="sr-only peer"
+          />
+          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+          <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Auto Upload
+          </span>
+        </label>{" "}
+      </div>
       <NotificationContainer
         notifications={UploadNotifications}
         setNotifications={setUploadNotifications}
