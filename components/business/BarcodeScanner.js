@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Quagga from "quagga";
+import NotificationContainer from "../containers/NotificationContainer";
 
 const BarcodeScanner = ({ onDetected }) => {
   const [hasCamera, setHasCamera] = useState(false);
   const [quaggaInitialized, setQuaggaInitialized] = useState(false);
 
+  const [UploadNotifications, setUploadNotifications] = useState([]);
+
   const width = window.innerWidth;
   const height = window.innerHeight;
+
+  setTimeout(() => {
+    setUploadNotifications([
+      ...UploadNotifications,
+      {
+        title: "testTitle",
+        numberOfOtherBooks: "0",
+      },
+    ]);
+  }, [5000]);
 
   const initializeQuagga = () => {
     Quagga.init(
@@ -96,6 +109,11 @@ const BarcodeScanner = ({ onDetected }) => {
     <div className="m-0 p-0 flex justify-center w-full h-screen overflow-hidden">
       <div id="barcode-scanner" className="w-full h-screen sm:h-screen"></div>
       <div className="absolute top-1/2 left-0 w-full h-1 bg-red-500 opacity-50 transform -translate-y-1/2"></div>
+      <NotificationContainer
+        notifications={UploadNotifications}
+        setNotifications={setUploadNotifications}
+        type={"upload"}
+      />
     </div>
   );
 };
