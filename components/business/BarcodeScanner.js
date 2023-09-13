@@ -30,10 +30,10 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
           target: "#barcode-scanner",
           type: "LiveStream",
           constraints: {
-            width: width,
-            height: height,
+            //width: width,
+            //height: height,
             facingMode: "environment",
-            aspectRatio: { min: 1, max: 100 },
+            //aspectRatio: { min: 1, max: 100 },
           },
           area: {
             top: "0%",
