@@ -4,7 +4,7 @@ import { useUser } from "@/context/UserContext";
 import Actions from "@/components/Actions";
 import ISBNSearchBox from "@/components/ISBNSearchBox";
 import ContentTable from "@/components/ContentTable";
-import BarcodeScanner from "../business/BarcodeScanner";
+import BarcodeScannerWrapper from "../business/BarcodeScannerWrapper";
 import Image from "next/image";
 
 const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
@@ -130,7 +130,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
       </div>
     </div>
   ) : (
-    <BarcodeScanner onDetected={handleOnDetected} />
+    <BarcodeScannerWrapper onDetected={handleOnDetected} />
   );
 };
 

@@ -95,7 +95,7 @@ const BarcodeScanner = ({ onDetected }) => {
   return (
     <div className="m-0 p-0 flex justify-center w-full h-screen overflow-hidden">
       <div id="barcode-scanner" className="w-full h-screen sm:h-screen"></div>
-      {/* <div className="absolute top-1/2 left-0 w-full h-1 bg-red-500 opacity-50 transform -translate-y-1/2"></div> */}
+      <div className="absolute top-1/2 left-0 w-full h-1 bg-red-500 opacity-50 transform -translate-y-1/2"></div>
     </div>
   );
 };
