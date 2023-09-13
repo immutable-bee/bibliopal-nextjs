@@ -12,6 +12,8 @@ const BarcodeScanner = ({ onDetected }) => {
           target: "#barcode-scanner",
           type: "LiveStream",
           constraints: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
             facingMode: "environment",
           },
           area: {
@@ -22,7 +24,7 @@ const BarcodeScanner = ({ onDetected }) => {
           },
         },
         decoder: {
-          readers: ["ean_reader", "ean_8_reader"],
+          readers: ["ean_reader"],
         },
       },
       (err) => {
@@ -36,8 +38,7 @@ const BarcodeScanner = ({ onDetected }) => {
     );
 
     Quagga.onDetected((data) => {
-      const code = data.codeResult.code;
-      onDetected(code);
+      onDetected(data);
     });
   };
 
@@ -88,7 +89,7 @@ const BarcodeScanner = ({ onDetected }) => {
   }
 
   return (
-    <div className="relative w-full h-full">
+    <div className="flex justify-center relative w-full h-full">
       <div id="barcode-scanner" className="w-full h-full"></div>
       <div className="absolute top-1/2 left-0 w-full h-1 bg-red-500 opacity-50 transform -translate-y-1/2"></div>
     </div>
