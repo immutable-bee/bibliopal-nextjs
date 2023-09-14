@@ -7,6 +7,7 @@ import ContentTable from "@/components/ContentTable";
 import BarcodeScannerWrapper from "../business/BarcodeScannerWrapper";
 import Image from "next/image";
 import useFetchBooks from "@/hooks/useFetchBooks";
+import MebjasScanner from "../business/MebjasScanner";
 
 const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const { fetchByISBN } = useFetchBooks();
@@ -21,7 +22,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
     return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   };
 
-  const handleOnDetected = async (code) => {
+  const handleScan = async (code) => {
     console.log("Detected barcode:", code);
     const bookData = await fetchByISBN(code, true, setError);
 
@@ -60,7 +61,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const expiryLimit = { free: 3, basic: 7, premium: 30 };
   const maxExpiry = user ? expiryLimit[membership] : 3;
 
-  return !isScannerOpen ? (
+  return (
     <div className="min-h-screen  bg-[#FEFBE8]">
       <Header />
       <div className=" px-3 sm:px-8 py-3 sm:py-4 mx-auto">
@@ -74,17 +75,24 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
             />
 
             <div className="flex justify-center mt-3">
-              <button
-                onClick={() => setIsScannerOpen(true)}
-                className="px-2 py-2 mb-4 bg-slate-50 rounded shadow-md"
-              >
-                <Image
-                  src="images/icons//icon-camera.svg"
-                  width={32}
-                  height={32}
-                  alt="camera upload button"
+              {isScannerOpen ? (
+                <MebjasScanner
+                  onClose={closeCameraHandler}
+                  handleScan={handleScan}
                 />
-              </button>
+              ) : (
+                <button
+                  onClick={() => setIsScannerOpen(true)}
+                  className="px-2 py-2 mb-4 bg-slate-50 rounded shadow-md"
+                >
+                  <Image
+                    src="images/icons//icon-camera.svg"
+                    width={32}
+                    height={32}
+                    alt="camera upload button"
+                  />
+                </button>
+              )}
             </div>
 
             <div className=" flex justify-center">
@@ -139,11 +147,6 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
         <ContentTable isSale={false} deleteBookRow={deleteBookRow} />
       </div>
     </div>
-  ) : (
-    <BarcodeScannerWrapper
-      onClose={closeCameraHandler}
-      onDetected={handleOnDetected}
-    />
   );
 };
 
