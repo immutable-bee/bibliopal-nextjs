@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import { useUser } from "@/context/UserContext";
 import Actions from "@/components/Actions";
@@ -18,23 +18,37 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const [isAutoUpload, setIsAutoUpload] = useState(false);
   const [daysToExpiry, setDaysToExpiry] = useState(null);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
-  const [scanValue, setScanValue] = useState("");
+  const isProcessingScanRef = useRef(false);
 
   const isMobile = () => {
     return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   };
 
   const handleScan = async (code) => {
+    if (isProcessingScanRef.current) {
+      return;
+    }
+    isProcessingScanRef.current = true;
     console.log("Detected barcode:", code);
     const bookData = await fetchByISBN(code, true, setError);
 
     console.log(bookData);
 
-    if (!bookData) return;
+    if (!bookData) {
+      setTimeout(() => {
+        isProcessingScanRef.current = false;
+      }, 1000);
+      return;
+    }
 
     setNotifications([...notifications, `Successful Scan!`]);
 
-    return createNewRow(bookData);
+    setTimeout(() => {
+      createNewRow(bookData);
+      isProcessingScanRef.current = false;
+    }, 1000);
+
+    return;
   };
 
   const closeCameraHandler = () => {
@@ -78,12 +92,13 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               title={"Upload Listings"}
             />
 
-            {isMobile() && (
+            {isMobile && (
               <div className="flex justify-center mt-3">
                 {isScannerOpen ? (
                   <MebjasScanner
                     onClose={closeCameraHandler}
                     handleScan={handleScan}
+                    isProcessingScan={isProcessingScanRef}
                   />
                 ) : (
                   <button

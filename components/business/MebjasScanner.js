@@ -6,11 +6,27 @@ import {
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-const MebjasScanner = ({ onClose, handleScan }) => {
+const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
   const [isVideoPresent, setIsVideoPresent] = useState(false);
+  const canScan = useRef(true);
 
   const checkVideoPresence = () => {
     setIsVideoPresent(!!document.querySelector("video"));
+  };
+
+  const captureSnapshot = (videoElement) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = videoElement.clientWidth;
+    canvas.height = videoElement.clientHeight;
+    canvas.getContext("2d").drawImage(videoElement, 0, 0);
+
+    canvas.style.position = "absolute";
+    canvas.style.top = videoElement.offsetTop + "px";
+    canvas.style.left = videoElement.offsetLeft + "px";
+    canvas.style.zIndex = "1000";
+
+    videoElement.parentElement.appendChild(canvas);
+    return canvas;
   };
 
   const scannerRef = useRef(null);
@@ -37,10 +53,31 @@ const MebjasScanner = ({ onClose, handleScan }) => {
   };
 
   const onScanSuccess = async (decodedText, decodedResult) => {
+    if (isProcessingScan.current || !canScan.current) {
+      return;
+    }
+
+    canScan.current = false;
+
+    if (decodedText.length !== 13) {
+      canScan.current = true;
+      return;
+    }
+
     pauseScanner();
+
+    const videoElement = document.querySelector("video");
+    const canvasOverlay = captureSnapshot(videoElement);
+
     console.log(`Result: ${decodedText}`);
-    handleScan(decodedText);
+    await handleScan(decodedText);
+
+    canvasOverlay.remove();
     resumeScanner();
+
+    setTimeout(() => {
+      canScan.current = true;
+    }, 1000);
   };
 
   const onScanFailure = () => {};
