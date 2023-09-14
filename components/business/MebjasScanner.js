@@ -108,19 +108,17 @@ const MebjasScanner = ({ onClose, handleScan }) => {
     <div className="w-full">
       <div className="w-full" id="reader"></div>
 
-      {isVideoPresent && (
-        <button
-          onClick={onClose}
-          className="relative bottom-3/4 mb-10 left-3 py-2 px-2 bg-biblioSeafoam rounded-full"
-        >
-          <Image
-            src="/images/icons/icon-chevron.svg"
-            width={24}
-            height={24}
-            alt="close scanner button"
-          />
-        </button>
-      )}
+      <button
+        onClick={onClose}
+        className="relative bottom-3/4 left-3 py-2 px-2 bg-biblioSeafoam rounded-full"
+      >
+        <Image
+          src="/images/icons/icon-chevron.svg"
+          width={24}
+          height={24}
+          alt="close scanner button"
+        />
+      </button>
     </div>
   );
 };
