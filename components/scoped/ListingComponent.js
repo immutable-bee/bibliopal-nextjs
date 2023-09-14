@@ -92,7 +92,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               title={"Upload Listings"}
             />
 
-            {isMobile && (
+            {isMobile() && (
               <div className="flex justify-center mt-3">
                 {isScannerOpen ? (
                   <MebjasScanner
