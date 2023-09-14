@@ -6,8 +6,10 @@ import ISBNSearchBox from "@/components/ISBNSearchBox";
 import ContentTable from "@/components/ContentTable";
 import BarcodeScannerWrapper from "../business/BarcodeScannerWrapper";
 import Image from "next/image";
+import useFetchBooks from "@/hooks/useFetchBooks";
 
 const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
+  const { fetchByISBN } = useFetchBooks();
   const { user, fetchUserData } = useUser();
 
   const [isAutoUpload, setIsAutoUpload] = useState(false);
@@ -26,7 +28,6 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
     console.log(bookData);
 
     if (!bookData) return;
-    setSearchValue("");
 
     return createNewRow(bookData);
   };

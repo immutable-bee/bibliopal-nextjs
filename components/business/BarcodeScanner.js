@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Quagga from "quagga";
 import NotificationContainer from "../containers/NotificationContainer";
 import Image from "next/image";
@@ -10,8 +10,8 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
   const [UploadNotifications, setUploadNotifications] = useState([]);
   const [isAutoUpload, setIsAutoUpload] = useState(false);
 
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+  const [lastScannedCode, setLastScannedCode] = useState(null);
+  const [lastScanTime, setLastScanTime] = useState(0);
 
   const initializeQuagga = () => {
     Quagga.init(
@@ -50,17 +50,34 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
       }
     );
 
-    Quagga.onDetected((data) => {
+    Quagga.onDetected(async (data) => {
       const scannedEAN13 = data.codeResult.code;
+      const currentTime = new Date().getTime();
 
-      onDetected(scannedEAN13);
-
-      setUploadNotifications([
-        ...UploadNotifications,
-
-        "Book Scanned Successfully",
-      ]);
+      if (
+        scannedEAN13 !== lastScannedCode ||
+        currentTime - lastScanTime > 5000
+      ) {
+        await onDetected(scannedEAN13);
+        setLastScannedCode(scannedEAN13);
+        setLastScanTime(currentTime);
+        setUploadNotifications([
+          ...UploadNotifications,
+          "Book Scanned Successfully",
+        ]);
+      }
     });
+  };
+
+  const stopCamera = () => {
+    if (quaggaInitialized) {
+      Quagga.offDetected();
+      Quagga.stop();
+
+      let tracks = document.querySelector("video").srcObject.getTracks();
+      tracks.forEach((track) => track.stop());
+    }
+    onClose();
   };
 
   const checkCameraDevices = async () => {
@@ -101,14 +118,7 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
 
   useEffect(() => {
     requestCameraPermission();
-
-    return () => {
-      if (quaggaInitialized) {
-        Quagga.offDetected();
-        Quagga.stop();
-      }
-    };
-  }, [onDetected]);
+  }, []);
 
   if (!hasCamera) {
     return <p>No camera available.</p>;
@@ -118,7 +128,7 @@ const BarcodeScanner = ({ onDetected, onClose }) => {
     <div className="m-0 p-0 flex justify-center w-full h-screen overflow-hidden">
       <div id="barcode-scanner" className="absolute inset-0"></div>
       <button
-        onClick={onClose}
+        onClick={stopCamera}
         className="px-3 py-3 bg-biblioSeafoam absolute top-5 left-5 rounded-full"
       >
         <Image
