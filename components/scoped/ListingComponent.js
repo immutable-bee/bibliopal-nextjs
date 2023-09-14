@@ -19,10 +19,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const [daysToExpiry, setDaysToExpiry] = useState(null);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const isProcessingScanRef = useRef(false);
-
-  const isMobile = () => {
-    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  };
+  const isMobile = useRef(false);
 
   const handleScan = async (code) => {
     if (isProcessingScanRef.current) {
@@ -79,6 +76,10 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const expiryLimit = { free: 3, basic: 7, premium: 30 };
   const maxExpiry = user ? expiryLimit[membership] : 3;
 
+  useEffect(() => {
+    isMobile.current = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  }, []);
+
   return (
     <div className="min-h-screen  bg-[#FEFBE8]">
       <Header />
@@ -92,7 +93,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               title={"Upload Listings"}
             />
 
-            {isMobile() && (
+            {isMobile.current && (
               <div className="flex justify-center mt-3">
                 {isScannerOpen ? (
                   <MebjasScanner
