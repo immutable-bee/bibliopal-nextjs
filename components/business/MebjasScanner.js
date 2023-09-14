@@ -83,11 +83,12 @@ const MebjasScanner = ({ onClose, handleScan }) => {
   }, []);
 
   useEffect(() => {
-    const element = document.getElementById(
+    const buttonElement = document.getElementById(
       `html5-qrcode-button-camera-permission`
     );
-    if (element) {
-      element.classList.add(
+    const containerElement = document.getElementById(`reader__scan_region`);
+    if (buttonElement) {
+      buttonElement.classList.add(
         `bg-biblioSeafoam`,
         `py-2`,
         `px-2`,
@@ -95,7 +96,11 @@ const MebjasScanner = ({ onClose, handleScan }) => {
         `border`,
         `border-black`
       );
-      element.textContent = `Grant Camera Access`;
+      buttonElement.textContent = `Grant Camera Access`;
+    }
+
+    if (containerElement) {
+      containerElement.classList.add(`flex`, `justify-center`);
     }
   }, []);
 
