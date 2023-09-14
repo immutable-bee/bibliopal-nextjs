@@ -78,26 +78,28 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               title={"Upload Listings"}
             />
 
-            <div className="flex justify-center mt-3">
-              {isScannerOpen ? (
-                <MebjasScanner
-                  onClose={closeCameraHandler}
-                  handleScan={handleScan}
-                />
-              ) : (
-                <button
-                  onClick={() => setIsScannerOpen(true)}
-                  className="px-2 py-2 mb-4 bg-slate-50 rounded shadow-md"
-                >
-                  <Image
-                    src="images/icons//icon-camera.svg"
-                    width={32}
-                    height={32}
-                    alt="camera upload button"
+            {isMobile() && (
+              <div className="flex justify-center mt-3">
+                {isScannerOpen ? (
+                  <MebjasScanner
+                    onClose={closeCameraHandler}
+                    handleScan={handleScan}
                   />
-                </button>
-              )}
-            </div>
+                ) : (
+                  <button
+                    onClick={() => setIsScannerOpen(true)}
+                    className="px-2 py-2 mb-4 bg-slate-50 rounded shadow-md"
+                  >
+                    <Image
+                      src="images/icons//icon-camera.svg"
+                      width={32}
+                      height={32}
+                      alt="camera upload button"
+                    />
+                  </button>
+                )}
+              </div>
+            )}
 
             <div className=" flex justify-center">
               <label className="relative mx-3 inline-flex items-center mt-4 mb-7 cursor-pointer">
