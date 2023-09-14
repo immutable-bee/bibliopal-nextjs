@@ -16,7 +16,7 @@ const MebjasScanner = ({ onClose, handleScan }) => {
   const scannerRef = useRef(null);
 
   const config = {
-    fps: 10,
+    fps: 30,
     qrbox: { width: 200, height: 125 },
     formatsToSupport: [Html5QrcodeSupportedFormats.EAN_13],
     rememberLastUsedCamera: false,
@@ -80,6 +80,23 @@ const MebjasScanner = ({ onClose, handleScan }) => {
         mutationObserver.disconnect();
       }
     };
+  }, []);
+
+  useEffect(() => {
+    const element = document.getElementById(
+      `html5-qrcode-button-camera-permission`
+    );
+    if (element) {
+      element.classList.add(
+        `bg-biblioSeafoam`,
+        `py-2`,
+        `px-2`,
+        `rounded-md`,
+        `border`,
+        `border-black`
+      );
+      element.textContent = `Grant Camera Access`;
+    }
   }, []);
 
   return (
