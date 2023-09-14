@@ -21,7 +21,7 @@ const NotificationContainer = ({
         if (setType) {
           setType(null);
         }
-      }, 3000);
+      }, 2500);
 
       return () => clearTimeout(timer);
     }

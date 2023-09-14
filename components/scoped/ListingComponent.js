@@ -8,11 +8,13 @@ import BarcodeScannerWrapper from "../business/BarcodeScannerWrapper";
 import Image from "next/image";
 import useFetchBooks from "@/hooks/useFetchBooks";
 import MebjasScanner from "../business/MebjasScanner";
+import NotificationContainer from "../containers/NotificationContainer";
 
 const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const { fetchByISBN } = useFetchBooks();
   const { user, fetchUserData } = useUser();
 
+  const [notifications, setNotifications] = useState([]);
   const [isAutoUpload, setIsAutoUpload] = useState(false);
   const [daysToExpiry, setDaysToExpiry] = useState(null);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
@@ -29,6 +31,8 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
     console.log(bookData);
 
     if (!bookData) return;
+
+    setNotifications([...notifications, `Successful Scan!`]);
 
     return createNewRow(bookData);
   };
@@ -146,6 +150,11 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
         </div>
         <ContentTable isSale={false} deleteBookRow={deleteBookRow} />
       </div>
+      <NotificationContainer
+        notifications={notifications}
+        setNotifications={setNotifications}
+        type={"barcode scanned"}
+      />
     </div>
   );
 };
