@@ -124,6 +124,9 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
       `html5-qrcode-button-camera-permission`
     );
     const containerElement = document.getElementById(`reader__scan_region`);
+
+    const selectElement = document.getElementById("html5-qrcode-select-camera");
+
     if (buttonElement) {
       buttonElement.classList.add(
         `bg-biblioSeafoam`,
@@ -138,6 +141,18 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
 
     if (containerElement) {
       containerElement.classList.add(`flex`, `justify-center`);
+    }
+
+    if (selectElement) {
+      const options = selectElement.querySelectorAll("option");
+      options.forEach((option) => {
+        if (
+          option.textContent &&
+          option.textContent.toLowerCase().includes("front")
+        ) {
+          option.remove();
+        }
+      });
     }
   }, []);
 
