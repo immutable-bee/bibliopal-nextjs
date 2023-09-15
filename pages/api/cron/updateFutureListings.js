@@ -3,6 +3,7 @@
 // If record's start date < Now, add record to listing model & delete record
 
 import { prisma } from "../../../db/prismaDB";
+import * as notify from "../notifier/notify";
 
 const handler = async (req, res) => {
   let currentDate = new Date();
@@ -59,6 +60,7 @@ const handler = async (req, res) => {
       .status(200)
       .json({ message: "Successfully converted FutureListings to Listings" });
   } catch (error) {
+    notify.error(error);
     res.status(500).json({ message: "Server error: " + error.message });
   }
 };

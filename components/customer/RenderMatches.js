@@ -1,6 +1,7 @@
 import saveListing from "../../utils/saveListing";
 import unsaveListing from "../../utils/unsaveListing";
 import BookSaleTooltip from "./BookSaleTooltip";
+import * as notify from "../../pages/api/notifier/notify";
 
 const RenderMatches = ({
   matches,
@@ -14,14 +15,18 @@ const RenderMatches = ({
     try {
       await saveListing(consumerId, listingId);
       await refreshSaved(consumerId);
-    } catch (error) {}
+    } catch (error) {
+      notify.error(error)
+    }
   };
 
   const unsaveAndRefresh = async (listingId) => {
     try {
       await unsaveListing(consumerId, listingId);
       await refreshSaved(consumerId);
-    } catch (error) {}
+    } catch (error) {
+      notify.error(error)
+    }
   };
 
   const savedIconHandler = (listingId) => {

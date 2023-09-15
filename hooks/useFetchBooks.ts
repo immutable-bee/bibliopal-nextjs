@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { SetError } from "@/pages/business";
+import * as notify from "@/pages/api/notifier/notify";
 
 interface Book {
   title: string;
@@ -49,6 +50,7 @@ const useFetchBooks = () => {
       setBook(extracetdData);
       return extracetdData;
     } catch (err) {
+      notify.error(err);
       setError && setError("Book not found");
       console.error(err);
       throw new Error("An error occured");

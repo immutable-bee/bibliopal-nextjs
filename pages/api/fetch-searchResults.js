@@ -1,4 +1,5 @@
 import { prisma } from "../../db/prismaDB";
+import * as notify from "./notifier/notify";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
@@ -41,6 +42,7 @@ const handler = async (req, res) => {
       });
       res.status(200).json(searchResults);
     } catch (error) {
+      notify.error(error);
       res.status(500).json({ message: error.message });
     }
   } else {

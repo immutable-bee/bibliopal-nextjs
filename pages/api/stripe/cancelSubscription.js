@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import * as notify from "../notifier/notify";
 
 const isStripeLive = true;
 
@@ -26,6 +27,7 @@ const handler = async (req, res) => {
 
     res.status(200).json(subscription);
   } catch (error) {
+    notify.error(error);
     res.status(500).json({ error: error.message });
   }
 };

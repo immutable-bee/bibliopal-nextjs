@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import { useState } from "react";
 import ButtonComponent from "@/components/utility/Button";
 import { Loading } from "@nextui-org/react";
+import * as notify from "../pages/api/notifier/notify";
 const BookSale = ({ refreshUserData }) => {
   const [useDefaultAddress, setUseDefaultAddress] = useState(true);
   const [formData, setFormData] = useState();
@@ -36,6 +37,7 @@ const BookSale = ({ refreshUserData }) => {
       refreshUserData();
       setLoading(false);
     } catch (error) {
+      notify.error(error)
       setLoading(false);
     }
   };

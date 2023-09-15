@@ -4,6 +4,7 @@ import { capitalizeFirstLetter } from "../../../utils/stringManipulation";
 import { Loading } from "@nextui-org/react";
 import Link from "next/link";
 import Image from "next/image";
+import * as notify from "@/pages/api/notifier/notify";
 
 const ManageSubscriptionModal = ({
   user,
@@ -107,6 +108,7 @@ const ManageSubscriptionModal = ({
       await fetchSubscriptionData();
       onClose();
     } catch (error) {
+      notify.error(error)
       console.error("Failed to resume subscription:", error.message);
       setLoading(false);
     }
@@ -136,6 +138,7 @@ const ManageSubscriptionModal = ({
       await fetchSubscriptionData();
       onClose();
     } catch (error) {
+      notify.error(error)
       console.error("Failed to cancel subscription:", error.message);
       setLoading(false);
     }
