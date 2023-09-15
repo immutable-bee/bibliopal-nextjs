@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import * as notify from "../../notifier/notify";
 
 const isStripeLive = true;
 
@@ -50,8 +51,8 @@ const handler = async (req, res) => {
 
     return res.status(200).json(responseData);
   } catch (error) {
+    notify.error(error);
     console.error("Error fetching subscription:", error);
-
     if (error.type === "StripeInvalidRequestError") {
       return res.status(400).json({ error: "Error: Invalid subscription ID" });
     }

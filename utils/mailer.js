@@ -1,4 +1,5 @@
 import { createTransport } from "nodemailer";
+import * as notify from "../pages/api/notifier/notify";
 
 let transporter = createTransport({
   host: process.env.EMAIL_SERVER_HOST,
@@ -22,6 +23,7 @@ export default async function sendMail(to, subject, html) {
 
     return info;
   } catch (error) {
+    notify.error(error);
     console.error("Failed to send email:", error);
     throw error;
   }

@@ -1,6 +1,7 @@
 import { prisma } from "../../db/prismaDB";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth/[...nextauth]";
+import * as notify from "./notifier/notify";
 
 const handler = async (req, res) => {
   const session = await getServerSession(req, res, authOptions);
@@ -27,6 +28,7 @@ const handler = async (req, res) => {
       .status(200)
       .json({ message: `Business record added with id: ${business.id}` });
   } catch (err) {
+    notify.error(err);
     res.status(500).json({ Error: err.message });
   }
 };

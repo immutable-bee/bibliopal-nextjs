@@ -1,6 +1,7 @@
 import { prisma } from "../../../db/prismaDB";
 import { sendNewMatchEmail } from "../../../services/emailService";
 import { verifySignature } from "@upstash/qstash/nextjs";
+import * as notify from "../notifier/notify";
 
 export const config = {
   api: {
@@ -91,6 +92,7 @@ const handler = async (req, res) => {
       .status(200)
       .json({ message: "Processed matches and sent notifications." });
   } catch (error) {
+    notify.error(error);
     console.error("Error occurred:", error);
     res.status(500).json({ message: `Server Error: ${error.message}` });
   }

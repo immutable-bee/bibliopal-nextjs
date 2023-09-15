@@ -1,4 +1,5 @@
 import { prisma } from "../../../db/prismaDB";
+import * as notify from "../notifier/notify";
 
 const handler = async (req, res) => {
   if (req.method !== "POST") {
@@ -20,6 +21,7 @@ const handler = async (req, res) => {
       message: `Listing: ${listingId}, unsaved by Consumer: ${consumerId} `,
     });
   } catch (error) {
+    notify.error(error);
     res.status(500).json({ message: error.message });
   }
 };

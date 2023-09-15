@@ -5,6 +5,7 @@ import OnboardingForm from "../OnboardingForm";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useUser } from "../../context/UserContext";
+import * as notify from "../../pages/api/notifier/notify";
 
 const OnboardingContainer = () => {
   const router = useRouter();
@@ -60,6 +61,7 @@ const OnboardingContainer = () => {
       setIsOnboardingCompleted(true);
     } catch (err) {
       console.error(err);
+      notify.error(err)
       await fetchUserData();
       setLoading(false);
     }
