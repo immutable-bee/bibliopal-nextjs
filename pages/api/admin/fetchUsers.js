@@ -5,9 +5,14 @@ import { authOptions } from "../auth/[...nextauth]";
 const handler = async (req, res) => {
   const session = await getServerSession(req, res, authOptions);
 
-  if (session.user.email !== "neurogoop@gmail.com" || "nate@bibliopal.com") {
+  if (
+    session.user.email !== "neurogoop@gmail.com" &&
+    session.user.email !== "nate@bibliopal.com"
+  ) {
     return res.status(403).json({ message: "User does not have permission" });
   }
+
+  console.log(session.user.email);
 
   try {
     const users = await prisma.business.findMany({});
