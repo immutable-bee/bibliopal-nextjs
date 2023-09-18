@@ -151,6 +151,7 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
             "html5-qrcode-select-camera"
           );
 
+          /*
           const startCameraButton = document.getElementById(
             "html5-qrcode-button-camera-start"
           );
@@ -158,9 +159,8 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
           const divElement = document.getElementById(
             "reader__dashboard_section_csr"
           );
-
+          */
           if (selectElement) {
-            selectElement.remove();
             const options = selectElement.querySelectorAll("option");
             options.forEach((option) => {
               if (
