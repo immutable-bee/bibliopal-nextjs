@@ -8,7 +8,6 @@ import { useEffect, useRef, useState } from "react";
 
 const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
   const [isVideoPresent, setIsVideoPresent] = useState(false);
-  const [isCameraSelectVisible, setIsCameraSelectVisible] = useState(false);
   const canScan = useRef(true);
 
   const checkVideoPresence = () => {
@@ -171,8 +170,8 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
                 option.remove();
               }
             });
-            selectElement.selectedIndex = 0;
           }
+          /*
 
           if (divElement) {
             const spans = divElement.querySelectorAll("span");
@@ -187,6 +186,7 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
             startCameraButton.click();
             observer.disconnect();
           }
+          */
         }
       });
     });
@@ -198,17 +198,12 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
     };
   }, []);
 
-  const handleBackButton = () => {
-    setIsCameraSelectVisible(false);
-    onClose();
-  };
-
   return (
     <div className="w-full">
       <div className="w-full" id="reader"></div>
 
       <button
-        onClick={handleBackButton}
+        onClick={onClose}
         className="relative bottom-3/4 left-3 py-2 px-2 bg-biblioSeafoam rounded-full"
       >
         <Image
