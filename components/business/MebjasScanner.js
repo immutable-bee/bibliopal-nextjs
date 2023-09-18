@@ -175,9 +175,12 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
           }
 
           if (divElement) {
-            const firstSpan = divElement.querySelector("span");
-            if (firstSpan) {
-            }
+            const spans = divElement.querySelectorAll("span");
+            spans.forEach((span) => {
+              if (span.textContent.includes("Select Camera")) {
+                span.remove();
+              }
+            });
           }
 
           if (startCameraButton) {
