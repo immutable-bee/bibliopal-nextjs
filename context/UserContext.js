@@ -13,6 +13,7 @@ const ACCESS_RULES = {
     "/business/profile",
     "/business/uploadlistings",
     "/business/uploadlistings/future",
+    "/admin",
   ],
 };
 
