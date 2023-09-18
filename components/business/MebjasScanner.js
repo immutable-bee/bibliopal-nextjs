@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 
 const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
   const [isVideoPresent, setIsVideoPresent] = useState(false);
+  const [isCameraSelectVisible, setIsCameraSelectVisible] = useState(false);
   const canScan = useRef(true);
 
   const checkVideoPresence = () => {
@@ -41,11 +42,7 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
   };
 
   const instantiateScanner = () => {
-    const newScanner = new Html5QrcodeScanner(
-      "reader",
-      config,
-      /* verbose= */ false
-    );
+    const newScanner = new Html5QrcodeScanner("reader", config);
     scannerRef.current = newScanner;
   };
 
@@ -109,11 +106,7 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
     });
 
     if (scannerRef.current) {
-      scannerRef.current.render(
-        onScanSuccess,
-        onScanFailure,
-        /* facingMode */ "environment"
-      );
+      scannerRef.current.render(onScanSuccess, onScanFailure);
     }
 
     return () => {
@@ -125,28 +118,15 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
   }, []);
 
   useEffect(() => {
-    const buttonElement = document.getElementById(
-      `html5-qrcode-button-camera-permission`
-    );
     const containerElement = document.getElementById(`reader__scan_region`);
-
-    const selectElement = document.getElementById("html5-qrcode-select-camera");
-
-    if (buttonElement) {
-      buttonElement.classList.add(
-        `bg-biblioSeafoam`,
-        `py-2`,
-        `px-2`,
-        `rounded-md`,
-        `border`,
-        `border-black`
-      );
-      buttonElement.textContent = `Grant Camera Access`;
-    }
 
     if (containerElement) {
       containerElement.classList.add(`flex`, `justify-center`);
     }
+  }, []);
+
+  useEffect(() => {
+    const selectElement = document.getElementById("html5-qrcode-select-camera");
 
     if (selectElement) {
       const options = selectElement.querySelectorAll("option");
@@ -159,14 +139,50 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
         }
       });
     }
+  }, [isCameraSelectVisible]);
+
+  useEffect(() => {
+    const observeForButton = () => {
+      const buttonElement = document.getElementById(
+        `html5-qrcode-button-camera-permission`
+      );
+      if (buttonElement) {
+        buttonElement.addEventListener("click", setIsCameraSelectVisible(true));
+
+        buttonElement.classList.add(
+          `bg-biblioSeafoam`,
+          `py-2`,
+          `px-2`,
+          `rounded-md`,
+          `border`,
+          `border-black`
+        );
+        buttonElement.textContent = `Grant Camera Access`;
+
+        observer.disconnect();
+      }
+    };
+
+    const observer = new MutationObserver(observeForButton);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      // Cleanup - disconnect the observer
+      observer.disconnect();
+    };
   }, []);
+
+  const handleBackButton = () => {
+    setIsCameraSelectVisible(false);
+    onClose();
+  };
 
   return (
     <div className="w-full">
       <div className="w-full" id="reader"></div>
 
       <button
-        onClick={onClose}
+        onClick={handleBackButton}
         className="relative bottom-3/4 left-3 py-2 px-2 bg-biblioSeafoam rounded-full"
       >
         <Image
