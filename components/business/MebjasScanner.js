@@ -37,6 +37,7 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
     formatsToSupport: [Html5QrcodeSupportedFormats.EAN_13],
     rememberLastUsedCamera: false,
     supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+    cameraFacingMode: "environment",
   };
 
   const instantiateScanner = () => {
@@ -108,7 +109,11 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
     });
 
     if (scannerRef.current) {
-      scannerRef.current.render(onScanSuccess, onScanFailure);
+      scannerRef.current.render(
+        onScanSuccess,
+        onScanFailure,
+        /* facingMode */ "environment"
+      );
     }
 
     return () => {
