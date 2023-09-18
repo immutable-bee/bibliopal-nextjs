@@ -157,6 +157,7 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
           );
 
           if (selectElement) {
+            selectElement.remove();
             const options = selectElement.querySelectorAll("option");
             options.forEach((option) => {
               if (
@@ -167,11 +168,12 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
               }
             });
           }
-
+          /*
           if (startCameraButton) {
             startCameraButton.click();
             observer.disconnect;
           }
+          */
         }
       });
     });
