@@ -155,11 +155,11 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
           const startCameraButton = document.getElementById(
             "html5-qrcode-button-camera-start"
           );
-
+*/
           const divElement = document.getElementById(
             "reader__dashboard_section_csr"
           );
-          */
+
           if (selectElement) {
             const options = selectElement.querySelectorAll("option");
             options.forEach((option) => {
@@ -171,7 +171,6 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
               }
             });
           }
-          /*
 
           if (divElement) {
             const spans = divElement.querySelectorAll("span");
@@ -181,7 +180,7 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
               }
             });
           }
-
+          /*
           if (startCameraButton) {
             startCameraButton.click();
             observer.disconnect();
