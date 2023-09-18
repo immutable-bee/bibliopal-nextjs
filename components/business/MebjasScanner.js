@@ -176,7 +176,7 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
             const spans = divElement.querySelectorAll("span");
             spans.forEach((span) => {
               if (span.textContent.includes("Select Camera")) {
-                span.textContent = "Select Camera";
+                // span.textContent = "Select Camera";
               }
             });
           }
