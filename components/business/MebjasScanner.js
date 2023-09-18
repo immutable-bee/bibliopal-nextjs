@@ -156,6 +156,10 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
             "html5-qrcode-button-camera-start"
           );
 
+          const divElement = document.getElementById(
+            "reader__dashboard_section_csr"
+          );
+
           if (selectElement) {
             selectElement.remove();
             const options = selectElement.querySelectorAll("option");
@@ -168,6 +172,13 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
               }
             });
             selectElement.selectedIndex = 0;
+          }
+
+          if (divElement) {
+            const firstSpan = divElement.querySelector("span");
+            if (firstSpan) {
+              firstSpan.remove();
+            }
           }
 
           if (startCameraButton) {
