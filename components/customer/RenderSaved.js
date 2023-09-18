@@ -1,6 +1,7 @@
 import TooltipComponent from "../utility/Tooltip";
 import unsaveListing from "../../utils/unsaveListing";
 import BookSaleTooltip from "./BookSaleTooltip";
+import * as notify from "../../pages/api/notifier/notify";
 
 const RenderSaved = ({
   arrayToMap,
@@ -12,7 +13,9 @@ const RenderSaved = ({
     try {
       await unsaveListing(consumerId, listingId);
       await refreshSaved(consumerId);
-    } catch (error) { }
+    } catch (error) {
+      notify.error(error);
+    }
   };
 
   return (
@@ -20,7 +23,7 @@ const RenderSaved = ({
       {arrayToMap.map((data, i) => {
         return (
           <div
-            style={{ boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)' }}
+            style={{ boxShadow: "0 0 15px rgba(0, 0, 0, 0.1)" }}
             className="px-4 py-4 relative rounded-3xl border sm:mx-3 sm:my-3 my-5 w-full sm:w-96"
             key={data.id}
           >

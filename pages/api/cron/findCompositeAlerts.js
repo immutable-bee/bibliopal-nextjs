@@ -1,5 +1,6 @@
 import { prisma } from "../../../db/prismaDB";
 import { verifySignature } from "@upstash/qstash/nextjs";
+import * as notify from "../notifier/notify";
 
 export const config = {
   api: {
@@ -120,6 +121,7 @@ const handler = async (req, res) => {
 
     res.status(200).json({ message: "Composite matches updated successfully" });
   } catch (error) {
+    notify.error(error);
     console.log(error.message);
     res.status(500).json({ message: error.message });
   }

@@ -1,6 +1,7 @@
 import { prisma } from "../../../db/prismaDB";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
+import * as notify from "../notifier/notify";
 
 const handler = async (req, res) => {
   const session = await getServerSession(req, res, authOptions);
@@ -26,6 +27,7 @@ const handler = async (req, res) => {
     });
     res.status(200).json({ message: "Listings created successfully" });
   } catch (error) {
+    notify.error(error);
     res.status(500).json({ message: "An error occured: " + error.message });
   }
 };

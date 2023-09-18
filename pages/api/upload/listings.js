@@ -1,5 +1,6 @@
 import { prisma } from "../../../db/prismaDB";
 import uploadLimitChecker from "../middleware/uploadLimitChecker";
+import * as notify from "../notifier/notify";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
@@ -35,6 +36,7 @@ const handler = async (req, res) => {
 
       res.status(200).json({ message: "Listings created successfully" });
     } catch (error) {
+      notify.error(error);
       res.status(500).json({
         message: "An error occured while uploading listings: " + error.message,
       });

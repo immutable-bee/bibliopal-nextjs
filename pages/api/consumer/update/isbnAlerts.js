@@ -1,4 +1,5 @@
 import { prisma } from "../../../../db/prismaDB";
+import * as notify from "../../notifier/notify";
 
 const handler = async (req, res) => {
   const { email, isbn, type } = req.body;
@@ -16,6 +17,7 @@ const handler = async (req, res) => {
       },
     });
   } catch (error) {
+    notify.error(error);
     return res.status(500).json({ message: "Error fetching consumer." });
   }
 
@@ -35,6 +37,7 @@ const handler = async (req, res) => {
 
         res.status(200).json({ message: "ISBN added successfully" });
       } catch (error) {
+        notify.error(error);
         res.status(500).json({ message: error.message });
       }
       break;
@@ -52,6 +55,7 @@ const handler = async (req, res) => {
 
         res.status(200).json({ deleteAlert });
       } catch (error) {
+        notify.error(error);
         res.status(500).json({ message: error.message });
       }
       break;

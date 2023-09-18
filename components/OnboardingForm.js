@@ -2,6 +2,7 @@ import { useState } from "react";
 import AuthContainer from "./containers/AuthContainer";
 import Image from "next/image";
 import { Checkbox, Input, Button, Modal } from "@nextui-org/react";
+import * as notify from "../pages/api/notifier/notify";
 
 const stateOptions = [
   { key: "al", value: "AL", text: "Alabama" },
@@ -220,6 +221,7 @@ const OnboardingForm = ({ isCompleteHandler, loadingHandler }) => {
       loadingHandler(false);
       isCompleteHandler();
     } catch (err) {
+      notify.error(err)
       console.error(err);
       loadingHandler(false);
     }

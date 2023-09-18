@@ -1,3 +1,5 @@
+import * as notify from "@/pages/api/notifier/notify";
+
 const handler = async (req, res) => {
   const { isbn } = req.query;
   const url = `https://api2.isbndb.com/book/${isbn}`;
@@ -19,6 +21,7 @@ const handler = async (req, res) => {
       throw new Error("Book not found");
     }
   } catch (error) {
+    notify.error(error);
     console.log("error in fetching:", error);
     res.status(500).json({ message: error.message });
   }

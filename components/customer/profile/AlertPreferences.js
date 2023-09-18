@@ -1,5 +1,6 @@
 import TooltipComponent from "@/components/utility/Tooltip";
 import { useEffect, useState } from "react";
+import * as notify from "../../../pages/api/notifier/notify";
 
 const AlertPreferences = ({ props }) => {
   const [isEmailAlertsActive, setIsEmailAlertsActive] = useState(true);
@@ -34,6 +35,7 @@ const AlertPreferences = ({ props }) => {
       }
     } catch (error) {
       console.error(error.message);
+      notify.error(error);
     }
   };
 
@@ -59,6 +61,7 @@ const AlertPreferences = ({ props }) => {
       }
     } catch (error) {
       console.error(error.message);
+      notify.error(error);
     }
   };
 
