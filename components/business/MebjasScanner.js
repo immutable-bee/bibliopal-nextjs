@@ -147,7 +147,9 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
         `html5-qrcode-button-camera-permission`
       );
       if (buttonElement) {
-        buttonElement.addEventListener("click", setIsCameraSelectVisible(true));
+        buttonElement.addEventListener("click", () =>
+          setIsCameraSelectVisible(true)
+        );
 
         buttonElement.classList.add(
           `bg-biblioSeafoam`,
