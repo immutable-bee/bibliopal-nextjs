@@ -5,6 +5,7 @@ import ProfileUpdatedNotifcation from "../notifications/ProfileUpdatedNotificati
 import SubscribedNotification from "../notifications/SubscribedNotification";
 import SubscriptionResumedNotification from "../notifications/SubscriptionResumedNotification";
 import SubscriptionCanceledNotification from "../notifications/SubscriptionCanceledNotification";
+import BarcodeScannedNotification from "../notifications/BarcodeScannedNotification";
 import { useState, useEffect } from "react";
 
 const NotificationContainer = ({
@@ -20,7 +21,7 @@ const NotificationContainer = ({
         if (setType) {
           setType(null);
         }
-      }, 3000);
+      }, 2500);
 
       return () => clearTimeout(timer);
     }
@@ -87,6 +88,16 @@ const NotificationContainer = ({
       <div className="fixed bottom-4 right-4 space-y-2">
         {notifications.map((notification, index) => (
           <ProfileUpdatedNotifcation key={index} message={notification} />
+        ))}
+      </div>
+    );
+  }
+
+  if (type === "barcode scanned") {
+    return (
+      <div className="fixed bottom-4 right-4 space-y-2">
+        {notifications.map((notification, index) => (
+          <BarcodeScannedNotification key={index} message={notification} />
         ))}
       </div>
     );

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useFetchBooks from "../hooks/useFetchBooks";
 import { ErrorT, SetError } from "../pages/business/index";
 import Image from "next/image";
@@ -60,10 +60,10 @@ const ISBNSearchBox = ({
       <h1 className="text-gray-900 text-2xl sm:text-3xl sm:text-center font-bold">
         {title}
       </h1>
-      <div className="pt-10">
+      <div className="pt-5">
         <div className="flex flex-row">
           <div className="sm:flex items-center">
-            <label className="text-2xl block sm:inline-block text-black font-bold">
+            <label className="md:text-2xl block sm:inline-block text-black font-bold">
               EAN
             </label>
             <input
@@ -72,12 +72,12 @@ const ISBNSearchBox = ({
               onChange={handleChange}
               onKeyDown={handlePress}
               type="url"
-              className="bg-white sm:ml-3 w-80 focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-300  rounded-lg  px-4 my-1 py-3.5"
+              className="bg-white md:ml-5 ml-10 md:w-80  focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-300  rounded-lg  px-4 my-1 py-3.5"
             />
             <button
               onClick={fetchButtonHandler}
               disabled={searchValue ? false : true}
-              className={`ml-2 px-2 py-2 bg-${fetchButtonColor} rounded-full`}
+              className={`md:ml-2 ml-5 px-2 py-2 bg-${fetchButtonColor} rounded-full`}
             >
               <Image
                 src={"/images/icons/icon-arrowRight.svg"}
