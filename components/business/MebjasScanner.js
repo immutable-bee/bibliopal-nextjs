@@ -126,50 +126,52 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
   }, []);
 
   useEffect(() => {
-    const selectElement = document.getElementById("html5-qrcode-select-camera");
-
-    if (selectElement) {
-      const options = selectElement.querySelectorAll("option");
-      options.forEach((option) => {
-        if (
-          option.textContent &&
-          option.textContent.toLowerCase().includes("front")
-        ) {
-          option.remove();
-        }
-      });
+    const buttonElement = document.getElementById(
+      `html5-qrcode-button-camera-permission`
+    );
+    if (buttonElement) {
+      buttonElement.classList.add(
+        `bg-biblioSeafoam`,
+        `py-2`,
+        `px-2`,
+        `rounded-md`,
+        `border`,
+        `border-black`
+      );
+      buttonElement.textContent = `Grant Camera Access`;
     }
-  }, [isCameraSelectVisible]);
+  }, []);
 
   useEffect(() => {
-    const observeForButton = () => {
-      const buttonElement = document.getElementById(
-        `html5-qrcode-button-camera-permission`
-      );
-      if (buttonElement) {
-        buttonElement.addEventListener("click", () =>
-          setIsCameraSelectVisible(true)
-        );
+    const container = document.getElementById("reader");
 
-        buttonElement.classList.add(
-          `bg-biblioSeafoam`,
-          `py-2`,
-          `px-2`,
-          `rounded-md`,
-          `border`,
-          `border-black`
-        );
-        buttonElement.textContent = `Grant Camera Access`;
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.addedNodes.length) {
+          const selectElement = document.getElementById(
+            "html5-qrcode-select-camera"
+          );
 
-        observer.disconnect();
-      }
-    };
+          if (selectElement) {
+            const options = selectElement.querySelectorAll("option");
+            options.forEach((option) => {
+              if (
+                option.textContent &&
+                option.textContent.toLowerCase().includes("front")
+              ) {
+                option.remove();
+              }
+            });
 
-    const observer = new MutationObserver(observeForButton);
-    observer.observe(document.body, { childList: true, subtree: true });
+            observer.disconnect();
+          }
+        }
+      });
+    });
+
+    observer.observe(container, { childList: true, subtree: true });
 
     return () => {
-      // Cleanup - disconnect the observer
       observer.disconnect();
     };
   }, []);
