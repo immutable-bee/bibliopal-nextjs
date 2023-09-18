@@ -177,7 +177,6 @@ const MebjasScanner = ({ onClose, handleScan, isProcessingScan }) => {
           if (divElement) {
             const firstSpan = divElement.querySelector("span");
             if (firstSpan) {
-              firstSpan.remove();
             }
           }
 
