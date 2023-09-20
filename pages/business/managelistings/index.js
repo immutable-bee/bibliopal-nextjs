@@ -1,4 +1,4 @@
-import { Loading } from "@nextui-org/react";
+import { Loading, Checkbox } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import { ActionIcon } from "@mantine/core";
@@ -75,6 +75,10 @@ const TableHead = () => {
       <tr>
         <th
           scope="col"
+          className=" border-2 border-[rgb(222, 226, 230)] px-4 py-3"
+        ></th>
+        <th
+          scope="col"
           className=" border-2 border-[rgb(222, 226, 230)] px-6 py-3"
         >
           Title
@@ -106,13 +110,21 @@ const TableHead = () => {
   );
 };
 
-const TableBody = ({ listings, deleteListing }) => {
+const TableBody = ({ listings, deleteListing, handleSelect }) => {
   const handleDelete = (ISBN) => deleteListing(ISBN);
 
   return (
     <tbody className="border-2 text-gray-700 text-xs sm:text-sm font-light border-[rgb(222, 226, 230)]">
       {listings.map((row) => (
         <tr className=" border-b  " key={row.isbn}>
+          <td className=" border-2 border-[rgb(222, 226, 230)]  py-4 font-medium text-gray-900 whitespace-nowrap ">
+            <div className="flex justify-center">
+              <Checkbox
+                size={"lg"}
+                onChange={(checked) => handleSelect(row.id, checked)}
+              />
+            </div>
+          </td>
           <td className="border-2 border-[rgb(222, 226, 230)] px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
             {row?.title}
           </td>
@@ -143,6 +155,8 @@ const ManageListings = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("title");
 
+  const [selected, setSelected] = useState([]);
+
   const filteredListings = listings.filter((listing) => {
     if (!searchTerm) return true;
 
@@ -155,6 +169,33 @@ const ManageListings = () => {
         return true;
     }
   });
+
+  const handleSelect = (id, checked) => {
+    if (checked) {
+      setSelected((prevSelected) => [...prevSelected, id]);
+    } else {
+      setSelected((prevSelected) =>
+        prevSelected.filter((itemId) => itemId !== id)
+      );
+    }
+  };
+
+  const batchDelete = async () => {
+    const response = await fetch("/api/business/batchDelete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ listingIds: selected }),
+    });
+    if (!response.ok) {
+      return;
+    }
+
+    const data = await response.json();
+    await fetchListings();
+    return data;
+  };
 
   const deleteListing = async (id) => {
     const response = await fetch("/api/business/deleteListing", {
@@ -219,12 +260,21 @@ const ManageListings = () => {
                   setFilter={setFilter}
                 />
               </div>
+              {selected.length > 0 && (
+                <button
+                  onClick={batchDelete}
+                  className="ml-5 py-3 w-1/6 rounded-md  bg-biblioSeafoam border border-black"
+                >
+                  Delete Selected Listings
+                </button>
+              )}
               <div className="relative mx-10 mt-6 overflow-x-auto">
                 <table className="w-full rounded-lg border-2 border-[rgb(222, 226, 230)]  text-sm text-left text-gray-500 ">
                   <TableHead />
                   <TableBody
                     listings={filteredListings}
                     deleteListing={deleteListing}
+                    handleSelect={handleSelect}
                   />
                 </table>
               </div>
