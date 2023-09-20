@@ -170,6 +170,7 @@ const ManageListings = () => {
     }
 
     const data = await response.json();
+    await fetchListings();
     return data;
   };
 
