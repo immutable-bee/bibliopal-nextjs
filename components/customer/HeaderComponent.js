@@ -65,7 +65,7 @@ const HeaderComponent = () => {
             />
           </div>
           <span className="!ml-3 hidden sm:block text-black font-semibold text-lg">
-            {user?.consumer.username ? `Hi, ${user.consumer.username}!` : ""}
+            {user?.consumer?.username ? `Hi, ${user.consumer.username}!` : ""}
           </span>
         </Link>
       </div>
