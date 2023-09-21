@@ -33,10 +33,10 @@ const BarcodeScanner = ({
     supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
   };
 
-  const qrCodeSuccessCallback = async (decodedText, decodedResult) => {
+  const qrCodeSuccessCallback = (decodedText, decodedResult) => {
     console.log(decodedText);
     scanner.current.pause(true);
-    await handleScan(decodedText);
+    handleScan(decodedText);
     setTimeout(() => scanner.current.resume(), 1000);
   };
 
