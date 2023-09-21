@@ -261,24 +261,20 @@ const Home = () => {
                                 {data.author}
                               </p>
 
-                              <div className="flex ">
-                                <div className="w-3/4">
-                                  <p className=" w-full text-gray-800 text-base leading-5">
-                                    {data?.owner?.business_name}
-                                  </p>
+                              <div className="flex flex-col">
+                                <p className=" w-full text-gray-800 text-base leading-5">
+                                  {data?.owner?.business_name}
+                                </p>
 
-                                  <label className="text-gray-500 text-base">
-                                    Zip Code: {data?.owner?.business_zip}
-                                  </label>
-                                </div>
-                                <div>
-                                  <a
-                                    href={`consumer/store?storeId=${data?.owner?.id}`}
-                                    className="w-1/4 text-sky-500 text-sm "
-                                  >
-                                    View Store
-                                  </a>
-                                </div>
+                                <label className="text-gray-500 text-base">
+                                  Zip Code: {data?.owner?.business_zip}
+                                </label>
+                                <a
+                                  href={`consumer/store?storeId=${data?.owner?.id}`}
+                                  className="pt-1 text-sky-500 text-sm "
+                                >
+                                  View Store
+                                </a>
                               </div>
 
                               <h6 className="text-sm absolute bottom-3 right-3 text-gray-500 text-right">
