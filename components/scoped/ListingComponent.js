@@ -5,6 +5,7 @@ import Actions from "@/components/Actions";
 import ISBNSearchBox from "@/components/ISBNSearchBox";
 import ContentTable from "@/components/ContentTable";
 import BarcodeScannerWrapper from "../business/BarcodeScannerWrapper";
+import BarcodeScanner from "../business/BarcodeScanner";
 import Image from "next/image";
 import useFetchBooks from "@/hooks/useFetchBooks";
 import MebjasScanner from "../business/MebjasScanner";
@@ -15,26 +16,27 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const { user, fetchUserData } = useUser();
 
   const [notifications, setNotifications] = useState([]);
+  const [scanNotifications, setScanNotifications] = useState([]);
   const [isAutoUpload, setIsAutoUpload] = useState(false);
   const [daysToExpiry, setDaysToExpiry] = useState(null);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
-  const isProcessingScanRef = useRef(false);
+
   const isMobile = useRef(false);
 
+  const addScanNotification = (notification) => {
+    setNotifications((prevNotifications) => [
+      notification,
+      ...prevNotifications,
+    ]);
+  };
+
   const handleScan = async (code) => {
-    if (isProcessingScanRef.current) {
-      return;
-    }
-    isProcessingScanRef.current = true;
     console.log("Detected barcode:", code);
     const bookData = await fetchByISBN(code, true, setError);
 
     console.log(bookData);
 
     if (!bookData) {
-      setTimeout(() => {
-        isProcessingScanRef.current = false;
-      }, 1000);
       return;
     }
 
@@ -42,7 +44,6 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
 
     setTimeout(() => {
       createNewRow(bookData);
-      isProcessingScanRef.current = false;
     }, 1000);
 
     return;
@@ -93,13 +94,14 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               title={"Upload Listings"}
             />
 
-            {isMobile.current && (
+            {true && (
               <div className="flex justify-center mt-3">
                 {isScannerOpen ? (
-                  <MebjasScanner
+                  <BarcodeScanner
                     onClose={closeCameraHandler}
                     handleScan={handleScan}
-                    isProcessingScan={isProcessingScanRef}
+                    notifications={scanNotifications}
+                    setNotifications={setScanNotifications}
                   />
                 ) : (
                   <button
