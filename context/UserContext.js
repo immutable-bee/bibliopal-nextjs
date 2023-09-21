@@ -12,6 +12,7 @@ const ACCESS_RULES = {
     "/consumer/profile",
     "/consumer/matches",
     "/consumer/store",
+    "/test",
   ],
   business: [
     "/business",
@@ -21,6 +22,7 @@ const ACCESS_RULES = {
     "/business/managelistings",
     "/admin",
     "/consumer/store",
+    "/test",
   ],
 };
 
