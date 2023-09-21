@@ -222,57 +222,59 @@ const StorePage = () => {
     <div className="bg-[#FEFBE8] min-h-screen">
       <HeaderComponent />
       {loading ? (
-        <div>
-          <Loading />
+        <div className="mt-10 flex justify-center">
+          <Loading size={"lg"} />
         </div>
       ) : !storeData ? (
         <h6>No store found</h6>
       ) : (
         <div>
-          {storeListings.length > 0 ? (
-            <div className="border-t border-black">
-              <div className="flex pt-10 pb-5 justify-center gap-4 border-b border-dashed border-black">
-                <div>
-                  <Image
-                    width={150}
-                    height={150}
-                    src={"/images/bookstore-img.svg"}
-                    alt={"Bookstore Image"}
-                    className="!h-full"
-                  />
-                </div>
-                <div className="flex flex-col ">
-                  <h6 className="text-lg font-semibold pb-2">
-                    {storeData.business_name}
-                  </h6>
-                  <h6>
-                    {storeData.business_street}, {storeData.business_city}
-                  </h6>
-                  <h6 className="pb-3">
-                    {storeData.business_state}, {storeData.business_zip}
-                  </h6>
-                  {storeData.url && (
-                    <a
-                      href={`https://${storeData.url}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sky-500"
-                    >
-                      {" "}
-                      {storeData.url}
-                    </a>
-                  )}
-                  <h6></h6>
-                </div>
+          <div className="">
+            <div className="flex pt-10 pb-5 justify-center gap-4 border-b  border-black">
+              <div>
+                <Image
+                  width={150}
+                  height={150}
+                  src={"/images/bookstore-img.svg"}
+                  alt={"Bookstore Image"}
+                  className="!h-full"
+                />
               </div>
-              <ListingCards
-                listings={storeListings}
-                saveButtonHandler={saveButtonHandler}
-                savedIconHandler={savedIconHandler}
-              />
+              <div className="flex flex-col ">
+                <h6 className="text-lg font-semibold pb-2">
+                  {storeData.business_name}
+                </h6>
+                <h6>
+                  {storeData.business_street}, {storeData.business_city}
+                </h6>
+                <h6 className="pb-3">
+                  {storeData.business_state}, {storeData.business_zip}
+                </h6>
+                {storeData.url && (
+                  <a
+                    href={`https://${storeData.url}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sky-500"
+                  >
+                    {" "}
+                    {storeData.url}
+                  </a>
+                )}
+                <h6></h6>
+              </div>
             </div>
+          </div>
+          {storeListings.length > 0 ? (
+            <ListingCards
+              listings={storeListings}
+              saveButtonHandler={saveButtonHandler}
+              savedIconHandler={savedIconHandler}
+            />
           ) : (
-            <h6>Store does not have any listings</h6>
+            <div className="flex justify-center mt-10">
+              <h6>Store does not have any listings</h6>
+            </div>
           )}
         </div>
       )}
