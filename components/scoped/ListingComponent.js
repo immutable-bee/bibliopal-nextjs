@@ -113,7 +113,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
               title={"Upload Listings"}
             />
 
-            {true && (
+            {isMobile.current && (
               <div className="flex justify-center mt-3">
                 {isScannerOpen ? (
                   <BarcodeScanner
