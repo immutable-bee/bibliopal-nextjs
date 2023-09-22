@@ -7,13 +7,22 @@ const UserContext = createContext();
 export const useUser = () => useContext(UserContext);
 
 const ACCESS_RULES = {
-  consumer: ["/consumer", "/consumer/profile", "/consumer/matches"],
+  consumer: [
+    "/consumer",
+    "/consumer/profile",
+    "/consumer/matches",
+    "/consumer/store",
+    "/test",
+  ],
   business: [
     "/business",
     "/business/profile",
     "/business/uploadlistings",
     "/business/uploadlistings/future",
+    "/business/managelistings",
     "/admin",
+    "/consumer/store",
+    "/test",
   ],
 };
 

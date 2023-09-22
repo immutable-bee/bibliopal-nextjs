@@ -10,7 +10,20 @@ const handler = async (req, res) => {
     const memberCreditsCost = businessData.memberCreditsCost;
     const paidCreditsCost = businessData.paidCreditsCost;
 
-    const dataWithOwnerId = tableData.map((row) => ({
+    const existingISBNs = await prisma.listing.findMany({
+      where: { ownerId: ownerId },
+      select: { isbn: true },
+    });
+
+    const existingISBNSet = new Set(
+      existingISBNs.map((listing) => listing.isbn)
+    );
+
+    const uniqueListings = tableData.filter(
+      (listing) => !existingISBNSet.has(listing.isbn)
+    );
+
+    const dataWithOwnerId = uniqueListings.map((row) => ({
       ...row,
       ownerId: ownerId,
       days_to_expiry: daysToExpiry,

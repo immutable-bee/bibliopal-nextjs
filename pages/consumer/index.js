@@ -260,12 +260,23 @@ const Home = () => {
                               <p className=" mb-3 text-gray-800 text-base leading-5">
                                 {data.author}
                               </p>
-                              <p className="text-gray-800 text-base leading-5">
-                                {data?.owner?.business_name}
-                              </p>
-                              <label className="text-gray-500 text-base">
-                                Zip Code: {data?.owner?.business_zip}
-                              </label>
+
+                              <div className="flex flex-col">
+                                <p className=" w-full text-gray-800 text-base leading-5">
+                                  {data?.owner?.business_name}
+                                </p>
+
+                                <label className="text-gray-500 text-base">
+                                  Zip Code: {data?.owner?.business_zip}
+                                </label>
+                                <a
+                                  href={`consumer/store?storeId=${data?.owner?.id}`}
+                                  className="pt-1 text-sky-500 text-sm "
+                                >
+                                  View Store
+                                </a>
+                              </div>
+
                               <h6 className="text-sm absolute bottom-3 right-3 text-gray-500 text-right">
                                 {data.date_listed
                                   ? calculateDaysAgo(data.date_listed)

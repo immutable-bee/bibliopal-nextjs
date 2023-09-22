@@ -98,6 +98,7 @@ const SignIn = ({ props }) => {
                 onSubmit={handleSubmit}
               >
                 <Input
+                  required
                   className="w-full"
                   placeholder="Your Email"
                   id="email"

@@ -62,7 +62,7 @@ const ISBNSearchBox = ({
       </h1>
       <div className="pt-5">
         <div className="flex flex-row">
-          <div className="sm:flex items-center">
+          <div className="flex items-center justify-center">
             <label className="md:text-2xl block sm:inline-block text-black font-bold">
               EAN
             </label>
@@ -72,7 +72,7 @@ const ISBNSearchBox = ({
               onChange={handleChange}
               onKeyDown={handlePress}
               type="url"
-              className="bg-white md:ml-5 ml-10 md:w-80  focus:ring-1 focus:ring-[#ffc71f] focus:outline-none form-input border border-gray-300  rounded-lg  px-4 my-1 py-3.5"
+              className="bg-white md:ml-5 ml-5  md:w-80  focus:ring-1 focus:ring-[#ffc71f] w-1/2 focus:outline-none form-input border border-gray-300  rounded-lg  px-4 my-1 py-3.5"
             />
             <button
               onClick={fetchButtonHandler}

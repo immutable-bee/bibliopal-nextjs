@@ -45,6 +45,17 @@ function Header() {
             Schedule Booksale
           </span>
         </Link>
+
+        <Link href="/business/managelistings">
+          <span
+            style={{
+              color: linkColor("/business/uploadlistings/manageListings"),
+            }}
+            className="!mx-1 font-medium sm:!mx-5 text-sm sm:text-2xl"
+          >
+            Manage Listings
+          </span>
+        </Link>
       </nav>
 
       <div className="flex items-center">

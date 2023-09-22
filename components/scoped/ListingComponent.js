@@ -4,10 +4,9 @@ import { useUser } from "@/context/UserContext";
 import Actions from "@/components/Actions";
 import ISBNSearchBox from "@/components/ISBNSearchBox";
 import ContentTable from "@/components/ContentTable";
-import BarcodeScannerWrapper from "../business/BarcodeScannerWrapper";
+import BarcodeScanner from "../business/BarcodeScanner";
 import Image from "next/image";
 import useFetchBooks from "@/hooks/useFetchBooks";
-import MebjasScanner from "../business/MebjasScanner";
 import NotificationContainer from "../containers/NotificationContainer";
 
 const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
@@ -15,34 +14,50 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const { user, fetchUserData } = useUser();
 
   const [notifications, setNotifications] = useState([]);
+  const [scanNotifications, setScanNotifications] = useState([]);
   const [isAutoUpload, setIsAutoUpload] = useState(false);
   const [daysToExpiry, setDaysToExpiry] = useState(null);
   const [isScannerOpen, setIsScannerOpen] = useState(false);
-  const isProcessingScanRef = useRef(false);
+
   const isMobile = useRef(false);
 
+  const addScanNotification = (notification) => {
+    setScanNotifications((prevNotifications) => [
+      notification,
+      ...prevNotifications,
+    ]);
+  };
+
   const handleScan = async (code) => {
-    if (isProcessingScanRef.current) {
-      return;
-    }
-    isProcessingScanRef.current = true;
     console.log("Detected barcode:", code);
     const bookData = await fetchByISBN(code, true, setError);
 
     console.log(bookData);
+    console.log(bookData.prices);
 
     if (!bookData) {
-      setTimeout(() => {
-        isProcessingScanRef.current = false;
-      }, 1000);
       return;
+    }
+
+    let highestTotal = null;
+    let lowestTotal = null;
+
+    if (bookData.prices && bookData.prices.length > 0) {
+      highestTotal = bookData.prices[bookData.prices.length - 1].total;
+      lowestTotal = bookData.prices[0].total;
     }
 
     setNotifications([...notifications, `Successful Scan!`]);
 
+    if (highestTotal && lowestTotal) {
+      console.log(`Pricing found: Min: ${lowestTotal} | Max: ${highestTotal}`);
+      addScanNotification(
+        `Pricing found: Min: ${lowestTotal} | Max: ${highestTotal}`
+      );
+    }
+
     setTimeout(() => {
       createNewRow(bookData);
-      isProcessingScanRef.current = false;
     }, 1000);
 
     return;
@@ -50,6 +65,11 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
 
   const closeCameraHandler = () => {
     setIsScannerOpen(false);
+  };
+
+  const openCameraHandler = () => {
+    setIsAutoUpload(false);
+    setIsScannerOpen(true);
   };
 
   const handleAutoUploadChange = (e) => {
@@ -96,14 +116,15 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
             {isMobile.current && (
               <div className="flex justify-center mt-3">
                 {isScannerOpen ? (
-                  <MebjasScanner
+                  <BarcodeScanner
                     onClose={closeCameraHandler}
                     handleScan={handleScan}
-                    isProcessingScan={isProcessingScanRef}
+                    notifications={scanNotifications}
+                    setNotifications={setScanNotifications}
                   />
                 ) : (
                   <button
-                    onClick={() => setIsScannerOpen(true)}
+                    onClick={openCameraHandler}
                     className="px-2 py-2 mb-4 bg-slate-50 rounded shadow-md"
                   >
                     <Image
