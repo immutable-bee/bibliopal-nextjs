@@ -4,11 +4,9 @@ import { useUser } from "@/context/UserContext";
 import Actions from "@/components/Actions";
 import ISBNSearchBox from "@/components/ISBNSearchBox";
 import ContentTable from "@/components/ContentTable";
-import BarcodeScannerWrapper from "../business/BarcodeScannerWrapper";
 import BarcodeScanner from "../business/BarcodeScanner";
 import Image from "next/image";
 import useFetchBooks from "@/hooks/useFetchBooks";
-import MebjasScanner from "../business/MebjasScanner";
 import NotificationContainer from "../containers/NotificationContainer";
 
 const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
@@ -24,7 +22,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const isMobile = useRef(false);
 
   const addScanNotification = (notification) => {
-    setNotifications((prevNotifications) => [
+    setScanNotifications((prevNotifications) => [
       notification,
       ...prevNotifications,
     ]);
@@ -35,12 +33,28 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
     const bookData = await fetchByISBN(code, true, setError);
 
     console.log(bookData);
+    console.log(bookData.prices);
 
     if (!bookData) {
       return;
     }
 
-    setNotifications([...notifications, `Successful Scan!`]);
+    let highestTotal = null;
+    let lowestTotal = null;
+
+    if (bookData.prices && bookData.prices.length > 0) {
+      highestTotal = bookData.prices[bookData.prices.length - 1].total;
+      lowestTotal = bookData.prices[0].total;
+    }
+
+    //setNotifications([...notifications, `Successful Scan!`]);
+
+    if (highestTotal && lowestTotal) {
+      console.log(`Pricing found: Min: ${lowestTotal} | Max: ${highestTotal}`);
+      addScanNotification(
+        `Pricing found: Min: ${lowestTotal} | Max: ${highestTotal}`
+      );
+    }
 
     setTimeout(() => {
       createNewRow(bookData);
@@ -51,6 +65,11 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
 
   const closeCameraHandler = () => {
     setIsScannerOpen(false);
+  };
+
+  const openCameraHandler = () => {
+    setIsAutoUpload(false);
+    setIsScannerOpen(true);
   };
 
   const handleAutoUploadChange = (e) => {
@@ -105,7 +124,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
                   />
                 ) : (
                   <button
-                    onClick={() => setIsScannerOpen(true)}
+                    onClick={openCameraHandler}
                     className="px-2 py-2 mb-4 bg-slate-50 rounded shadow-md"
                   >
                     <Image
