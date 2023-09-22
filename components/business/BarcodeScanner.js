@@ -52,6 +52,7 @@ const BarcodeScanner = ({
   };
 
   const stopScanner = async () => {
+    scanner.current.stop();
     onClose();
   };
 
@@ -72,15 +73,24 @@ const BarcodeScanner = ({
     Html5Qrcode.getCameras()
       .then((devices) => {
         if (devices.length > 1) {
-          const backCameras = devices.filter((device) =>
-            device.label.includes("back")
+          let counter = 1;
+          const updatedDevices = devices.map((device) => {
+            if (device.label.includes("back")) {
+              return { ...device, label: `Back Camera ${counter++}` };
+            }
+            return device;
+          });
+          const backCameras = updatedDevices.filter((device) =>
+            device.label.includes("Back Camera")
           );
           setValidCameras(backCameras);
         } else {
           setActiveCameraId(devices[0].id);
         }
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.error("Error getting cameras:", err);
+      });
   }, []);
 
   useEffect(() => {
@@ -145,7 +155,7 @@ const BarcodeScanner = ({
         <select
           value={activeCameraId}
           onChange={handleCameraChange}
-          className="w-1/4"
+          className="w-1/4 rounded-full"
         >
           {validCameras.length > 0 &&
             validCameras.map((camera) => {
