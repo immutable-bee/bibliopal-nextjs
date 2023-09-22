@@ -55,6 +55,19 @@ const BarcodeScanner = ({
     onClose();
   };
 
+  const handleCameraChange = (event) => {
+    const newCameraId = event.target.value;
+    scanner.current
+      .stop()
+      .then(() => {
+        console.log("Scanner stopped successfully.");
+        setActiveCameraId(newCameraId);
+      })
+      .catch((error) => {
+        console.error("Error stopping the scanner:", error);
+      });
+  };
+
   useEffect(() => {
     Html5Qrcode.getCameras()
       .then((devices) => {
@@ -126,10 +139,18 @@ const BarcodeScanner = ({
       )}
       <div className="relative w-full " id="reader"></div>
       <div className="flex justify-around p-3 w-full bg-biblioSeafoam shadow-lg">
-        <select className="w-1/4">
+        <select
+          value={activeCameraId}
+          onChange={handleCameraChange}
+          className="w-1/4"
+        >
           {validCameras.length > 0 &&
             validCameras.map((camera) => {
-              <option key={camera.id}>{camera.label}</option>;
+              return (
+                <option key={camera.id} value={camera.id}>
+                  {camera.label}
+                </option>
+              );
             })}
         </select>
         <button
