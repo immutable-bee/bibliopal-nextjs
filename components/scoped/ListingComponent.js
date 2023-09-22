@@ -47,7 +47,7 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
       lowestTotal = bookData.prices[0].total;
     }
 
-    //setNotifications([...notifications, `Successful Scan!`]);
+    setNotifications([...notifications, `Successful Scan!`]);
 
     if (highestTotal && lowestTotal) {
       console.log(`Pricing found: Min: ${lowestTotal} | Max: ${highestTotal}`);
