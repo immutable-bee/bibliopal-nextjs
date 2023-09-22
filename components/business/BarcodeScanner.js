@@ -11,7 +11,8 @@ const BarcodeScanner = ({
   notifications,
   setNotifications,
 }) => {
-  const [cameraId, setCameraId] = useState("");
+  const [validCameras, setValidCameras] = useState([]);
+  const [activeCameraId, setActiveCameraId] = useState("");
   const [isScannerPaused, setIsScannerPaused] = useState(false);
 
   const removeNotification = () => {
@@ -57,20 +58,33 @@ const BarcodeScanner = ({
   useEffect(() => {
     Html5Qrcode.getCameras()
       .then((devices) => {
-        setCameraId(devices[0].id);
+        if (devices.length > 1) {
+          const backCameras = devices.filter((device) =>
+            device.label.includes("back")
+          );
+          setValidCameras(backCameras);
+        } else {
+          setActiveCameraId(devices[0].id);
+        }
       })
       .catch((err) => {});
   }, []);
 
   useEffect(() => {
-    if (!cameraId) return;
+    if (validCameras.length > 0) {
+      setActiveCameraId(validCameras[0].id);
+    }
+  }, [validCameras]);
+
+  useEffect(() => {
+    if (!activeCameraId) return;
 
     scanner.current = new Html5Qrcode("reader", {
       formatsToSupport: [Html5QrcodeSupportedFormats.EAN_13],
     });
 
     scanner.current
-      .start({ facingMode: "environment" }, config, qrCodeSuccessCallback)
+      .start(activeCameraId, config, qrCodeSuccessCallback)
       .catch((err) => {
         console.error("Error starting scanner:", err);
       });
@@ -87,7 +101,7 @@ const BarcodeScanner = ({
           });
       }
     };
-  }, [cameraId]);
+  }, [activeCameraId]);
 
   useEffect(() => {
     let intervalId;
@@ -111,7 +125,13 @@ const BarcodeScanner = ({
         </div>
       )}
       <div className="relative w-full " id="reader"></div>
-      <div className="flex justify-center p-3 w-full bg-biblioSeafoam shadow-lg">
+      <div className="flex justify-around p-3 w-full bg-biblioSeafoam shadow-lg">
+        <select className="w-1/4">
+          {validCameras.length > 0 &&
+            validCameras.map((camera) => {
+              <option key={camera.id}>{camera.label}</option>;
+            })}
+        </select>
         <button
           onClick={stopScanner}
           className="bg-[#fa5252] px-5 py-3 text-white border border-black rounded-full"
