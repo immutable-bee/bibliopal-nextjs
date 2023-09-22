@@ -130,15 +130,9 @@ const BarcodeScanner = ({
   }, [activeCameraId]);
 
   useEffect(() => {
-    let intervalId;
-    if (notifications.length > 0) {
-      intervalId = setInterval(() => {
-        removeNotification();
-      }, 3000);
+    if (notifications.length > 1) {
+      removeNotification();
     }
-    return () => {
-      if (intervalId) clearInterval(intervalId);
-    };
   }, [notifications]);
 
   return (
