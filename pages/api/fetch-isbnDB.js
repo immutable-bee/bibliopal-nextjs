@@ -21,7 +21,7 @@ const handler = async (req, res) => {
       throw new Error("Book not found");
     }
   } catch (error) {
-    notify.error(error);
+    notify.error(`Error Message: ${error}, ISBN Value: ${isbn}`);
     console.log("error in fetching:", error);
     res.status(500).json({ message: error.message });
   }
