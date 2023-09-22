@@ -104,14 +104,17 @@ const BarcodeScanner = ({
 
     return () => {
       if (scanner.current) {
-        scanner.current
-          .stop()
-          .then(() => {
-            console.log("Scanner stopped successfully.");
-          })
-          .catch((error) => {
-            console.error("Error stopping the scanner:", error);
-          });
+        const scannerState = scanner.current.getState();
+        if (scannerState === "SCANNING") {
+          scanner.current
+            .stop()
+            .then(() => {
+              console.log("Scanner stopped successfully.");
+            })
+            .catch((error) => {
+              console.error("Error stopping the scanner:", error);
+            });
+        }
       }
     };
   }, [activeCameraId]);
