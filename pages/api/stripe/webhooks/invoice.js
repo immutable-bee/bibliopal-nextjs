@@ -1,5 +1,6 @@
 import { prisma } from "../../../../db/prismaDB";
 import Stripe from "stripe";
+import * as notify from "../../notifier/notify";
 
 const isStripeLive = true;
 
@@ -52,6 +53,7 @@ const handleStripeWebhook = async (req, res) => {
 
     event = stripe.webhooks.constructEvent(rawBody, signature, webhookSecret);
   } catch (err) {
+    notify.error(err);
     console.error(`Webhook signature verification failed: ${err.message}`);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
@@ -80,6 +82,7 @@ const handleStripeWebhook = async (req, res) => {
         const price = await stripe.prices.retrieve(priceId);
         metadata = price.metadata;
       } catch (err) {
+        notify.error(err);
         console.error("Error retrieving product metadata: ", err);
       }
 
@@ -96,6 +99,7 @@ const handleStripeWebhook = async (req, res) => {
         },
       });
     } catch (error) {
+      notify.error(error);
       console.error(
         `Error processing invoice.payment_succeeded: ${error.message}`
       );

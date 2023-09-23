@@ -41,6 +41,7 @@ const HeaderComponent = () => {
             <Link href="/consumer" style={{ color: linkColor("/consumer") }} class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 " aria-current="page">Home</Link>
           </li>
 
+
           <li>
             <Link href="/consumer/matches" style={{ color: linkColor("/consumer/matches") }} class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Matches</Link>
           </li>
@@ -48,82 +49,32 @@ const HeaderComponent = () => {
         </ul>
       </div>
 
-      <Link
-        href="/customer/profile"
-        className="flex items-center no-underline"
-      >
-        {" "}
-        <div className="border rounded-full w-14 h-14 flex-shrink-0 flex items-center justify-center">
-          <Image
-            src={BookWorm}
-            width={40}
-            height={40}
-            className="w-10 rounded-full"
-            alt="logo"
-          />
-        </div>
-        <span className="!ml-3 hidden sm:block text-black font-semibold text-lg">
-          Hi, Demo User!
-        </span>
-      </Link>
+      <div className="flex items-center">
+        <Link
+          href="/consumer/profile"
+          className="flex items-center no-underline"
+        >
+          {" "}
+          <div className="border rounded-full w-14 h-14 flex-shrink-0 flex items-center justify-center">
+            <Image
+              src={BookWorm}
+              width={40}
+              height={40}
+              className="w-10 rounded-full"
+              alt="logo"
+            />
+          </div>
+          <span className="!ml-3 hidden sm:block text-black font-semibold text-lg">
+            {user?.consumer?.username ? `Hi, ${user.consumer.username}!` : ""}
+          </span>
+        </Link>
+
+      </div>
+
 
 
     </header>
-    // <header className="flex  mx-auto w-full justify-between items-center px-3 sm:px-4 py-3">
-    //   <div>
-    //     <Link href="">
-    //       <Image
-    //         src="/images/logo1.png"
-    //         width={120}
-    //         height={58}
-    //         className="w-20 sm:w-36"
-    //         alt="logo"
-    //       />
-    //     </Link>
-    //   </div>
 
-    //   <div className="flex items-center">
-    //     <Link className="no-underline	" href="/consumer">
-    //       <span
-    //         style={{ color: linkColor("/consumer") }}
-    //         className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
-    //       >
-    //         {" "}
-    //         Home
-    //       </span>
-    //     </Link>
-    //     <Link className="no-underline	" href="/consumer/matches">
-    //       <span
-    //         style={{ color: linkColor("/consumer/matches") }}
-    //         className="!mx-2 font-medium sm:!mx-5 text-base sm:text-2xl"
-    //       >
-    //         {" "}
-    //         Matches
-    //       </span>{" "}
-    //     </Link>
-    //   </div>
-
-    //   <div className="flex items-center">
-    //     <Link
-    //       href="/consumer/profile"
-    //       className="flex items-center no-underline"
-    //     >
-    //       {" "}
-    //       <div className="border rounded-full w-14 h-14 flex-shrink-0 flex items-center justify-center">
-    //         <Image
-    //           src={BookWorm}
-    //           width={40}
-    //           height={40}
-    //           className="w-10 rounded-full"
-    //           alt="logo"
-    //         />
-    //       </div>
-    //       <span className="!ml-3 hidden sm:block text-black font-semibold text-lg">
-    //         {user?.consumer.username ? `Hi, ${user.consumer.username}!` : ""}
-    //       </span>
-    //     </Link>
-    //   </div>
-    // </header>
   );
 };
 

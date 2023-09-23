@@ -1,5 +1,6 @@
 import { Modal } from "@nextui-org/react";
 import { useState } from "react";
+import * as notify from "../../../pages/api/notifier/notify";
 
 const ManageRecurringPurchaseModal = ({
   visible,
@@ -41,6 +42,7 @@ const ManageRecurringPurchaseModal = ({
       await refreshUserData();
       onClose();
     } catch (error) {
+      notify.error(error);
       console.error("Failed to resume subscription:", error.message);
       setLoading(false);
     }
@@ -70,6 +72,7 @@ const ManageRecurringPurchaseModal = ({
       await refreshUserData();
       onClose();
     } catch (error) {
+      notify.error(error);
       console.error("Failed to cancel subscription:", error.message);
       setLoading(false);
     }

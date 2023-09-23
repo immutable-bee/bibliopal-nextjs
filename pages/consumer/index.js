@@ -8,6 +8,7 @@ import unsaveListing from "../../utils/unsaveListing";
 import { useUser } from "../../context/UserContext";
 import BookSaleTooltip from "../../components/customer/BookSaleTooltip";
 import { Pagination } from "@nextui-org/react";
+import * as notify from "../api/notifier/notify";
 const Home = () => {
   const { user } = useUser();
 
@@ -49,14 +50,18 @@ const Home = () => {
     try {
       await saveListing(consumerId, listingId);
       await fetchSaved(consumerId);
-    } catch (error) {}
+    } catch (error) {
+      notify.error(error);
+    }
   };
 
   const unsaveAndRefresh = async (listingId) => {
     try {
       await unsaveListing(consumerId, listingId);
       await fetchSaved(consumerId);
-    } catch (error) {}
+    } catch (error) {
+      notify.error(error);
+    }
   };
 
   const savedIconHandler = (listingId) => {
@@ -141,7 +146,6 @@ const Home = () => {
 
   const fetchListings = async () => {
     const res = await fetch("/api/fetch-listings");
-
     if (res.status === 200) {
       const data = await res.json();
       setListings(data);
@@ -256,12 +260,23 @@ const Home = () => {
                               <p className=" mb-3 text-gray-800 text-base leading-5">
                                 {data.author}
                               </p>
-                              <p className="text-gray-800 text-base leading-5">
-                                {data?.owner?.business_name}
-                              </p>
-                              <label className="text-gray-500 text-base">
-                                Zip Code: {data?.owner?.business_zip}
-                              </label>
+
+                              <div className="flex flex-col">
+                                <p className=" w-full text-gray-800 text-base leading-5">
+                                  {data?.owner?.business_name}
+                                </p>
+
+                                <label className="text-gray-500 text-base">
+                                  Zip Code: {data?.owner?.business_zip}
+                                </label>
+                                <a
+                                  href={`consumer/store?storeId=${data?.owner?.id}`}
+                                  className="pt-1 text-sky-500 text-sm "
+                                >
+                                  View Store
+                                </a>
+                              </div>
+
                               <h6 className="text-sm absolute bottom-3 right-3 text-gray-500 text-right">
                                 {data.date_listed
                                   ? calculateDaysAgo(data.date_listed)

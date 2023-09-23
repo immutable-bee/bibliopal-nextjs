@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import * as notify from "../notifier/notify";
 
 const isStripeLive = true;
 
@@ -38,6 +39,7 @@ const handler = async (req, res) => {
         .json({ error: "Failed to resume the subscription" });
     }
   } catch (error) {
+    notify.error(error, "Error resuming subscription");
     console.error("Error resuming subscription:", error);
     return res.status(500).json({ error: "Failed to resume the subscription" });
   }

@@ -8,6 +8,7 @@ import BusinessPricing from "../business/profile/BusinessPricing";
 import TooltipComponent from "@/components/utility/Tooltip";
 import ResetInventoryModal from "../modals/ResetInventory";
 import NotificationContainer from "../containers/NotificationContainer";
+import * as notify from "@/pages/api/notifier/notify";
 const ProfileComponent = ({}) => {
   const { user, fetchUserData } = useUser();
 
@@ -37,7 +38,9 @@ const ProfileComponent = ({}) => {
         setNotificationType("profile updated");
         setNotifications([1]);
       }
-    } catch (error) {}
+    } catch (error) {
+      notify.error(error);
+    }
   };
 
   const handleChange = (e) => {

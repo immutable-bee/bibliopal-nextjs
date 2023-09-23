@@ -1,4 +1,5 @@
 import { prisma } from "../../../../db/prismaDB";
+import * as notify from "../../notifier/notify";
 
 const handler = async (req, res) => {
   if (req.method !== "GET") {
@@ -22,6 +23,7 @@ const handler = async (req, res) => {
 
     res.status(200).json(savedListings);
   } catch (error) {
+    notify.error(error);
     res.status(500).json({ message: error.message });
   }
 };

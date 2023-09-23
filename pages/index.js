@@ -22,7 +22,9 @@ const LandingPage = () => {
         <h6 className="text-center text-lg">
           A must for readers who love reading and hunting for a good bargain
         </h6>
-        <h6 className="sm:pt-20 pt-8 text-center text-xl sm:text-4xl">Start Your Free Account Today!</h6>
+        <h6 className="sm:pt-20 pt-8 text-center text-xl sm:text-4xl">
+          Start Your Free Account Today!
+        </h6>
         <h6 className="">No credit card required</h6>
         <Link href={"/auth?type=consumer"}>
           <button className="py-5 px-10 rounded-lg bg-biblioGreen text-gray-500">
@@ -51,7 +53,7 @@ const LandingPage = () => {
         </div>
 
         <div className="sm:mb-8 sm:mt-8 mt-14 sm:flex justify-center flex-row-reverse gap-5 items-center w-full">
-          <div >
+          <div>
             <Image
               src={"/images/landingpage/row-two.png"}
               width={500}
@@ -60,13 +62,14 @@ const LandingPage = () => {
             />
           </div>
           <div className="sm:mt-0 mt-6">
-            <h6 className="sm:pb-5 text-2xl sm:text-4xl">Automated Notifications</h6>
+            <h6 className="sm:pb-5 text-2xl sm:text-4xl">
+              Automated Notifications
+            </h6>
             <h6 className="pt-5 max-w-lg ">
               Receive email notifications of newly listed titles and authors on
               your watch list.
             </h6>
           </div>
-
         </div>
 
         <div className="sm:mb-8 sm:mt-8 mt-14 sm:flex justify-center gap-5 items-center w-full">
@@ -105,15 +108,16 @@ const LandingPage = () => {
               today.
             </h6>
           </div>
-
         </div>
       </div>
 
       <div className="flex flex-col w-full items-center gap-5  ">
-        <h6 className="pt-20 text-2xl text-center sm:text-4xl">Start Your Free Account Today!</h6>
+        <h6 className="pt-20 text-2xl text-center sm:text-4xl">
+          Start Your Free Account Today!
+        </h6>
         <h6 className="">No credit card required</h6>
         <Link href={"/auth?type=consumer"}>
-          <button className="py-5 px-10 rounded-lg bg-biblioSeafoam text-gray-500">
+          <button className="py-5 px-10 rounded-lg bg-biblioGreen text-gray-500">
             Start a reader account
           </button>
         </Link>
@@ -135,7 +139,7 @@ const LandingPage = () => {
             credit card required)
           </h6>
           <Link href={"/auth?type=business"}>
-            <button className="mt-10 py-4 px-8 rounded-lg bg-biblioSeafoam text-gray-500">
+            <button className="mt-10 py-4 px-8 rounded-lg bg-biblioGreen text-gray-500">
               Start a store account
             </button>
           </Link>

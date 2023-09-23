@@ -2,6 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useUser } from "../context/UserContext";
 import ButtonComponent from "@/components/utility/Button";
+import * as notify from "../pages/api/notifier/notify";
 const EditBookSale = ({ isEditinghandler }) => {
   const [formData, setFormData] = useState();
 
@@ -33,7 +34,9 @@ const EditBookSale = ({ isEditinghandler }) => {
       });
       fetchUserData();
       isEditinghandler();
-    } catch (error) { }
+    } catch (error) {
+      notify.error(error)
+    }
   };
 
   return (
