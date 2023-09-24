@@ -49,12 +49,7 @@ const ListingCards = ({ listings, savedIconHandler, saveButtonHandler }) => {
                 <p className=" mb-3 text-gray-800 text-base leading-5">
                   {data.author}
                 </p>
-                <p className="text-gray-800 text-base leading-5">
-                  {data?.owner?.business_name}
-                </p>
-                <label className="text-gray-500 text-base">
-                  Zip Code: {data?.owner?.business_zip}
-                </label>
+
                 <h6 className="text-sm absolute bottom-3 right-3 text-gray-500 text-right">
                   {data.date_listed
                     ? calculateDaysAgo(data.date_listed)
