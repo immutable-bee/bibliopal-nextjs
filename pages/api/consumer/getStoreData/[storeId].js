@@ -10,6 +10,9 @@ const handler = async (req, res) => {
 
     const listings = await prisma.listing.findMany({
       where: { ownerId: storeId },
+      orderBy: {
+        date_listed: "desc",
+      },
     });
 
     res.status(200).json({ data: business, listings: listings });
