@@ -114,7 +114,11 @@ const BarcodeScanner = ({
 
     setTimeout *=
       (() => {
-        scanner.current.applyVideoContstraints({ focusMode: "continuous" });
+        scanner.current.applyVideoContstraints({
+          focusMode: "continuous",
+          width: 1980,
+          height: 1080,
+        });
       },
       [2000]);
 
