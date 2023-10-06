@@ -112,6 +112,12 @@ const BarcodeScanner = ({
         console.error("Error starting scanner:", err);
       });
 
+    setTimeout *=
+      (() => {
+        scanner.current.applyVideoContstraints({ focusMode: "continuous" });
+      },
+      [2000]);
+
     return () => {
       if (scanner.current) {
         const scannerState = scanner.current.getState();
