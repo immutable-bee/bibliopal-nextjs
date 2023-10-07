@@ -27,7 +27,7 @@ const BarcodeScanner = ({
 
   const config = {
     fps: 20,
-    qrbox: { width: 250, height: 125 },
+    qrbox: { width: 250, height: 150 },
     rememberLastUsedCamera: false,
     supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
   };
