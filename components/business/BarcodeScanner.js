@@ -112,6 +112,7 @@ const BarcodeScanner = ({
         console.error("Error starting scanner:", err);
       });
 
+    /*
     setTimeout *=
       (() => {
         scanner.current.applyVideoContstraints({
@@ -120,6 +121,7 @@ const BarcodeScanner = ({
         });
       },
       [2000]);
+      */
 
     return () => {
       if (scanner.current) {
