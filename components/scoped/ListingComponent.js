@@ -8,10 +8,12 @@ import BarcodeScanner from "../business/BarcodeScanner";
 import Image from "next/image";
 import useFetchBooks from "@/hooks/useFetchBooks";
 import NotificationContainer from "../containers/NotificationContainer";
+import usePricePreferences from "@/hooks/usePricePreferences";
 
 const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
   const { fetchByISBN } = useFetchBooks();
   const { user, fetchUserData } = useUser();
+  const getPriceData = usePricePreferences();
 
   const [notifications, setNotifications] = useState([]);
   const [scanNotifications, setScanNotifications] = useState([]);
@@ -35,25 +37,28 @@ const ListingComponent = ({ error, setError, createNewRow, deleteBookRow }) => {
     console.log(bookData);
     console.log(bookData.prices);
 
+    let merchants = [];
+
+    for (let i = 0; i < bookData.prices.length; i++) {
+      merchants.push(bookData.prices[i].merchant);
+    }
+
+    console.log(merchants);
+
     if (!bookData) {
       return;
     }
 
-    let highestTotal = null;
-    let lowestTotal = null;
-
-    if (bookData.prices && bookData.prices.length > 0) {
-      highestTotal = bookData.prices[bookData.prices.length - 1].total;
-      lowestTotal = bookData.prices[0].total;
-    }
+    const minMax = getPriceData(bookData.prices);
 
     setNotifications([...notifications, `Successful Scan!`]);
 
-    if (highestTotal && lowestTotal) {
-      console.log(`Pricing found: Min: ${lowestTotal} | Max: ${highestTotal}`);
+    if (minMax.min && minMax.max) {
       addScanNotification(
-        `Pricing found: Min: ${lowestTotal} | Max: ${highestTotal}`
+        `Pricing found: Min: ${minMax.min} | Max: ${minMax.max}`
       );
+    } else {
+      setPriceMessage("No pricing data found.");
     }
 
     setTimeout(() => {

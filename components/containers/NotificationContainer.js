@@ -6,6 +6,7 @@ import SubscribedNotification from "../notifications/SubscribedNotification";
 import SubscriptionResumedNotification from "../notifications/SubscriptionResumedNotification";
 import SubscriptionCanceledNotification from "../notifications/SubscriptionCanceledNotification";
 import BarcodeScannedNotification from "../notifications/BarcodeScannedNotification";
+import GenericNotification from "../notifications/GenericNotification";
 import { useState, useEffect } from "react";
 
 const NotificationContainer = ({
@@ -26,6 +27,16 @@ const NotificationContainer = ({
       return () => clearTimeout(timer);
     }
   }, [notifications]);
+
+  if (type === "generic") {
+    return (
+      <div className="fixed bottom-4 right-4 space-y-2">
+        {notifications.map((notification, index) => (
+          <GenericNotification key={index} message={notification} />
+        ))}
+      </div>
+    );
+  }
 
   if (type === "upload") {
     return (
