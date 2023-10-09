@@ -26,8 +26,8 @@ const BarcodeScanner = ({
   const scanner = useRef();
 
   const config = {
-    fps: 10,
-    qrbox: { width: 200, height: 125 },
+    fps: 20,
+    qrbox: { width: 175, height: 125 },
     rememberLastUsedCamera: false,
     supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
   };
@@ -111,13 +111,13 @@ const BarcodeScanner = ({
       .catch((err) => {
         console.error("Error starting scanner:", err);
       });
-
     /*
     setTimeout *=
       (() => {
         scanner.current.applyVideoContstraints({
-          width: 1980,
-          height: 1080,
+          //focusMode: "continuous",
+          //width: 1980,
+          //height: 1080,
         });
       },
       [2000]);
