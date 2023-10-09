@@ -146,6 +146,7 @@ model Business {
   inventory               Listing[]
   book_sale               BookSale?
   subscriptionId          String?
+  pricePreferences        String[] @default(["all"])
 }
 
 model Consumer {
