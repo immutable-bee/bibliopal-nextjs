@@ -9,6 +9,8 @@ import TooltipComponent from "@/components/utility/Tooltip";
 import ResetInventoryModal from "../modals/ResetInventory";
 import NotificationContainer from "../containers/NotificationContainer";
 import * as notify from "@/pages/api/notifier/notify";
+import PricePreferences from "../business/profile/PricePreferences";
+
 const ProfileComponent = ({}) => {
   const { user, fetchUserData } = useUser();
 
@@ -167,6 +169,8 @@ const ProfileComponent = ({}) => {
               visible={isResetInventoryModalOpen}
               closeHandler={closeResetInventoryModal}
             />
+
+            <PricePreferences user={user} />
 
             <div className="mt-8">
               <h6 className="mb-5 text-2xl font-bold text-center">

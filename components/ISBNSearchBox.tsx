@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import useFetchBooks from "../hooks/useFetchBooks";
 import { ErrorT, SetError } from "../pages/business/index";
 import Image from "next/image";
-
+import usePricePreferences from "../hooks/usePricePreferences";
 interface ISBNSearchBoxProps {
   setError: SetError;
   error: ErrorT;
@@ -18,6 +18,8 @@ const ISBNSearchBox = ({
 }: ISBNSearchBoxProps) => {
   const { fetchByISBN } = useFetchBooks();
   const [searchValue, setSearchValue] = useState<string>("");
+  const [priceMessage, setPriceMessage] = useState("");
+  const getPriceData = usePricePreferences();
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,6 +40,14 @@ const ISBNSearchBox = ({
     if (!bookData) return;
     setSearchValue("");
 
+    const minMax = getPriceData(bookData.prices);
+
+    if (minMax.min && minMax.max) {
+      setPriceMessage(`Pricing found: Min: ${minMax.min} | Max: ${minMax.max}`);
+    } else {
+      setPriceMessage("No pricing data found.");
+    }
+
     return createNewRow(bookData);
   };
 
@@ -53,6 +63,12 @@ const ISBNSearchBox = ({
     handleSearch();
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setPriceMessage("");
+    }, 5000);
+  }, [priceMessage]);
+
   const fetchButtonColor = searchValue ? "[#9BCC2C]" : "biblioSeafoam";
 
   return (
@@ -60,7 +76,7 @@ const ISBNSearchBox = ({
       <h1 className="text-gray-900 text-2xl sm:text-3xl sm:text-center font-bold">
         {title}
       </h1>
-      <div className="pt-5">
+      <div className="pt-5 flex flex-col">
         <div className="flex flex-row">
           <div className="flex items-center justify-center">
             <label className="md:text-2xl block sm:inline-block text-black font-bold">
@@ -89,6 +105,11 @@ const ISBNSearchBox = ({
           </div>
           <p className="text-base mt-1 text-red-500 text-center">{error}</p>
         </div>
+        {priceMessage && (
+          <h6 className="self-center text-center bg-[#9BCC2C] rounded-md text-white px-5">
+            {priceMessage}
+          </h6>
+        )}
       </div>
     </div>
   );

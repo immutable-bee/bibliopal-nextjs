@@ -150,7 +150,7 @@ const BarcodeScanner = ({
     <div className="relative flex flex-col items-center w-full shadow-md">
       {notifications.length > 0 && (
         <div className="flex flex-col justify-center absolute top-0 left-0 z-10 w-full h-10">
-          <p className="pt-2 w-full bg-[#9BCC2C] text-white text-center h-10">
+          <p className="pt-2 w-full bg-[#9BCC2C] text-white text-center">
             {notifications[notifications.length - 1]}
           </p>
         </div>
