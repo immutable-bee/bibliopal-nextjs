@@ -80,7 +80,7 @@ const PricePreferences = ({ user }) => {
               id="shipping-status-tooltip"
               css={{ zIndex: 10000 }}
               content={
-                "Here you can set which merchants you would like pricing data from when scannign books"
+                "Here you can set which merchants you would like pricing data from when scanning books"
               }
             >
               <svg
