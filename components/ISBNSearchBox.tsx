@@ -42,7 +42,7 @@ const ISBNSearchBox = ({
 
     const minMax = getPriceData(bookData.prices);
 
-    if (minMax.min && minMax.max) {
+    if (minMax?.min && minMax?.max) {
       setPriceMessage(`Pricing found: Min: ${minMax.min} | Max: ${minMax.max}`);
     } else {
       setPriceMessage("No pricing data found.");
@@ -66,7 +66,7 @@ const ISBNSearchBox = ({
   useEffect(() => {
     setTimeout(() => {
       setPriceMessage("");
-    }, 80000);
+    }, 10000);
   }, [priceMessage]);
 
   const fetchButtonColor = searchValue ? "[#9BCC2C]" : "biblioSeafoam";
