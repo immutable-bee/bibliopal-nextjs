@@ -66,7 +66,7 @@ const ISBNSearchBox = ({
   useEffect(() => {
     setTimeout(() => {
       setPriceMessage("");
-    }, 5000);
+    }, 10000);
   }, [priceMessage]);
 
   const fetchButtonColor = searchValue ? "[#9BCC2C]" : "biblioSeafoam";
