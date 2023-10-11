@@ -8,21 +8,17 @@ const usePricePreferences = () => {
   const filterByPreferences = (data) => {
     if (!data || !preferences.length) return [];
 
-    console.log(preferences);
-    console.log(data);
+    return data.filter((item) => {
+      if (item.condition === "eBook") return false;
+      if (preferences[0] === "all") return true;
 
-    if (preferences[0] === "all") {
-      return data;
-    } else {
-      return data.filter((item) =>
-        preferences.some((preference) =>
-          item.merchant.toLowerCase().includes(preference)
-        )
+      return preferences.some((preference) =>
+        item.merchant.toLowerCase().includes(preference)
       );
-    }
+    });
   };
 
-  const findMinMax = (data) => {
+  const findMinMax = (data, useTotal) => {
     const filtered = filterByPreferences(data);
     if (!filtered.length) {
       return;
@@ -32,11 +28,11 @@ const usePricePreferences = () => {
 
     let minMerchant = filtered[0].merchant;
     let maxMerchant = filtered[0].merchant;
-    let min = parseFloat(filtered[0].total);
-    let max = parseFloat(filtered[0].total);
+    let min = parseFloat(useTotal ? filtered[0].total : filtered[0].price);
+    let max = parseFloat(useTotal ? filtered[0].total : filtered[0].price);
 
     for (const item of filtered) {
-      const itemTotal = parseFloat(item.total);
+      const itemTotal = parseFloat(useTotal ? item.total : item.price);
       if (itemTotal < min) {
         min = itemTotal;
         minMerchant = item.merchant;
@@ -58,7 +54,8 @@ const usePricePreferences = () => {
   };
 
   const getPriceData = (data) => {
-    const minMax = findMinMax(data);
+    const useTotal = user.business.useTotalPrice;
+    const minMax = findMinMax(data, useTotal);
     return minMax;
   };
 
