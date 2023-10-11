@@ -147,6 +147,7 @@ model Business {
   book_sale               BookSale?
   subscriptionId          String?
   pricePreferences        String[] @default(["all"])
+  useTotalPrice Boolean @default(false)
 }
 
 model Consumer {
