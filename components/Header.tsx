@@ -68,9 +68,7 @@ function Header() {
 
         <div
           className={` ${
-            isMenuOpen
-              ? "border-l border-black border-dashed h-full pl-2 flex flex-col overflow-y-auto gap-3"
-              : ""
+            isMenuOpen ? " h-full pl-2 flex flex-col overflow-y-auto gap-3" : ""
           }`}
         >
           <Link href="/business">
