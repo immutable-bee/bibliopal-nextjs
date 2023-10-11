@@ -21,10 +21,7 @@ function Header() {
   };
   return (
     <header className=" flex  mx-auto w-full justify-between items-center px-3 sm:px-4 py-3 overflow-x-auto">
-      <button
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="sm:hidden shadow-md"
-      >
+      <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="sm:hidden">
         <Image
           width={32}
           height={32}
