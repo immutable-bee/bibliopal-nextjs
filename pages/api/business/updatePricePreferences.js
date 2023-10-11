@@ -5,7 +5,7 @@ import { authOptions } from "../auth/[...nextauth]";
 const handler = async (req, res) => {
   const session = await getServerSession(req, res, authOptions);
 
-  const { data } = req.body;
+  const { data, includeTotalCost } = req.body;
 
   let business;
 
@@ -26,6 +26,7 @@ const handler = async (req, res) => {
       where: { email: session.user.email },
       data: {
         pricePreferences: data,
+        useTotalPrice: includeTotalCost,
       },
     });
   } catch (error) {

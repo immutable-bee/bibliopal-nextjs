@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 import { Checkbox, Loading } from "@nextui-org/react";
 import TooltipComponent from "../../utility/Tooltip";
 import NotificationContainer from "@/components/containers/NotificationContainer";
+import { useUser } from "@/context/UserContext";
 
 const PricePreferences = ({ user }) => {
+  const { fetchUserData } = useUser();
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const [selectedPreferences, setSelectedPreferences] = useState([]);
+  const [includeTotalCost, setIncludeTotalCost] = useState(true);
 
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +29,7 @@ const PricePreferences = ({ user }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ data: selectedPreferences }),
+      body: JSON.stringify({ data: selectedPreferences, includeTotalCost }),
     });
 
     if (!response.ok) {
@@ -38,9 +42,11 @@ const PricePreferences = ({ user }) => {
     }
 
     const data = await response.json();
+    await fetchUserData();
     setLoading(false);
     setNotificationType("generic");
     setNotifications(["Preferences Updated Successfully"]);
+
     return data;
   };
 
@@ -49,6 +55,7 @@ const PricePreferences = ({ user }) => {
   useEffect(() => {
     if (user) {
       setSelectedPreferences(user.business.pricePreferences);
+      setIncludeTotalCost(user.business.useTotalPrice);
     }
   }, [user]);
 
@@ -123,9 +130,25 @@ const PricePreferences = ({ user }) => {
             <Checkbox value="amazon">Amazon</Checkbox>
             <Checkbox value="abebooks">Abebooks</Checkbox>
             <Checkbox value="alibris">Alibris</Checkbox>
-            <div className="border-b mt-5 border-black border-dashed"></div>
-            <Checkbox value="all">All</Checkbox>
+
+            <div className="mt-5 flex justify-center items-center py-1">
+              <div className="border-b w-full border-black border-dashed"></div>
+              <h2 className="px-2">OR</h2>
+              <div className="border-b w-full border-black border-dashed"></div>
+            </div>
+
+            <Checkbox value="all">All Merchants</Checkbox>
           </Checkbox.Group>
+          <div className="border-t border-black mt-5 pb-5">
+            <Checkbox
+              isSelected={includeTotalCost}
+              onChange={setIncludeTotalCost}
+              className="pt-5"
+              color="secondary"
+            >
+              Include shipping cost in price data?
+            </Checkbox>
+          </div>
           {loading ? (
             <Loading />
           ) : (
